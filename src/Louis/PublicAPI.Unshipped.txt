@@ -1,0 +1,225 @@
+#nullable enable
+abstract Louis.Threading.ThreadSafeDisposable.DisposeCore() -> void
+abstract Louis.Threading.Workers.AsyncWorker.RunAsyncInternal(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+abstract Louis.Threading.Workers.AsyncWorker.StartWorkerAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+abstract Louis.Threading.Workers.AsyncWorker.StopWorkerAsync() -> System.Threading.Tasks.ValueTask
+Louis.ArgumentValidation.Arg
+Louis.ArgumentValidation.Arg<T>
+Louis.ArgumentValidation.Arg<T>.Arg() -> void
+Louis.ArgumentValidation.Arg<T>.Check(Louis.ArgumentValidation.ArgumentCheckFunc<T!>! func) -> Louis.ArgumentValidation.Arg<T!>
+Louis.ArgumentValidation.Arg<T>.Check(System.Predicate<T!>! predicate, string? message = null) -> Louis.ArgumentValidation.Arg<T!>
+Louis.ArgumentValidation.Arg<T>.Name.get -> string!
+Louis.ArgumentValidation.Arg<T>.Value.get -> T!
+Louis.ArgumentValidation.ArgCheckFunc<T, T1, T2, T3, T4>
+Louis.ArgumentValidation.ArgCheckFunc<T, T1, T2, T3>
+Louis.ArgumentValidation.ArgCheckFunc<T, T1, T2>
+Louis.ArgumentValidation.ArgCheckFunc<T, T1>
+Louis.ArgumentValidation.ArgCheckFunc<T>
+Louis.ArgumentValidation.ArgExtensions
+Louis.ArgumentValidation.ArgHelper
+Louis.ArgumentValidation.ArgumentCheckFunc<T>
+Louis.ArgumentValidation.NullableArg<T>
+Louis.ArgumentValidation.NullableArg<T>.Check(Louis.ArgumentValidation.NullableArgumentCheckFunc<T!>! func) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.Check(Louis.ArgumentValidation.NullablePredicate<T!>! predicate, string? message = null) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.CheckUnlessNull(Louis.ArgumentValidation.ArgumentCheckFunc<T!>! callback) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.CheckUnlessNull(System.Predicate<T!>! predicate, string? message = null) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.Name.get -> string!
+Louis.ArgumentValidation.NullableArg<T>.NullableArg() -> void
+Louis.ArgumentValidation.NullableArg<T>.TryGetValue(out T! value) -> bool
+Louis.ArgumentValidation.NullableArg<T>.UnlessNull(Louis.ArgumentValidation.ArgCheckFunc<T!>! callback) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.UnlessNull<T1, T2, T3, T4>(Louis.ArgumentValidation.ArgCheckFunc<T!, T1, T2, T3, T4>! callback, T1 arg1, T2 arg2, T3 arg3, T4 arg4) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.UnlessNull<T1, T2, T3>(Louis.ArgumentValidation.ArgCheckFunc<T!, T1, T2, T3>! callback, T1 arg1, T2 arg2, T3 arg3) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.UnlessNull<T1, T2>(Louis.ArgumentValidation.ArgCheckFunc<T!, T1, T2>! callback, T1 arg1, T2 arg2) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.UnlessNull<T1>(Louis.ArgumentValidation.ArgCheckFunc<T!, T1>! callback, T1 arg1) -> Louis.ArgumentValidation.NullableArg<T!>
+Louis.ArgumentValidation.NullableArg<T>.Value.get -> T?
+Louis.ArgumentValidation.NullableArgExtensions
+Louis.ArgumentValidation.NullableArgumentCheckFunc<T>
+Louis.ArgumentValidation.NullablePredicate<T>
+Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.Check(Louis.ArgumentValidation.NullableArgumentCheckFunc<T>! callback) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.Check(Louis.ArgumentValidation.NullablePredicate<T>! predicate, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.CheckUnlessNull(Louis.ArgumentValidation.ArgumentCheckFunc<T>! callback) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.CheckUnlessNull(System.Predicate<T>! predicate, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.GetValueOrDefault() -> T
+Louis.ArgumentValidation.NullableValueArg<T>.GetValueOrDefault(T defaultValue) -> T
+Louis.ArgumentValidation.NullableValueArg<T>.HasValue.get -> bool
+Louis.ArgumentValidation.NullableValueArg<T>.Name.get -> string!
+Louis.ArgumentValidation.NullableValueArg<T>.NullableValueArg() -> void
+Louis.ArgumentValidation.NullableValueArg<T>.NullableValueArg(string! name, T? value) -> void
+Louis.ArgumentValidation.NullableValueArg<T>.TryGetValue(out T value) -> bool
+Louis.ArgumentValidation.NullableValueArg<T>.UnlessNull(Louis.ArgumentValidation.ValueArgCheckFunc<T>! callback) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.UnlessNull<T1, T2, T3, T4>(Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2, T3, T4>! callback, T1 arg1, T2 arg2, T3 arg3, T4 arg4) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.UnlessNull<T1, T2, T3>(Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2, T3>! callback, T1 arg1, T2 arg2, T3 arg3) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.UnlessNull<T1, T2>(Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2>! callback, T1 arg1, T2 arg2) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.UnlessNull<T1>(Louis.ArgumentValidation.ValueArgCheckFunc<T, T1>! callback, T1 arg1) -> Louis.ArgumentValidation.NullableValueArg<T>
+Louis.ArgumentValidation.NullableValueArg<T>.Value.get -> T?
+Louis.ArgumentValidation.NullableValueArgExtensions
+Louis.ArgumentValidation.ValueArg<T>
+Louis.ArgumentValidation.ValueArg<T>.Check(Louis.ArgumentValidation.ArgumentCheckFunc<T>! func) -> Louis.ArgumentValidation.ValueArg<T>
+Louis.ArgumentValidation.ValueArg<T>.Check(System.Predicate<T>! predicate, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+Louis.ArgumentValidation.ValueArg<T>.Name.get -> string!
+Louis.ArgumentValidation.ValueArg<T>.Value.get -> T
+Louis.ArgumentValidation.ValueArg<T>.ValueArg() -> void
+Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2, T3, T4>
+Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2, T3>
+Louis.ArgumentValidation.ValueArgCheckFunc<T, T1, T2>
+Louis.ArgumentValidation.ValueArgCheckFunc<T, T1>
+Louis.ArgumentValidation.ValueArgCheckFunc<T>
+Louis.ArgumentValidation.ValueArgExtensions
+Louis.Collections.EnumerableExtensions
+Louis.Diagnostics.CriticalInternalErrorException
+Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException() -> void
+Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException(string! message) -> void
+Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException(string! message, System.Exception? innerException) -> void
+Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
+Louis.Diagnostics.ExceptionExtensions
+Louis.Diagnostics.ICriticalError
+Louis.Diagnostics.InternalErrorException
+Louis.Diagnostics.InternalErrorException.InternalErrorException() -> void
+Louis.Diagnostics.InternalErrorException.InternalErrorException(string! message) -> void
+Louis.Diagnostics.InternalErrorException.InternalErrorException(string! message, System.Exception? innerException) -> void
+Louis.Diagnostics.InternalErrorException.InternalErrorException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
+Louis.Diagnostics.SelfCheck
+Louis.Diagnostics.Throw
+Louis.DisposingUtility
+Louis.Fluency.FluentAction<T, T1, T2>
+Louis.Fluency.FluentAction<T, T1>
+Louis.Fluency.FluentAction<T>
+Louis.Fluency.FluentExtensions
+Louis.ReadOnlySpanFunc<T>
+Louis.Text.CharReadOnlySpanExtensions
+Louis.Text.StringBuilderExtensions
+Louis.Text.StringExtensions
+Louis.Text.StringLiteralKind
+Louis.Text.StringLiteralKind.Quoted = 0 -> Louis.Text.StringLiteralKind
+Louis.Text.StringLiteralKind.Verbatim = 1 -> Louis.Text.StringLiteralKind
+Louis.Text.Utf8Utility
+Louis.Threading.InterlockedFlag
+Louis.Threading.InterlockedFlag.CheckAndSet(bool value) -> bool
+Louis.Threading.InterlockedFlag.Equals(Louis.Threading.InterlockedFlag other) -> bool
+Louis.Threading.InterlockedFlag.InterlockedFlag() -> void
+Louis.Threading.InterlockedFlag.InterlockedFlag(bool value) -> void
+Louis.Threading.InterlockedFlag.TryReset() -> bool
+Louis.Threading.InterlockedFlag.TrySet() -> bool
+Louis.Threading.InterlockedFlag.TrySet(bool value) -> bool
+Louis.Threading.InterlockedFlag.Value.get -> bool
+Louis.Threading.InterlockedFlag.Value.set -> void
+Louis.Threading.ThreadSafeDisposable
+Louis.Threading.ThreadSafeDisposable.Dispose() -> void
+Louis.Threading.ThreadSafeDisposable.Disposed.get -> bool
+Louis.Threading.ThreadSafeDisposable.EnsureNotDisposed() -> void
+Louis.Threading.ThreadSafeDisposable.ThreadSafeDisposable() -> void
+Louis.Threading.ValueTaskUtility
+Louis.Threading.Workers.AsyncWorker
+Louis.Threading.Workers.AsyncWorker.AsyncWorker(Microsoft.Extensions.Logging.ILogger! logger) -> void
+Louis.Threading.Workers.AsyncWorker.Dispose() -> void
+Louis.Threading.Workers.AsyncWorker.DisposeAsync() -> System.Threading.Tasks.ValueTask
+Louis.Threading.Workers.AsyncWorker.Logger.get -> Microsoft.Extensions.Logging.ILogger!
+Louis.Threading.Workers.AsyncWorker.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Louis.Threading.Workers.AsyncWorker.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.Workers.AsyncWorker.State.get -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorker.TryStop() -> bool
+Louis.Threading.Workers.AsyncWorker.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.Workers.AsyncWorker.WaitUntilStoppedAsync() -> System.Threading.Tasks.Task!
+Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Created = 0 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Disposed = 5 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Running = 2 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Starting = 1 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Stopped = 4 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.AsyncWorkerState.Stopping = 3 -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.IAsyncWorker
+Louis.Threading.Workers.IAsyncWorker.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Louis.Threading.Workers.IAsyncWorker.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.Workers.IAsyncWorker.State.get -> Louis.Threading.Workers.AsyncWorkerState
+Louis.Threading.Workers.IAsyncWorker.TryStop() -> bool
+Louis.Threading.Workers.IAsyncWorker.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.Workers.IAsyncWorker.WaitUntilStoppedAsync() -> System.Threading.Tasks.Task!
+override Louis.Threading.InterlockedFlag.Equals(object? obj) -> bool
+override Louis.Threading.InterlockedFlag.GetHashCode() -> int
+override Louis.Threading.InterlockedFlag.ToString() -> string!
+static Louis.ArgumentValidation.Arg.NotNull<T>(T? value, string! name = "") -> Louis.ArgumentValidation.Arg<T!>
+static Louis.ArgumentValidation.Arg.NotNull<T>(T? value, string! name = "") -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.Arg.NotNullOrEmpty(string? value, string! name = "") -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.Arg.NotNullOrWhiteSpace(string? value, string! name = "") -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.Arg.Nullable<T>(T? value, string! name = "") -> Louis.ArgumentValidation.NullableArg<T!>
+static Louis.ArgumentValidation.Arg.Nullable<T>(T? value, string! name = "") -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.Arg.Value<T>(T value, string! name = "") -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.Arg<T>.implicit operator T!(Louis.ArgumentValidation.Arg<T!> arg) -> T!
+static Louis.ArgumentValidation.ArgExtensions.AbsoluteUri(this Louis.ArgumentValidation.Arg<System.Uri!> this, string? message = null) -> Louis.ArgumentValidation.Arg<System.Uri!>
+static Louis.ArgumentValidation.ArgExtensions.HttpOrHttpsUri(this Louis.ArgumentValidation.Arg<System.Uri!> this) -> Louis.ArgumentValidation.Arg<System.Uri!>
+static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, out System.Uri! uri) -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, out System.Uri! uri, bool enforceHttp) -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, System.Uri! baseUri, out System.Uri! uri) -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, System.Uri! baseUri, out System.Uri! uri, bool enforceHttp) -> Louis.ArgumentValidation.Arg<string!>
+static Louis.ArgumentValidation.ArgHelper.FormatMessage(string! message, object? value) -> string!
+static Louis.ArgumentValidation.ArgHelper.MakeArgumentException(string! name, object? value, string? message) -> System.Exception!
+static Louis.ArgumentValidation.ArgHelper.MakeArgumentException(string! name, object? value, System.Exception! innerException, string? message) -> System.Exception!
+static Louis.ArgumentValidation.ArgHelper.MakeArgumentOutOfRangeException(string! name, object? value, string? message) -> System.Exception!
+static Louis.ArgumentValidation.NullableArg<T>.implicit operator T?(Louis.ArgumentValidation.NullableArg<T!> arg) -> T?
+static Louis.ArgumentValidation.NullableValueArg<T>.implicit operator T?(Louis.ArgumentValidation.NullableValueArg<T> arg) -> T?
+static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThan<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThanOrEqualTo<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThanZero<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.NullableValueArgExtensions.InRange<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T minValue, T maxValue, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.NullableValueArgExtensions.LessThan<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.NullableValueArgExtensions.LessThanOrEqualTo<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
+static Louis.ArgumentValidation.ValueArg<T>.implicit operator T(Louis.ArgumentValidation.ValueArg<T> arg) -> T
+static Louis.ArgumentValidation.ValueArgExtensions.GreaterThan<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.ValueArgExtensions.GreaterThanOrEqualTo<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.ValueArgExtensions.GreaterThanZero<T>(this Louis.ArgumentValidation.ValueArg<T> this, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.ValueArgExtensions.InRange<T>(this Louis.ArgumentValidation.ValueArg<T> this, T minValue, T maxValue, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.ValueArgExtensions.LessThan<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.ArgumentValidation.ValueArgExtensions.LessThanOrEqualTo<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
+static Louis.Collections.EnumerableExtensions.DisposeAll(this System.Collections.IEnumerable! this) -> void
+static Louis.Collections.EnumerableExtensions.DisposeAllAsync(this System.Collections.IEnumerable! this) -> System.Threading.Tasks.ValueTask
+static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
+static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T!>!
+static Louis.Diagnostics.ExceptionExtensions.AnyCausingException(this System.Exception! this, System.Func<System.Exception!, bool>! predicate) -> bool
+static Louis.Diagnostics.ExceptionExtensions.GetCausingExceptions(this System.Exception! this) -> System.Collections.Generic.IEnumerable<System.Exception!>!
+static Louis.Diagnostics.ExceptionExtensions.IsCriticalError(this System.Exception! this) -> bool
+static Louis.Diagnostics.ExceptionExtensions.Rethrow(this System.Exception! this) -> void
+static Louis.Diagnostics.SelfCheck.CriticalFailure(string! message, string! filePath = "", int lineNumber = 0) -> Louis.Diagnostics.CriticalInternalErrorException!
+static Louis.Diagnostics.SelfCheck.Fail(string! message, string! filePath = "", int lineNumber = 0) -> void
+static Louis.Diagnostics.SelfCheck.Fail<T>(string! message, string! filePath = "", int lineNumber = 0) -> T
+static Louis.Diagnostics.SelfCheck.FailCritically(string! message, string! filePath = "", int lineNumber = 0) -> void
+static Louis.Diagnostics.SelfCheck.FailCritically<T>(string! message, string! filePath = "", int lineNumber = 0) -> T
+static Louis.Diagnostics.SelfCheck.Failure(string! message, string! filePath = "", int lineNumber = 0) -> Louis.Diagnostics.InternalErrorException!
+static Louis.DisposingUtility.Dispose(object? obj) -> void
+static Louis.DisposingUtility.DisposeAll(params object?[]! items) -> void
+static Louis.DisposingUtility.DisposeAllAsync(params object?[]! items) -> System.Threading.Tasks.ValueTask
+static Louis.DisposingUtility.DisposeAsync(object? obj) -> System.Threading.Tasks.ValueTask
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+static Louis.Fluency.FluentExtensions.If<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then) -> T
+static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then, Louis.Fluency.FluentAction<T>! else) -> T
+static Louis.Fluency.FluentExtensions.Invoke<T>(this T this, System.Action<T>! action) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Text.CharReadOnlySpanExtensions.GetLiteralLength(this System.ReadOnlySpan<char> this, Louis.Text.StringLiteralKind literalKind) -> int
+static Louis.Text.CharReadOnlySpanExtensions.GetQuotedLiteralLength(this System.ReadOnlySpan<char> this) -> int
+static Louis.Text.CharReadOnlySpanExtensions.GetVerbatimLiteralLength(this System.ReadOnlySpan<char> this) -> int
+static Louis.Text.CharReadOnlySpanExtensions.ToLiteral(this System.ReadOnlySpan<char> this, Louis.Text.StringLiteralKind literalKind) -> string!
+static Louis.Text.CharReadOnlySpanExtensions.ToQuotedLiteral(this System.ReadOnlySpan<char> this) -> string!
+static Louis.Text.CharReadOnlySpanExtensions.ToVerbatimLiteral(this System.ReadOnlySpan<char> this) -> string!
+static Louis.Text.StringBuilderExtensions.AppendLiteral(this System.Text.StringBuilder! this, Louis.Text.StringLiteralKind literalKind, string? str) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendLiteral(this System.Text.StringBuilder! this, Louis.Text.StringLiteralKind literalKind, System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendQuotedLiteral(this System.Text.StringBuilder! this, string? str) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendQuotedLiteral(this System.Text.StringBuilder! this, System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendResult(this System.Text.StringBuilder! this, Louis.ReadOnlySpanFunc<char>! func) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendResult(this System.Text.StringBuilder! this, System.Func<string?>! provider) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendVerbatimLiteral(this System.Text.StringBuilder! this, string? str) -> System.Text.StringBuilder!
+static Louis.Text.StringBuilderExtensions.AppendVerbatimLiteral(this System.Text.StringBuilder! this, System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+static Louis.Text.StringExtensions.GetLiteralLength(this string? this, Louis.Text.StringLiteralKind literalKind) -> int
+static Louis.Text.StringExtensions.GetQuotedLiteralLength(this string? this) -> int
+static Louis.Text.StringExtensions.GetVerbatimLiteralLength(this string? this) -> int
+static Louis.Text.StringExtensions.ToLiteral(this string? this, Louis.Text.StringLiteralKind literalKind) -> string!
+static Louis.Text.StringExtensions.ToQuotedLiteral(this string? this) -> string!
+static Louis.Text.StringExtensions.ToVerbatimLiteral(this string? this) -> string!
+static Louis.Text.Utf8Utility.GetMaxCharsInBytes(string! str, int maxBytes) -> int
+static Louis.Text.Utf8Utility.GetMaxCharsInBytes(System.ReadOnlySpan<char> chars, int maxBytes) -> int
+static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
+static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
+static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
+static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
+virtual Louis.Threading.Workers.AsyncWorker.DisposeAsyncCore() -> System.Threading.Tasks.ValueTask

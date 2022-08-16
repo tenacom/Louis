@@ -1,0 +1,39 @@
+<Project>
+
+  <!-- Branding, ownership, licensing, project information -->
+  <PropertyGroup>
+    <Product>L.o.U.I.S.</Product>
+    <Authors>Riccardo De Agostini and L.o.U.I.S. contributors</Authors>
+    <Owners>rdeago,tenacom.it</Owners>
+    <Company>Tenacom</Company>
+    <Copyright>Copyright (C) 2022 Riccardo De Agostini and L.o.U.I.S. contributors.</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/Tenacom/Louis</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/Tenacom/Louis.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Common build options -->
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <CLSCompliant>true</CLSCompliant>
+    <ComVisible>false</ComVisible>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Solution-wide build options -->
+  <PropertyGroup>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <UsePublicApiAnalyzers>true</UsePublicApiAnalyzers>
+  </PropertyGroup>
+
+</Project>

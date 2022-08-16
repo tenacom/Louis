@@ -1,0 +1,32 @@
+area-louis:
+  - "src/Louis/**/*.cs"
+
+area-source_generators:
+  - "src/LouisSourceGenerators/**/*.cs"
+
+area-build:
+  - "**/*.sln"
+  - "**/*.csproj"
+  - "**/Common.props"
+  - "**/Common.targets"
+
+area-repo:
+  - ".github/*.yml"
+  - ".github/**/*.md"
+
+area-ci:
+  - ".github/workflows/**/*"
+  - "lgtm.yml"
+
+area-deps:
+  - "**/Directory.Packages.props"
+  - Directory.Build.props
+  - Directory.Build.targets
+  - "src/Buildvana.Sdk/Sdk/PackageVersions.props"
+
+area-docs:
+  - "docs/**/*"
+  - "**/LICENSE"
+  - "**/NuGet-README.md"
+  - "**/README.md"
+  - "**/THIRD-PARTY-NOTICES"
