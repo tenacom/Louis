@@ -1,4 +1,4 @@
-# ![L.o.U.I.S.](graphics/Louis-Readme.png)
+# ![L.o.U.I.S.](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/Readme.png)
 
 ---
 
