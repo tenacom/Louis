@@ -9,8 +9,6 @@
 [![Open issues](https://img.shields.io/github/issues-raw/Tenacom/Louis.svg?label=open+issues)](https://github.com/Tenacom/Louis/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 [![Closed issues](https://img.shields.io/github/issues-closed-raw/Tenacom/Louis.svg?label=closed+issues)](https://github.com/Tenacom/Louis/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc)
 
-[![Slack](https://img.shields.io/badge/join_us-on_Slack-ff7fc0.svg?logo=slack)](https://join.slack.com/t/tenacom/shared_invite/zt-vx8bbdtt-OdwgzVPwsyBznO1hdEDjeg)
-
 ---
 
 <!--TOC-->
