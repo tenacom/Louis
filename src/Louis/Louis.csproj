@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>Essential building blocks for C# libraries and applications.</Description>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net47;netcoreapp3.1;net6.0</TargetFrameworks>
     <IsTrimmable>true</IsTrimmable>
     <EmitCompilerGeneratedFiles Condition="'$(Configuration)' == 'Debug'">true</EmitCompilerGeneratedFiles>
