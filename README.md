@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/github/license/Tenacom/Louis.svg)](https://github.com/Tenacom/Louis/blob/main/LICENSE)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Tenacom/Louis?include_prereleases)](https://github.com/Tenacom/Louis/releases)
+[![NuGet release (including pre-releases)](https://img.shields.io/nuget/vpre/Louis)](https://nuget.org/packages/Louis)
 [![Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.0.0-%23E05735)](https://github.com/Tenacom/Louis/blob/main/CHANGELOG.md)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/Tenacom/Louis/badge)](https://www.codefactor.io/repository/github/Tenacom/Louis)
