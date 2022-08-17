@@ -76,7 +76,7 @@ public abstract class AsyncWorker : IAsyncWorker
     /// <inheritdoc />
     public Task<bool> StartAsync(CancellationToken cancellationToken)
     {
-        RunAsyncCore(true, cancellationToken).Start();
+        _ = RunAsyncCore(true, cancellationToken);
         return WaitUntilStartedAsync();
     }
 
