@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Known problems introduced by this release
 
+## [1.0.0-preview.4](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.4) (2022-08-20)
+
+### Changes to existing features
+
+- Type parameters `T1` and `T2` in `Louis.Fluency.FluentAction<T,T1>` and `Louis.Fluency.FluentAction<T,T1,T2>` delegates are no longer contravariant.  
+Contravariance lead to the need for more verbose lambda syntax when `T1` and/or `T2` was a value type. For example, given a `StringBuilder builder` and a `byte[] bytes`,
+to concatenate the hexadecimal representations of all bytes in the array you would now write `builder.ForEach(bytes, (sb, b) => sb.Append(b.ToString("x2")))`, whereas
+in previous versions of Louis you had to write the same code as `builder.ForEach(bytes, (StringBuilder sb, in byte b) => sb.Append(b.ToString("x2")))`.
+
 ## [1.0.0-preview.3](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.3) (2022-08-20)
 
 ### New features
