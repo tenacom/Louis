@@ -37,6 +37,11 @@ partial class StringBuilderExtensions
                                  /// </summary>
                              """);
 
+        if (generic)
+        {
+            _ = @this.AppendLine("    /// <typeparam name=\"T\">The expected return type.</typeparam>");
+        }
+
         foreach (var parameter in parameterList)
         {
             _ = @this.AppendLine($$"""    /// <param name="{{parameter.Name}}">{{parameter.XmlHelp}}</param>""");
