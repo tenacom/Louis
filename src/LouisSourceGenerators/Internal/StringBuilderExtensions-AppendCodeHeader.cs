@@ -50,6 +50,10 @@ partial class StringBuilderExtensions
 
                              #nullable enable
 
+                             // Disable RS0016 because public API analyzers keep complaining
+                             // even after adding APIs to PublicAPI.{Shipped|Unshipped}.txt manually.
+                             #pragma warning disable RS0016
+                             
                              """);
 
         if (usingNamespaces.Length > 0)
