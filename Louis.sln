@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Configuration", "- Config
 		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		stylecop.json = stylecop.json
+		VERSION = VERSION
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- GitHub", "- GitHub", "{40A7FBC7-86AA-499F-B4ED-E6585576DFDA}"
