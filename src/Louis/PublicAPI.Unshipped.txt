@@ -191,6 +191,8 @@ static Louis.DisposingUtility.DisposeAllAsync(params object?[]! items) -> System
 static Louis.DisposingUtility.DisposeAsync(object? obj) -> System.Threading.Tasks.ValueTask
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement>! action) -> T
 static Louis.Fluency.FluentExtensions.If<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then) -> T
 static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then, Louis.Fluency.FluentAction<T>! else) -> T
 static Louis.Fluency.FluentExtensions.Invoke<T>(this T this, System.Action<T>! action) -> T
