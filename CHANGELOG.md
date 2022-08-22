@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Known problems introduced by this release
 
+## [1.0.0-preview.5](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.5) (2022-08-23)
+
+### New features
+
+- `Louis.Text.UnicodeCharacterUtility` is a slightly modified version of an internal class of the Roslyn compiler.
+Its methods provide the same functionality as
+[SyntaxFacts.IsIdentifierStartCharacter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts.isidentifierstartcharacter),
+[SyntaxFacts.IsIdentifierPartCharacter](https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts.isidentifierpartcharacter), and
+[SyntaxFacts.IsValidIdentifier](https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.csharp.syntaxfacts.isvalididentifier),
+plus an overload of the latter that takes a read-only span instead of a string.
+
 ## [1.0.0-preview.4](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.4) (2022-08-20)
 
 ### Changes to existing features
