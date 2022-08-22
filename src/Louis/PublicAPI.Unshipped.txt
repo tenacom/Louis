@@ -93,6 +93,7 @@ Louis.Text.StringExtensions
 Louis.Text.StringLiteralKind
 Louis.Text.StringLiteralKind.Quoted = 0 -> Louis.Text.StringLiteralKind
 Louis.Text.StringLiteralKind.Verbatim = 1 -> Louis.Text.StringLiteralKind
+Louis.Text.UnicodeCharacterUtility
 Louis.Text.Utf8Utility
 Louis.Threading.InterlockedFlag
 Louis.Threading.InterlockedFlag.CheckAndSet(bool value) -> bool
@@ -218,6 +219,10 @@ static Louis.Text.StringExtensions.GetVerbatimLiteralLength(this string? this) -
 static Louis.Text.StringExtensions.ToLiteral(this string? this, Louis.Text.StringLiteralKind literalKind) -> string!
 static Louis.Text.StringExtensions.ToQuotedLiteral(this string? this) -> string!
 static Louis.Text.StringExtensions.ToVerbatimLiteral(this string? this) -> string!
+static Louis.Text.UnicodeCharacterUtility.IsIdentifierPartCharacter(char ch) -> bool
+static Louis.Text.UnicodeCharacterUtility.IsIdentifierStartCharacter(char ch) -> bool
+static Louis.Text.UnicodeCharacterUtility.IsValidIdentifier(string? name) -> bool
+static Louis.Text.UnicodeCharacterUtility.IsValidIdentifier(System.ReadOnlySpan<char> name) -> bool
 static Louis.Text.Utf8Utility.GetMaxCharsInBytes(string! str, int maxBytes) -> int
 static Louis.Text.Utf8Utility.GetMaxCharsInBytes(System.ReadOnlySpan<char> chars, int maxBytes) -> int
 static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
