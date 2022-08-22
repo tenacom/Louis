@@ -39,7 +39,7 @@ Although nearly everybody and their pet hamster come up with their own "basic bu
 
 ### What does L.o.U.I.S. mean?
 
-Although it is pronounced (an may also be written) just as the name Louis, L.o.U.I.S. is an acronym for "Lots of Useful & Interesting Stuff". If this makes you cringe, you should see the names I discarded.
+Although it is pronounced (and may also be written for brevity) just as the name Louis, L.o.U.I.S. is an acronym for "Lots of Useful & Interesting Stuff". If this makes you cringe, you should see the names I discarded.
 
 ### Who is behind L.o.U.I.S.?
 
