@@ -15,6 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Known problems introduced by this release
 
+## [1.0.0-preview.6](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.6) (2022-08-24)
+
+### New features
+
+- The `Louis.Logging` namespace contains `ILogger` extensions to log using [interpolated strings](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated) instead of separated message formats and arguments.
+Not as fast as [`LoggerMessage`](https://docs.microsoft.com/en-us/dotnet/core/extensions/high-performance-logging)-created delegates, but still pretty fast. If the desired log level is not enabled on a logger, parameter evaluation and string interpolation don't happen at all; most importantly, you don't have to disrupt your flow to create a partial method every time you want to add a log write.  
+The new overloads have a single drawback: since their custom string interpolation handler uses thread-static `StringBuilder`s, you cannot use `await` in interpolation expressions. If you do, very bad things can and will happen, from garbled log messages to apparently random exceptions, including null pointer exceptions.
+- Also in `Louis.Logging`, more `ILogger` extensions to log constant strings without turning them into zero-argument templates.
+Besides the small performance advantage, these extensions avoid putting constant log messages in the global [log formatter cache](https://github.com/dotnet/runtime/blob/v6.0.8/src/libraries/Microsoft.Extensions.Logging.Abstractions/src/FormattedLogValues.cs#L18).
+
 ## [1.0.0-preview.5](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.5) (2022-08-23)
 
 ### New features
