@@ -69,7 +69,7 @@ public static class CharReadOnlySpanExtensions
         foreach (var c in @this)
         {
             result += c switch {
-                '\x00' or '\x07' or '\x08' or '\x09' or '\x0A'or '\x0B' or '\x0C' or '\x0D' or '"' or '\\' => 2,
+                '\x00' or '\x07' or '\x08' or '\x09' or '\x0A' or '\x0B' or '\x0C' or '\x0D' or '"' or '\\' => 2,
                 '\x7F' or (>= '\x01' and <= '\x1F') => 4,
                 _ => char.GetUnicodeCategory(c) switch {
                     UnicodeCategory.NonSpacingMark

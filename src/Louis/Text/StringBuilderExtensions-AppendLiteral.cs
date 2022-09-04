@@ -121,8 +121,7 @@ partial class StringBuilderExtensions
     /// <seealso cref="AppendVerbatimLiteral(System.Text.StringBuilder,System.ReadOnlySpan{char})"/>
     /// <seealso cref="StringLiteralKind"/>
     public static StringBuilder AppendLiteral(this StringBuilder @this, StringLiteralKind literalKind, ReadOnlySpan<char> chars)
-        => literalKind switch
-        {
+        => literalKind switch {
             StringLiteralKind.Quoted => AppendQuotedLiteral(@this, chars),
             StringLiteralKind.Verbatim => AppendVerbatimLiteral(@this, chars),
             _ => Throw.Argument<StringBuilder>($"{literalKind} is not a valid {nameof(StringLiteralKind)}.", nameof(literalKind)),
