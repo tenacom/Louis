@@ -8,6 +8,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Louis.Diagnostics;
 using PolyKit.Diagnostics.CodeAnalysis;
@@ -19,7 +20,7 @@ namespace Louis.ArgumentValidation;
 /// as well as initiate argument checking via the <see cref="Arg{T}"/> struct.
 /// </summary>
 [StackTraceHidden]
-public static partial class Arg
+public static class Arg
 {
     /// <summary>
     /// Initiates checks on an argument whose type is a non-nullable value type (<see langword="struct"/>).
@@ -33,15 +34,15 @@ public static partial class Arg
     /// <returns>A <see cref="ValueArg{T}"/> struct that can be used to perform checks.</returns>
     /// <exception cref="InternalErrorException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(int bar)
     /// {
     ///     _ = Arg.Value(bar).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be > 0
+    ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -49,15 +50,14 @@ public static partial class Arg
     /// void Foo(int bar)
     /// {
     ///     _ = Arg.Value(bar, nameof(bar)).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be > 0
+    ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ValueArg<T> Value<T>(T value, [CallerArgumentExpression("value")] string name = "")
         where T : struct
-        => name is null ? throw ArgumentNameCannotBeNull() : new(name, value);
+        => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a nullable reference type (<see langword="class"/>).
@@ -71,15 +71,15 @@ public static partial class Arg
     /// <returns>A <see cref="NullableArg{T}"/> struct that can be used to perform further checks.</returns>
     /// <exception cref="InternalErrorException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(string? bar)
     /// {
     ///     _ = Arg.Nullable(bar).NotEmpty();
-    ///
-    ///     // Do something with bar, which is guaranteed to not be an empty string
+    ///     // bar is now guaranteed to not be the empty string (but it can be null)
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -87,8 +87,7 @@ public static partial class Arg
     /// void Foo(string? bar)
     /// {
     ///     _ = Arg.Nullable(bar, nameof(bar)).NotEmpty();
-    ///
-    ///     // Do something with bar, which is guaranteed to not be an empty string
+    ///     // bar is now guaranteed to not be the empty string (but it can be null)
     /// }
     /// </code>
     /// </remarks>
@@ -96,7 +95,7 @@ public static partial class Arg
     public static NullableArg<T> Nullable<T>(T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : class
-        => name is null ? throw ArgumentNameCannotBeNull() : new(name, value);
+        => name is null ? ThrowArgumentNameCannotBeNullAsNullableArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a nullable value type (<see cref="System.Nullable{T}"/>).
@@ -110,15 +109,15 @@ public static partial class Arg
     /// <returns>A <see cref="NullableValueArg{T}"/> struct that can be used to perform further checks.</returns>
     /// <exception cref="InternalErrorException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(int? bar)
     /// {
     ///     _ = Arg.Nullable(bar).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be either null or > 0
+    ///     // bar is now guaranteed to not be either null or > 0
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -126,8 +125,7 @@ public static partial class Arg
     /// void Foo(int? bar)
     /// {
     ///     _ = Arg.Nullable(bar, nameof(bar)).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be either null or > 0
+    ///     // bar is now guaranteed to not be either null or > 0
     /// }
     /// </code>
     /// </remarks>
@@ -135,7 +133,7 @@ public static partial class Arg
     public static NullableValueArg<T> Nullable<T>(T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
-        => name is null ? throw ArgumentNameCannotBeNull() : new(name, value);
+        => name is null ? ThrowArgumentNameCannotBeNullAsNullableValueArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a reference type (<see langword="class"/>),
@@ -151,15 +149,15 @@ public static partial class Arg
     /// <exception cref="InternalErrorException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNull(bar);
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null
+    ///     // bar is now guaranteed to be non-null
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -167,8 +165,7 @@ public static partial class Arg
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNull(bar, nameof(bar));
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null
+    ///     // bar is now guaranteed to be non-null
     /// }
     /// </code>
     /// </remarks>
@@ -176,8 +173,8 @@ public static partial class Arg
     public static Arg<T> NotNull<T>([ValidatedNotNull] T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : class
-        => name is null ? throw ArgumentNameCannotBeNull()
-            : value is null ? throw new ArgumentNullException(name)
+        => name is null ? ThrowArgumentNameCannotBeNullAsArg<T>()
+            : value is null ? ThrowArgumentNullAsArgOf<T>(name)
             : new(name, value);
 
     /// <summary>
@@ -194,15 +191,15 @@ public static partial class Arg
     /// <exception cref="InternalErrorException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(int? bar)
     /// {
     ///     _ = Arg.NotNull(bar).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and > 0
+    ///     // bar is now guaranteed to be non-null and > 0
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -210,8 +207,7 @@ public static partial class Arg
     /// void Foo(int? bar)
     /// {
     ///     _ = Arg.NotNull(bar, nameof(bar)).GreaterThanZero();
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and > 0
+    ///     // bar is now guaranteed to be non-null and > 0
     /// }
     /// </code>
     /// </remarks>
@@ -219,9 +215,9 @@ public static partial class Arg
     public static ValueArg<T> NotNull<T>([ValidatedNotNull] T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
-        => name is null ? throw ArgumentNameCannotBeNull()
+        => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>()
             : value.HasValue ? new(name, value.Value)
-            : throw new ArgumentNullException(name);
+            : ThrowArgumentNullAsValueArgOf<T>(name);
 
     /// <summary>
     /// Initiates checks on a <see langword="string"/> argument,
@@ -241,15 +237,15 @@ public static partial class Arg
     /// <para><paramref name="value"/> is an empty string (<c>""</c>).</para>
     /// </exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNullOrEmpty(bar);
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and contain at least one character
+    ///     // bar is now guaranteed to be non-null and contain at least one character
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -257,15 +253,14 @@ public static partial class Arg
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNullOrEmpty(bar, nameof(bar));
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and contain at least one character
+    ///     // bar is now guaranteed to be non-null and contain at least one character
     /// }
     /// </code>
     /// </remarks>
     public static Arg<string> NotNullOrEmpty([ValidatedNotNull] string? value, [CallerArgumentExpression("value")] string name = "")
-        => name is null ? throw ArgumentNameCannotBeNull()
-            : value is null ? throw new ArgumentNullException(name)
-            : value.Length == 0 ? throw new ArgumentException($"{name} cannot be the empty string.", name)
+        => name is null ? ThrowArgumentNameCannotBeNullAsArg<string>()
+            : value is null ? ThrowArgumentNullAsArgOf<string>(name)
+            : value.Length == 0 ? ThrowArgumentEmptyAsArgOfString(name)
             : new(name, value);
 
     /// <summary>
@@ -289,15 +284,15 @@ public static partial class Arg
     /// <para><paramref name="value"/> only contains white-space characters.</para>
     /// </exception>
     /// <remarks>
-    /// <para>The <paramref name="name"/> parameter can be omitted if <paramref name="value"/>
-    /// is specified using the name of a parameter of the calling method.</para>
+    /// <para>The <paramref name="name"/> parameter, if omitted, will be equal to the text of the expression
+    /// passed as <paramref name="value"/>. This allows for shorter and cleaner code in the great majority
+    /// of use cases.</para>
     /// <para>For example, the following code:</para>
     /// <code>
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNullOrWhiteSpace(bar);
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and contain at least one non-white-space character
+    ///     // bar is now guaranteed to be non-null and contain at least one non-white-space character
     /// }
     /// </code>
     /// <para>is equivalent to:</para>
@@ -305,18 +300,64 @@ public static partial class Arg
     /// void Foo(string bar)
     /// {
     ///     _ = Arg.NotNullOrWhiteSpace(bar, nameof(bar));
-    ///
-    ///     // Do something with bar, which is guaranteed to be non-null and contain at least one non-white-space character
+    ///     // bar is now guaranteed to be non-null and contain at least one non-white-space character
     /// }
     /// </code>
     /// </remarks>
     public static Arg<string> NotNullOrWhiteSpace([ValidatedNotNull] string? value, [CallerArgumentExpression("value")] string name = "")
-        => name is null ? throw ArgumentNameCannotBeNull()
-            : value is null ? throw new ArgumentNullException(name)
-            : value.Length == 0 ? throw new ArgumentException($"{name} cannot be the empty string.", name)
-            : string.IsNullOrWhiteSpace(value) ? throw new ArgumentException($"{name} cannot consist only of white space.", name)
+        => name is null ? ThrowArgumentNameCannotBeNullAsArg<string>()
+            : value is null ? ThrowArgumentNullAsArgOf<string>(name)
+            : value.Length == 0 ? ThrowArgumentEmptyAsArgOfString(name)
+            : string.IsNullOrWhiteSpace(value) ? ThrowArgumentWhiteSpaceAsArgOfString(name)
             : new(name, value!);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Exception ArgumentNameCannotBeNull() => SelfCheck.Failure("Argument name cannot be null.");
+    [DoesNotReturn]
+    private static Arg<T> ThrowArgumentNameCannotBeNullAsArg<T>()
+        where T : class
+        => throw ArgumentNameCannotBeNull();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static NullableArg<T> ThrowArgumentNameCannotBeNullAsNullableArg<T>()
+        where T : class
+        => throw ArgumentNameCannotBeNull();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static ValueArg<T> ThrowArgumentNameCannotBeNullAsValueArg<T>()
+        where T : struct
+        => throw ArgumentNameCannotBeNull();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static NullableValueArg<T> ThrowArgumentNameCannotBeNullAsNullableValueArg<T>()
+        where T : struct
+        => throw ArgumentNameCannotBeNull();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static Exception ArgumentNameCannotBeNull()
+        => SelfCheck.Failure("Argument name cannot be null.");
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static Arg<T> ThrowArgumentNullAsArgOf<T>(string paramName)
+        where T : class
+        => throw new ArgumentNullException(paramName);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static ValueArg<T> ThrowArgumentNullAsValueArgOf<T>(string paramName)
+        where T : struct
+        => throw new ArgumentNullException(paramName);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static Arg<string> ThrowArgumentEmptyAsArgOfString(string paramName)
+        => throw new ArgumentException($"{paramName} cannot be the empty string.", paramName);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [DoesNotReturn]
+    private static Arg<string> ThrowArgumentWhiteSpaceAsArgOfString(string paramName)
+        => throw new ArgumentException($"{paramName} cannot consist only of white space.", paramName);
 }
