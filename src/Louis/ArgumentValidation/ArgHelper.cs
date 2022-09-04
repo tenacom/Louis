@@ -52,7 +52,7 @@ public static class ArgHelper
     /// <returns>A newly-constructed <see cref="ArgumentException"/>.</returns>
     /// <exception cref="FormatException">A custom format in <paramref name="message"/>is invalid.</exception>
     public static Exception MakeArgumentException(string name, object? value, Exception innerException, string? message)
-        => throw new ArgumentException(FormatMessage(message ?? DefaultArgumentExceptionMessage, value), name, innerException);
+        => new ArgumentException(FormatMessage(message ?? DefaultArgumentExceptionMessage, value), name, innerException);
 
     /// <summary>
     /// <para>Constructs and returns an <see cref="ArgumentOutOfRangeException"/> with a custom message format.</para>
