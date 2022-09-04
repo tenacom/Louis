@@ -38,7 +38,7 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     public bool Value
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => Volatile.Read(ref _value) != 0;
+        get => Interlocked.CompareExchange(ref _value, 0, 0) != 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         set => _ = Interlocked.Exchange(ref _value, value ? 1 : 0);
