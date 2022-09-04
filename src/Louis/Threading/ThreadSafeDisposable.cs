@@ -16,7 +16,8 @@ namespace Louis.Threading;
 /// <para>This class does not implement <see href="https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose#implement-the-dispose-pattern">
 /// Microsoft's recommended dispose pattern</see>: there is no <c>Dispose(bool)</c> method to override.</para>
 /// <para>The reasons why this class' <see cref="IDisposable"/> implementation does not follow
-/// Microsoft's guidelines is explained in great detail in <see href="">this article by Stephen Cleary</see>.
+/// Microsoft's guidelines is explained in great detail in
+/// <see href="https://blog.stephencleary.com/2009/08/how-to-implement-idisposable-and.html">this series of articles by Stephen Cleary</see>.
 /// </para>
 /// </summary>
 public abstract class ThreadSafeDisposable : IDisposable
