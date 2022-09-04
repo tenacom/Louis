@@ -54,7 +54,6 @@ public static class Arg
     /// }
     /// </code>
     /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ValueArg<T> Value<T>(T value, [CallerArgumentExpression("value")] string name = "")
         where T : struct
         => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>() : new(name, value);
@@ -311,52 +310,43 @@ public static class Arg
             : string.IsNullOrWhiteSpace(value) ? ThrowArgumentWhiteSpaceAsArgOfString(name)
             : new(name, value!);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static Arg<T> ThrowArgumentNameCannotBeNullAsArg<T>()
         where T : class
         => throw ArgumentNameCannotBeNull();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static NullableArg<T> ThrowArgumentNameCannotBeNullAsNullableArg<T>()
         where T : class
         => throw ArgumentNameCannotBeNull();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static ValueArg<T> ThrowArgumentNameCannotBeNullAsValueArg<T>()
         where T : struct
         => throw ArgumentNameCannotBeNull();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static NullableValueArg<T> ThrowArgumentNameCannotBeNullAsNullableValueArg<T>()
         where T : struct
         => throw ArgumentNameCannotBeNull();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static Exception ArgumentNameCannotBeNull()
         => SelfCheck.Failure("Argument name cannot be null.");
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static Arg<T> ThrowArgumentNullAsArgOf<T>(string paramName)
         where T : class
         => throw new ArgumentNullException(paramName);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static ValueArg<T> ThrowArgumentNullAsValueArgOf<T>(string paramName)
         where T : struct
         => throw new ArgumentNullException(paramName);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static Arg<string> ThrowArgumentEmptyAsArgOfString(string paramName)
         => throw new ArgumentException($"{paramName} cannot be the empty string.", paramName);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [DoesNotReturn]
     private static Arg<string> ThrowArgumentWhiteSpaceAsArgOfString(string paramName)
         => throw new ArgumentException($"{paramName} cannot consist only of white space.", paramName);

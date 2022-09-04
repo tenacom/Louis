@@ -42,7 +42,6 @@ public readonly ref struct Arg<T>
     /// Defines an implicit conversion of an <see cref="Arg{T}"/> to its <see cref="Value"/>.
     /// </summary>
     /// <param name="arg">The <see cref="Arg{T}"/> to convert.</param>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #pragma warning disable CA2225 // Operator overloads have named alternates - A "ToT" method wouldn't make much sense.
     public static implicit operator T(Arg<T> arg) => arg.Value;
 #pragma warning restore CA2225 // Operator overloads have named alternates

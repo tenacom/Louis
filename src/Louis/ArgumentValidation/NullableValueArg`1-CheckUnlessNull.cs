@@ -31,7 +31,6 @@ partial struct NullableValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The argument is not <see langword="null"/>
     /// and <paramref name="predicate"/> returned <see langword="false"/>.</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public NullableValueArg<T> CheckUnlessNull(Predicate<T> predicate, string? message = null)
     {
         if (HasValue)
@@ -55,7 +54,6 @@ partial struct NullableValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="callback"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">The argument is not <see langword="null"/>
     /// and <paramref name="callback"/> returned <see langword="false"/>.</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public NullableValueArg<T> CheckUnlessNull(ArgumentCheckFunc<T> callback)
     {
         if (HasValue)

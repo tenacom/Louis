@@ -30,26 +30,17 @@ public readonly ref partial struct NullableArg<T>
     /// <summary>
     /// Gets the name of the argument represented by the current <see cref="NullableArg{T}"/> object.
     /// </summary>
-    public string Name
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => _arg.Name;
-    }
+    public string Name => _arg.Name;
 
     /// <summary>
     /// <para>Gets the argument represented by the current <see cref="NullableArg{T}"/> object.</para>
     /// </summary>
-    public T? Value
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => (T?)_arg.Value;
-    }
+    public T? Value => (T?)_arg.Value;
 
     /// <summary>
     /// Defines an implicit conversion of a <see cref="NullableArg{T}"/> to its <see cref="Value"/>.
     /// </summary>
     /// <param name="arg">The <see cref="NullableArg{T}"/> to convert.</param>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #pragma warning disable CA2225 // Operator overloads have named alternates - A "ToT" method wouldn't make sense here.
     public static implicit operator T?(NullableArg<T> arg) => arg.Value;
 #pragma warning restore CA2225 // Operator overloads have named alternates
@@ -62,7 +53,6 @@ public readonly ref partial struct NullableArg<T>
     /// This parameter is passed uninitialized.</param>
     /// <returns><see langword="true"/> if the argument is not <see langword="null"/>;
     /// otherwise, <see langword="false"/>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryGetValue([MaybeNullWhen(false)] out T value)
     {
         value = (T?)_arg.Value;

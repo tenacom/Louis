@@ -20,7 +20,6 @@ partial class EnumerableExtensions
     /// <typeparam name="T">The type of the elements of <paramref name="this"/>.</typeparam>
     /// <param name="this">An <see cref="IEnumerable{T}"/> to filter.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> that contains elements from the input sequence that are not <see langword="null"/>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> @this)
         where T : class
         => @this.Where(x => x is not null) as IEnumerable<T>;
@@ -31,7 +30,6 @@ partial class EnumerableExtensions
     /// <typeparam name="T">The type of the elements of <paramref name="this"/>.</typeparam>
     /// <param name="this">An <see cref="IEnumerable{T}"/> to filter.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> that contains the values of the elements from the input sequence that are not <see langword="null"/>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<T> WhereNotNull<T>(IEnumerable<T?> @this)
         where T : struct
         => (IEnumerable<T>)@this.Where(x => x.HasValue).Select(x => x!.Value);

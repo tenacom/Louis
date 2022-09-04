@@ -71,7 +71,6 @@ public static class FluentExtensions
     /// <remarks>
     /// <para>If <paramref name="value"/> is not equal to any of the values in <paramref name="cases"/>, this method returns immediately.</para>
     /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Switch<T, TValue>(this T @this, TValue value, params (TValue Comparand, FluentAction<T>? Action)[] cases)
         where TValue : IEquatable<TValue>
         => Switch(@this, value, null, cases);

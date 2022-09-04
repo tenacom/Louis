@@ -37,10 +37,7 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// </value>
     public bool Value
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => Interlocked.CompareExchange(ref _value, 0, 0) != 0;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         set => _ = Interlocked.Exchange(ref _value, value ? 1 : 0);
     }
 
@@ -80,7 +77,6 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// </summary>
     /// <param name="value">The value to assign to the flag.</param>
     /// <returns>The previous value of the flag.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool CheckAndSet(bool value) => Interlocked.Exchange(ref _value, value ? 1 : 0) != 0;
 
     /// <summary>
@@ -92,7 +88,6 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// <see langword="true"/> if the flag has been set to <paramref name="value"/>;
     /// <see langword="false"/> if the value of the flag was already equal to <paramref name="value"/>.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TrySet(bool value)
     {
         var numericValue = value ? 1 : 0;
@@ -107,7 +102,6 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// <see langword="true"/> if the flag has been set;
     /// <see langword="false"/> if the flag was already set.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TrySet() => Interlocked.CompareExchange(ref _value, 1, 0) == 0;
 
     /// <summary>
@@ -118,6 +112,5 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// <see langword="true"/> if the flag has been reset;
     /// <see langword="false"/> if the value of the flag was already <see langword="false"/>.
     /// </returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryReset() => Interlocked.CompareExchange(ref _value, 0, 1) != 0;
 }

@@ -128,7 +128,6 @@ public ref partial struct LogInterpolatedStringHandler
         _argumentIndex++;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
     public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
