@@ -21,7 +21,7 @@ partial class StringBuilderExtensions
     /// <param name="provider">The method to call.</param>
     /// <returns>A reference to <paramref name="this"/> after the operation is completed.</returns>
     public static StringBuilder AppendResult(this StringBuilder @this, Func<string?> provider)
-        => @this.Append(Arg.NotNull(provider).Value());
+        => @this.Append(Require.NotNull(provider).Value());
 
     /// <summary>
     /// Appends the result of a method to the end of this builder.
@@ -31,8 +31,8 @@ partial class StringBuilderExtensions
     /// <returns>A reference to <paramref name="this"/> after the operation is completed.</returns>
     public static StringBuilder AppendResult(this StringBuilder @this, ReadOnlySpanFunc<char> func)
 #if NETSTANDARD2_0 || NETFRAMEWORK
-        => @this.Append(Arg.NotNull(func).Value().ToString());
+        => @this.Append(Require.NotNull(func).Value().ToString());
 #else
-        => @this.Append(Arg.NotNull(func).Value());
+        => @this.Append(Require.NotNull(func).Value());
 #endif
 }

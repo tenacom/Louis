@@ -44,8 +44,8 @@ public static class Utf8Utility
     /// </remarks>
     public static int GetMaxCharsInBytes(string str, int maxBytes)
         => UnsafeGetMaxCharsInBytes(
-            Arg.NotNull(str).Value.AsSpan(),
-            Arg.Value(maxBytes).GreaterThanZero());
+            Require.NotNull(str).Value.AsSpan(),
+            Require.Of(maxBytes).GreaterThanZero());
 
     /// <summary>
     /// Computes the maximum number of characters from a given span
@@ -69,7 +69,7 @@ public static class Utf8Utility
     public static int GetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
         => UnsafeGetMaxCharsInBytes(
             chars,
-            Arg.Value(maxBytes).GreaterThanZero());
+            Require.Of(maxBytes).GreaterThanZero());
 
     internal static int UnsafeGetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
     {

@@ -20,7 +20,7 @@ namespace Louis.ArgumentValidation;
 /// as well as initiate argument checking via the <see cref="Arg{T}"/> struct.
 /// </summary>
 [StackTraceHidden]
-public static class Arg
+public static class Require
 {
     /// <summary>
     /// Initiates checks on an argument whose type is a non-nullable value type (<see langword="struct"/>).
@@ -41,7 +41,7 @@ public static class Arg
     /// <code>
     /// void Foo(int bar)
     /// {
-    ///     _ = Arg.Value(bar).GreaterThanZero();
+    ///     _ = Arg.Of(bar).GreaterThanZero();
     ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
@@ -49,12 +49,12 @@ public static class Arg
     /// <code>
     /// void Foo(int bar)
     /// {
-    ///     _ = Arg.Value(bar, nameof(bar)).GreaterThanZero();
+    ///     _ = Arg.Of(bar, nameof(bar)).GreaterThanZero();
     ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
     /// </remarks>
-    public static ValueArg<T> Value<T>(T value, [CallerArgumentExpression("value")] string name = "")
+    public static ValueArg<T> Of<T>(T value, [CallerArgumentExpression("value")] string name = "")
         where T : struct
         => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>() : new(name, value);
 

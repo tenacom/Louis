@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes to existing features
 
+- **BREAKING CHANGE:** The `Arg` class (in namespace `Louis.ArgumentValidation`) has been renamed to `Require` to make its intent clearer, as e.g. in `Require.NotNull(str)`.
+- **BREAKING CHANGE:** The `Value` method in class `Require` (f.k.a. `Arg` has been remaned to `Of`, as in `Require.Of(value).GreaterThanZero()`.
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release

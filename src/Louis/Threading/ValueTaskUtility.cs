@@ -27,7 +27,7 @@ public static class ValueTaskUtility
     /// <exception cref="ArgumentNullException"><paramref name="valueTasks"/> is <see langword="null"/>.</exception>
     public static async ValueTask WhenAll(IEnumerable<ValueTask> valueTasks)
     {
-        _ = Arg.NotNull(valueTasks);
+        _ = Require.NotNull(valueTasks);
         var pendingTasks = valueTasks.Where(vt => !vt.IsCompletedSuccessfully).Select(vt => vt.AsTask()).ToList();
         if (pendingTasks.Count > 0)
         {

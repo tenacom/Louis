@@ -29,7 +29,7 @@ partial class ExceptionExtensions
     /// but is faster and allocates less memory. It is used internally by the <see cref="IsCriticalError"/> method.</para>
     /// </remarks>
     public static bool AnyCausingException(this Exception @this, Func<Exception, bool> predicate)
-        => AnyCausingExceptionCore(@this, Arg.NotNull(predicate));
+        => AnyCausingExceptionCore(@this, Require.NotNull(predicate));
 
     private static bool AnyCausingExceptionCore(Exception exception, Func<Exception, bool> predicate)
     {
