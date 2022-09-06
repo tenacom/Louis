@@ -8,43 +8,45 @@
 
 using System;
 using System.Text;
-using Louis.Text.Internal;
 
 namespace Louis.Text;
 
-partial class StringExtensions
+partial class CharReadOnlySpanExtensions
 {
     /// <summary>
-    /// Builds and returns a string representing a given string as a C#
+    /// Builds and returns a string representing a given span of characters as a C#
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/#quoted-string-literals">quoted string literal</see>.
     /// </summary>
-    /// <param name="this">The <see langword="string"/> on which this method is called.</param>
+    /// <param name="this">The <see cref="ReadOnlySpan{T}">ReadOnlySpan&lt;char&gt;</see>
+    /// on which this method is called.</param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
     /// <seealso cref="ToVerbatimLiteral"/>
     /// <seealso cref="ToLiteral"/>
-    public static string ToQuotedLiteral(this string? @this)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 2).AppendQuotedLiteral(@this.AsSpan()).ToString();
+    public static string ToQuotedLiteral(this ReadOnlySpan<char> @this)
+        => new StringBuilder(@this.Length + 2).AppendQuotedLiteral(@this).ToString();
 
     /// <summary>
-    /// Builds and returns a string representing a given string as a C#
+    /// Builds and returns a string representing a given span of characters as a C#
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/#verbatim-string-literals">verbatim string literal</see>.
     /// </summary>
-    /// <param name="this">The <see langword="string"/> on which this method is called.</param>
+    /// <param name="this">The <see cref="ReadOnlySpan{T}">ReadOnlySpan&lt;char&gt;</see>
+    /// on which this method is called.</param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
     /// <seealso cref="ToQuotedLiteral"/>
     /// <seealso cref="ToLiteral"/>
-    public static string ToVerbatimLiteral(this string? @this)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 3).AppendVerbatimLiteral(@this.AsSpan()).ToString();
+    public static string ToVerbatimLiteral(this ReadOnlySpan<char> @this)
+        => new StringBuilder(@this.Length + 3).AppendVerbatimLiteral(@this).ToString();
 
     /// <summary>
-    /// Builds and returns a string representing a given string as a C# string literal.
+    /// Builds and returns a string representing a given span of characters as a C# string literal.
     /// </summary>
-    /// <param name="this">The <see langword="string"/> on which this method is called.</param>
+    /// <param name="this">The <see cref="ReadOnlySpan{T}">ReadOnlySpan&lt;char&gt;</see>
+    /// on which this method is called.</param>
     /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
     /// to build.</param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
     /// <seealso cref="ToQuotedLiteral"/>
     /// <seealso cref="ToVerbatimLiteral"/>
-    public static string ToLiteral(this string? @this, StringLiteralKind literalKind)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 2).AppendLiteral(literalKind, @this.AsSpan()).ToString();
+    public static string ToLiteral(this ReadOnlySpan<char> @this, StringLiteralKind literalKind)
+        => new StringBuilder(@this.Length + 2).AppendLiteral(literalKind, @this).ToString();
 }
