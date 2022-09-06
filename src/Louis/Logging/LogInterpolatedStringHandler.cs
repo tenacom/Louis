@@ -37,7 +37,7 @@ public ref partial struct LogInterpolatedStringHandler
     public LogInterpolatedStringHandler(int literalLength, int formattedCount, ILogger logger, LogLevel logLevel, out bool isEnabled)
     {
         _argumentIndex = 0;
-        isEnabled = IsEnabled = Require.NotNull(logger).Value.IsEnabled(logLevel);
+        isEnabled = IsEnabled = Validated.NotNull(logger).IsEnabled(logLevel);
         if (isEnabled)
         {
             _templateBuilder ??= new(InitialTemplateCapacity);

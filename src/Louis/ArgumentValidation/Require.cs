@@ -8,8 +8,8 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Louis.ArgumentValidation.Internal;
 using Louis.Diagnostics;
 using PolyKit.Diagnostics.CodeAnalysis;
 
@@ -56,7 +56,7 @@ public static class Require
     /// </remarks>
     public static ValueArg<T> Of<T>(T value, [CallerArgumentExpression("value")] string name = "")
         where T : struct
-        => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>() : new(name, value);
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsValueArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a nullable reference type (<see langword="class"/>).
@@ -94,7 +94,7 @@ public static class Require
     public static NullableArg<T> Nullable<T>(T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : class
-        => name is null ? ThrowArgumentNameCannotBeNullAsNullableArg<T>() : new(name, value);
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsNullableArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a nullable value type (<see cref="System.Nullable{T}"/>).
@@ -132,7 +132,7 @@ public static class Require
     public static NullableValueArg<T> Nullable<T>(T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
-        => name is null ? ThrowArgumentNameCannotBeNullAsNullableValueArg<T>() : new(name, value);
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsNullableValueArg<T>() : new(name, value);
 
     /// <summary>
     /// Initiates checks on an argument whose type is a reference type (<see langword="class"/>),
@@ -172,8 +172,8 @@ public static class Require
     public static Arg<T> NotNull<T>([ValidatedNotNull] T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : class
-        => name is null ? ThrowArgumentNameCannotBeNullAsArg<T>()
-            : value is null ? ThrowArgumentNullAsArgOf<T>(name)
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsArg<T>()
+            : value is null ? ThrowHelper.ThrowArgumentNullAsArg<T>(name)
             : new(name, value);
 
     /// <summary>
@@ -214,9 +214,9 @@ public static class Require
     public static ValueArg<T> NotNull<T>([ValidatedNotNull] T? value, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
-        => name is null ? ThrowArgumentNameCannotBeNullAsValueArg<T>()
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsValueArg<T>()
             : value.HasValue ? new(name, value.Value)
-            : ThrowArgumentNullAsValueArgOf<T>(name);
+            : ThrowHelper.ThrowArgumentNullAsValueArg<T>(name);
 
     /// <summary>
     /// Initiates checks on a <see langword="string"/> argument,
@@ -257,9 +257,9 @@ public static class Require
     /// </code>
     /// </remarks>
     public static Arg<string> NotNullOrEmpty([ValidatedNotNull] string? value, [CallerArgumentExpression("value")] string name = "")
-        => name is null ? ThrowArgumentNameCannotBeNullAsArg<string>()
-            : value is null ? ThrowArgumentNullAsArgOf<string>(name)
-            : value.Length == 0 ? ThrowArgumentEmptyAsArgOfString(name)
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsArg<string>()
+            : value is null ? ThrowHelper.ThrowArgumentNullAsArg<string>(name)
+            : value.Length == 0 ? ThrowHelper.ThrowArgumentEmptyAsArgOfString(name)
             : new(name, value);
 
     /// <summary>
@@ -304,50 +304,9 @@ public static class Require
     /// </code>
     /// </remarks>
     public static Arg<string> NotNullOrWhiteSpace([ValidatedNotNull] string? value, [CallerArgumentExpression("value")] string name = "")
-        => name is null ? ThrowArgumentNameCannotBeNullAsArg<string>()
-            : value is null ? ThrowArgumentNullAsArgOf<string>(name)
-            : value.Length == 0 ? ThrowArgumentEmptyAsArgOfString(name)
-            : string.IsNullOrWhiteSpace(value) ? ThrowArgumentWhiteSpaceAsArgOfString(name)
-            : new(name, value!);
-
-    [DoesNotReturn]
-    private static Arg<T> ThrowArgumentNameCannotBeNullAsArg<T>()
-        where T : class
-        => throw ArgumentNameCannotBeNull();
-
-    [DoesNotReturn]
-    private static NullableArg<T> ThrowArgumentNameCannotBeNullAsNullableArg<T>()
-        where T : class
-        => throw ArgumentNameCannotBeNull();
-
-    [DoesNotReturn]
-    private static ValueArg<T> ThrowArgumentNameCannotBeNullAsValueArg<T>()
-        where T : struct
-        => throw ArgumentNameCannotBeNull();
-
-    [DoesNotReturn]
-    private static NullableValueArg<T> ThrowArgumentNameCannotBeNullAsNullableValueArg<T>()
-        where T : struct
-        => throw ArgumentNameCannotBeNull();
-
-    private static Exception ArgumentNameCannotBeNull()
-        => SelfCheck.Failure("Argument name cannot be null.");
-
-    [DoesNotReturn]
-    private static Arg<T> ThrowArgumentNullAsArgOf<T>(string paramName)
-        where T : class
-        => throw new ArgumentNullException(paramName);
-
-    [DoesNotReturn]
-    private static ValueArg<T> ThrowArgumentNullAsValueArgOf<T>(string paramName)
-        where T : struct
-        => throw new ArgumentNullException(paramName);
-
-    [DoesNotReturn]
-    private static Arg<string> ThrowArgumentEmptyAsArgOfString(string paramName)
-        => throw new ArgumentException($"{paramName} cannot be the empty string.", paramName);
-
-    [DoesNotReturn]
-    private static Arg<string> ThrowArgumentWhiteSpaceAsArgOfString(string paramName)
-        => throw new ArgumentException($"{paramName} cannot consist only of white space.", paramName);
+        => name is null ? ThrowHelper.ThrowArgumentNameCannotBeNullAsArg<string>()
+            : value is null ? ThrowHelper.ThrowArgumentNullAsArg<string>(name)
+            : value.Length == 0 ? ThrowHelper.ThrowArgumentEmptyAsArgOfString(name)
+            : string.IsNullOrWhiteSpace(value) ? ThrowHelper.ThrowArgumentWhiteSpaceAsArgOfString(name)
+            : new(name, value);
 }

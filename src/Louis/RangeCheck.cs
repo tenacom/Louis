@@ -30,7 +30,7 @@ public static partial class RangeCheck
     private static void EnsureValidComparerAndRange<T>(T min, T max, IComparer<T> comparer)
         where T : notnull
     {
-        if (Require.NotNull(comparer).Value.Compare(min, max) > 0)
+        if (Validated.NotNull(comparer).Compare(min, max) > 0)
         {
             ThrowInvalidRange(min, max);
         }

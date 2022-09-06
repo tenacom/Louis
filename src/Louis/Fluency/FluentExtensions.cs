@@ -26,7 +26,7 @@ public static class FluentExtensions
     /// <returns>A reference to <paramref name="this"/> after <paramref name="action"/> returns.</returns>
     public static T Invoke<T>(this T @this, Action<T> action)
     {
-        Require.NotNull(action).Value(@this);
+        Validated.NotNull(action)(@this);
         return @this;
     }
 
@@ -39,7 +39,7 @@ public static class FluentExtensions
     /// <param name="then">The action to perform on <paramref name="this"/> if <paramref name="condition"/> is <see langword="true"/>.</param>
     /// <returns>A reference to <paramref name="this"/> after <paramref name="then"/>, if called, returns.</returns>
     public static T If<T>(this T @this, bool condition, FluentAction<T> then)
-        => condition ? Require.NotNull(then).Value(@this) : @this;
+        => condition ? Validated.NotNull(then)(@this) : @this;
 
     /// <summary>
     /// Invokes one of two actions on an object according to a boolean condition, then returns the same object.
@@ -51,7 +51,7 @@ public static class FluentExtensions
     /// <param name="else">The action to perform on <paramref name="this"/> if <paramref name="condition"/> is <see langword="false"/>.</param>
     /// <returns>A reference to <paramref name="this"/> after either <paramref name="then"/> or <paramref name="else"/> returns.</returns>
     public static T IfElse<T>(this T @this, bool condition, FluentAction<T> then, FluentAction<T> @else)
-        => condition ? Require.NotNull(then).Value(@this) : Require.NotNull(@else).Value(@this);
+        => condition ? Validated.NotNull(then)(@this) : Validated.NotNull(@else)(@this);
 
     /// <summary>
     /// Selects an action to invoke on an object by comparing a given value against a list of comparands, then returns the object.
@@ -97,7 +97,7 @@ public static class FluentExtensions
     public static T Switch<T, TValue>(this T @this, TValue value, FluentAction<T>? @default, params (TValue Comparand, FluentAction<T>? Action)[] cases)
         where TValue : IEquatable<TValue>
     {
-        foreach (var (comparand, action) in Require.NotNull(cases).Value)
+        foreach (var (comparand, action) in Validated.NotNull(cases))
         {
             if (value.Equals(comparand))
             {
@@ -122,8 +122,8 @@ public static class FluentExtensions
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement> action)
     {
-        _ = Require.NotNull(action);
-        foreach (var item in Require.NotNull(sequence).Value)
+        _ = Validated.NotNull(action);
+        foreach (var item in Validated.NotNull(sequence))
         {
             @this = action(@this, item);
         }
@@ -150,9 +150,9 @@ public static class FluentExtensions
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement, int> action)
     {
-        _ = Require.NotNull(action);
+        _ = Validated.NotNull(action);
         var index = 0;
-        foreach (var item in Require.NotNull(sequence).Value)
+        foreach (var item in Validated.NotNull(sequence))
         {
             @this = action(@this, item, index++);
         }
@@ -174,7 +174,7 @@ public static class FluentExtensions
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement> action)
     {
-        _ = Require.NotNull(action);
+        _ = Validated.NotNull(action);
         foreach (var item in span)
         {
             @this = action(@this, item);
@@ -201,7 +201,7 @@ public static class FluentExtensions
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement, int> action)
     {
-        _ = Require.NotNull(action);
+        _ = Validated.NotNull(action);
         for (var i = 0; i < span.Length; i++)
         {
             @this = action(@this, span[i], i);

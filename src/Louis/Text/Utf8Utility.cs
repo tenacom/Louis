@@ -44,7 +44,7 @@ public static class Utf8Utility
     /// </remarks>
     public static int GetMaxCharsInBytes(string str, int maxBytes)
         => UnsafeGetMaxCharsInBytes(
-            Require.NotNull(str).Value.AsSpan(),
+            Validated.NotNull(str).AsSpan(),
             Require.Of(maxBytes).GreaterThanZero());
 
     /// <summary>

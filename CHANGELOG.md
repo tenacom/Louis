@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Method `Louis.Diagnostics.ExceptionHelper.FormatObject` returns a text representation for an object, suitable for inclusion in an exception message.
 - Extension method `Louis.Diagnostics.StringBuilderExtensions.AppendFormattedObject` appends a text representation for an object, suitable for inclusion in an exception message, to the end of a `StringBuilder`.
 - The `Louis.RangeCheck` class provides methods for easy in-range verification and clamping, with or without custom comparers.
+- The new `Validated` class provides methods for faster argument validation than `Require`, when only a simple non-nullability check is needed. Methods of `Validated` do not initiate validation chains, but are faster and consume less stack than their namesakes in `Require`.  
+More importantly, `Validated.NotNull` can be used when the type of the checked parameter is an open generic type with neither a `class` nor a `struct` constraint. `Require.NotNull` would not work in this case, because the compiler could not resolve the ambiguity between overloads.
+
 ### Changes to existing features
 
 - **BREAKING CHANGE:** The `Arg` class (in namespace `Louis.ArgumentValidation`) has been renamed to `Require` to make its intent clearer, as e.g. in `Require.NotNull(str)`.
