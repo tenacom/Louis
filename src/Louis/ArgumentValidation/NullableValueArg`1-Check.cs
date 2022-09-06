@@ -7,7 +7,6 @@
 // ---------------------------------------------------------------------------------------
 
 using System;
-using Louis.ArgumentValidation.Internal;
 using Louis.Diagnostics;
 
 namespace Louis.ArgumentValidation;
@@ -32,9 +31,9 @@ partial struct NullableValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="predicate"/> returned <see langword="false"/>.</exception>
     public NullableValueArg<T> Check(NullablePredicate<T> predicate, string? message = null)
-        => predicate is null ? throw ExceptionHelper.PredicateCannotBeNull()
+        => predicate is null ? ArgHelper.ThrowPredicateCannotBeNull(this)
             : predicate(HasValue, _valueArg.Value) ? this
-            : throw ArgHelper.MakeArgumentException(_valueArg.Name, _valueArg.Value, message);
+            : ArgHelper.ThrowArgumentException(this, message);
 
     /// <summary>
     /// <para>Checks that the argument represented by the current <see cref="NullableValueArg{T}"/> object
@@ -49,7 +48,7 @@ partial struct NullableValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="callback"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="callback"/> returned <see langword="false"/>.</exception>
     public NullableValueArg<T> Check(NullableArgumentCheckFunc<T> callback)
-        => callback is null ? throw ExceptionHelper.CallbackCannotBeNull()
+        => callback is null ? ArgHelper.ThrowCallbackCannotBeNull(this)
             : callback(HasValue, _valueArg.Value, out var message) ? this
-            : throw ArgHelper.MakeArgumentException(_valueArg.Name, _valueArg.Value, message);
+            : ArgHelper.ThrowArgumentException(this, message);
 }

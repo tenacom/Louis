@@ -8,7 +8,6 @@
 
 using System;
 using System.Diagnostics;
-using Louis.ArgumentValidation.Internal;
 using Louis.Diagnostics;
 
 namespace Louis.ArgumentValidation;
@@ -59,9 +58,9 @@ public readonly ref struct ValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="predicate"/> returned <see langword="false"/>.</exception>
     public ValueArg<T> Check(Predicate<T> predicate, string? message = null)
-        => predicate is null ? throw ExceptionHelper.PredicateCannotBeNull()
+        => predicate is null ? ArgHelper.ThrowPredicateCannotBeNull(this)
             : predicate(Value) ? this
-            : throw ArgHelper.MakeArgumentException(Name, Value, message);
+            : ArgHelper.ThrowArgumentException(this, message);
 
     /// <summary>
     /// Checks that the argument represented by the current <see cref="ValueArg{T}"/> object
@@ -74,7 +73,7 @@ public readonly ref struct ValueArg<T>
     /// <exception cref="InternalErrorException"><paramref name="func"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="func"/> returned <see langword="false"/>.</exception>
     public ValueArg<T> Check(ArgumentCheckFunc<T> func)
-        => func is null ? throw ExceptionHelper.CallbackCannotBeNull()
+        => func is null ? ArgHelper.ThrowCallbackCannotBeNull(this)
             : func(Value, out var message) ? this
-            : throw ArgHelper.MakeArgumentException(Name, Value, message);
+            : ArgHelper.ThrowArgumentException(this, message);
 }

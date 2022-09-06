@@ -20,9 +20,15 @@ partial class ArgExtensions
     /// <param name="this">The <see cref="Arg{T}">Arg&lt;string&gt;</see> on which this method is called.</param>
     /// <param name="uri">When this method returns, contains a newly-created <see cref="Uri"/>.
     /// This parameter is passed uninitialized.</param>
+    /// <param name="format">
+    /// <para>An optional format used to construct the message of the <see cref="ArgumentException"/>
+    /// thrown if the argument does not satisfy the condition expressed by this method.</para>
+    /// <para>If this parameter is omitted or <see langword="null"/>, a default format will be used.</para>
+    /// <para>The actual exception message will be constructed using <see cref="ArgHelper.FormatArgumentExceptionMessage"/>.</para>
+    /// </param>
     /// <returns><paramref name="this"/>, for chaining calls.</returns>
     /// <exception cref="ArgumentException">The argument represented by <paramref name="this"/> is not a valid URL.</exception>
-    public static Arg<string> Url(this Arg<string> @this, out Uri uri) => Url(@this, out uri, false);
+    public static Arg<string> Url(this Arg<string> @this, out Uri uri, string? format = null) => Url(@this, out uri, false, format);
 
     /// <summary>
     /// Ensures that the argument represented by an <see cref="Arg{T}">Arg&lt;string&gt;</see> object
@@ -33,6 +39,12 @@ partial class ArgExtensions
     /// This parameter is passed uninitialized.</param>
     /// <param name="enforceHttp"><see langword="true"/> to ensure that, if the argument represented by <paramref name="this"/> is an absolute URL,
     /// its scheme is either <c>http</c> or <c>https</c>; <see langword="false"/> to not check the scheme.</param>
+    /// <param name="format">
+    /// <para>An optional format used to construct the message of the <see cref="ArgumentException"/>
+    /// thrown if the argument does not satisfy the condition expressed by this method.</para>
+    /// <para>If this parameter is omitted or <see langword="null"/>, a default format will be used.</para>
+    /// <para>The actual exception message will be constructed using <see cref="ArgHelper.FormatArgumentExceptionMessage"/>.</para>
+    /// </param>
     /// <returns><paramref name="this"/>, for chaining calls.</returns>
     /// <exception cref="ArgumentException">
     /// <para>The argument represented by <paramref name="this"/> is not a valid URL.</para>
@@ -40,19 +52,20 @@ partial class ArgExtensions
     /// <para><paramref name="enforceHttp"/> is <see langword="true"/>,
     /// and the argument represented by <paramref name="this"/> has a scheme that is neither <c>http</c> nor <c>https</c>.</para>
     /// </exception>
-    public static Arg<string> Url(this Arg<string> @this, out Uri uri, bool enforceHttp)
+    public static Arg<string> Url(this Arg<string> @this, out Uri uri, bool enforceHttp, string? format = null)
     {
-        if (!Uri.TryCreate(@this.Value, UriKind.RelativeOrAbsolute, out var createdUri))
+#pragma warning disable CS8601 // Possible null reference assignment. - If Uri.TryCreate fails, this method throws; the caller will never see uri == null.
+        if (!Uri.TryCreate(@this.Value, UriKind.RelativeOrAbsolute, out uri))
         {
-            throw new ArgumentException("Argument should be a valid URL.", @this.Name);
+            return ArgHelper.ThrowArgumentException(@this, "{@} is not a valid URL.");
+        }
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+        if (enforceHttp && uri.IsAbsoluteUri && uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)
+        {
+            return ArgHelper.ThrowArgumentException(@this, "{@} is not a valid HTTP or HTTPS URL.");
         }
 
-        if (enforceHttp && createdUri.IsAbsoluteUri && createdUri.Scheme != Uri.UriSchemeHttp && createdUri.Scheme != Uri.UriSchemeHttps)
-        {
-            throw new ArgumentException("Argument should be a valid HTTP or HTTPS URL.", @this.Name);
-        }
-
-        uri = createdUri;
         return @this;
     }
 

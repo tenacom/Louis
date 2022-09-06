@@ -32,7 +32,7 @@ partial class ValueArgExtensions
     public static ValueArg<T> GreaterThan<T>(this ValueArg<T> @this, T threshold, string? message = null)
         where T : struct, IComparable<T>
         => @this.Value.CompareTo(threshold) <= 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? $"Argument must be greater than {threshold}.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? $"Argument must be greater than {threshold}.")
             : @this;
 
     /// <summary>
@@ -53,7 +53,7 @@ partial class ValueArgExtensions
     public static ValueArg<T> GreaterThanOrEqualTo<T>(this ValueArg<T> @this, T threshold, string? message = null)
         where T : struct, IComparable<T>
         => @this.Value.CompareTo(threshold) < 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? $"Argument must be greater than or equal to {threshold}.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? $"Argument must be greater than or equal to {threshold}.")
             : @this;
 
     /// <summary>
@@ -74,7 +74,7 @@ partial class ValueArgExtensions
     public static ValueArg<T> LessThan<T>(this ValueArg<T> @this, T threshold, string? message = null)
         where T : struct, IComparable<T>
         => @this.Value.CompareTo(threshold) >= 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? $"Argument must be less than {threshold}.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? $"Argument must be less than {threshold}.")
             : @this;
 
     /// <summary>
@@ -95,7 +95,7 @@ partial class ValueArgExtensions
     public static ValueArg<T> LessThanOrEqualTo<T>(this ValueArg<T> @this, T threshold, string? message = null)
         where T : struct, IComparable<T>
         => @this.Value.CompareTo(threshold) > 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? $"Argument cannot be greater than {threshold}.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? $"Argument cannot be greater than {threshold}.")
             : @this;
 
     /// <summary>
@@ -117,7 +117,7 @@ partial class ValueArgExtensions
     public static ValueArg<T> InRange<T>(this ValueArg<T> @this, T minValue, T maxValue, string? message = null)
         where T : struct, IComparable<T>
         => @this.Value.CompareTo(minValue) < 0 || @this.Value.CompareTo(maxValue) > 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? $"Argument must be between {minValue} and {maxValue}.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? $"Argument must be between {minValue} and {maxValue}.")
             : @this;
 
     /// <summary>
@@ -137,6 +137,6 @@ partial class ValueArgExtensions
     public static ValueArg<T> GreaterThanZero<T>(this ValueArg<T> @this, string? message = null)
         where T : unmanaged, IComparable<T>
         => @this.Value.CompareTo(default) <= 0
-            ? throw ArgHelper.MakeArgumentOutOfRangeException(@this.Name, @this.Value, message ?? "Argument must be greater than zero.")
+            ? ArgHelper.ThrowArgumentOutOfRangeException(@this, message ?? "Argument must be greater than zero.")
             : @this;
 }

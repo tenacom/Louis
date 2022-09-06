@@ -6,7 +6,6 @@
 // See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
 // ---------------------------------------------------------------------------------------
 
-using Louis.ArgumentValidation.Internal;
 using Louis.Diagnostics;
 
 namespace Louis.ArgumentValidation;
@@ -26,7 +25,7 @@ partial struct NullableValueArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
         if (HasValue)
@@ -56,7 +55,7 @@ partial struct NullableValueArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
         if (HasValue)
@@ -92,7 +91,7 @@ partial struct NullableValueArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
         if (HasValue)
@@ -134,7 +133,7 @@ partial struct NullableValueArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
         if (HasValue)
@@ -182,7 +181,7 @@ partial struct NullableValueArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
         if (HasValue)

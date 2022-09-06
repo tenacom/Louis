@@ -6,7 +6,6 @@
 // See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
 // ---------------------------------------------------------------------------------------
 
-using Louis.ArgumentValidation.Internal;
 using Louis.Diagnostics;
 
 namespace Louis.ArgumentValidation;
@@ -26,10 +25,10 @@ partial struct NullableArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
-        if (Value is null)
+        if (Value is not null)
         {
             _ = callback(_arg);
         }
@@ -56,10 +55,10 @@ partial struct NullableArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
-        if (Value is null)
+        if (Value is not null)
         {
             _ = callback(_arg, arg1);
         }
@@ -92,10 +91,10 @@ partial struct NullableArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
-        if (Value is null)
+        if (Value is not null)
         {
             _ = callback(_arg, arg1, arg2);
         }
@@ -134,10 +133,10 @@ partial struct NullableArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
-        if (Value is null)
+        if (Value is not null)
         {
             _ = callback(_arg, arg1, arg2, arg3);
         }
@@ -182,10 +181,10 @@ partial struct NullableArg<T>
     {
         if (callback is null)
         {
-            throw ExceptionHelper.CallbackCannotBeNull();
+            return ArgHelper.ThrowCallbackCannotBeNull(this);
         }
 
-        if (Value is null)
+        if (Value is not null)
         {
             _ = callback(_arg, arg1, arg2, arg3, arg4);
         }
