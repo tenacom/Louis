@@ -13,31 +13,33 @@ namespace LouisSourceGenerators.Internal;
 
 internal sealed class ExceptionDefinition
 {
-    private readonly List<IReadOnlyList<ParameterDefinition>> _parameterLists = new();
+    private readonly List<ExceptionConstructorDefinition> _constructors = new();
 
-    public ExceptionDefinition(string @namespace, string name)
+    public ExceptionDefinition(string name, IEnumerable<string> namespaces)
     {
-        Namespace = @namespace;
         Name = name;
+        Namespaces = namespaces;
     }
 
-    public string Namespace { get; }
+    public IEnumerable<string> Namespaces { get; }
 
     public string Name { get; }
 
     public string TypeName => Name + "Exception";
 
-    public IReadOnlyList<IReadOnlyList<ParameterDefinition>> ParameterLists => _parameterLists;
+    public IReadOnlyList<ExceptionConstructorDefinition> Constructors => _constructors;
 
-    public ExceptionDefinition WithoutParameters()
+    public ExceptionDefinition WithParameterlessConstructor()
     {
-        _parameterLists.Add(Array.Empty<ParameterDefinition>());
+        _constructors.Add(new ExceptionConstructorDefinition());
         return this;
     }
 
-    public ExceptionDefinition WithParameters(params ParameterDefinition[] parameters)
+    public ExceptionDefinition WithConstructor(Action<ExceptionConstructorDefinition> configure)
     {
-        _parameterLists.Add(parameters);
+        var ctor = new ExceptionConstructorDefinition();
+        configure(ctor);
+        _constructors.Add(ctor);
         return this;
     }
 }

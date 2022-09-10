@@ -13,9 +13,9 @@ namespace LouisSourceGenerators.Internal;
 
 internal sealed class ExceptionDefinitionList : List<ExceptionDefinition>
 {
-    public ExceptionDefinition Define(string @namespace, string name)
+    public ExceptionDefinition Define(string name, params string[] namespaces)
     {
-        var definition = new ExceptionDefinition(@namespace, name);
+        var definition = new ExceptionDefinition(name, namespaces);
         Add(definition);
         return definition;
     }
@@ -24,10 +24,14 @@ internal sealed class ExceptionDefinitionList : List<ExceptionDefinition>
     {
         foreach (var definition in this)
         {
-            yield return definition.Namespace;
-            foreach (var parameterList in definition.ParameterLists)
+            foreach (var @namespace in definition.Namespaces)
             {
-                foreach (var @namespace in parameterList.Select(p => p.Namespace).OfType<string>())
+                yield return @namespace;
+            }
+
+            foreach (var ctor in definition.Constructors)
+            {
+                foreach (var @namespace in ctor.Parameters.Select(p => p.Namespace).OfType<string>())
                 {
                     yield return @namespace;
                 }

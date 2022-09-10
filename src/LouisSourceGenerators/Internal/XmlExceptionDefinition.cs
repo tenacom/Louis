@@ -6,31 +6,22 @@
 // See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
 // ---------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+
 namespace LouisSourceGenerators.Internal;
 
-internal sealed class ParameterDefinition
+internal sealed class XmlExceptionDefinition
 {
-    public ParameterDefinition(string? @namespace, string type, string name, string xmlHelp)
-        : this(@namespace, type, false, name, xmlHelp)
-    {
-    }
-
-    public ParameterDefinition(string? @namespace, string type, bool isParams, string name, string xmlHelp)
+    public XmlExceptionDefinition(string? @namespace, string typeName, params string[] xmlHelpRows)
     {
         Namespace = @namespace;
-        Type = type;
-        IsParams = isParams;
-        Name = name;
-        XmlHelp = xmlHelp;
+        TypeName = typeName;
+        XmlHelpRows = xmlHelpRows;
     }
 
     public string? Namespace { get; }
 
-    public string Type { get; }
+    public string TypeName { get; }
 
-    public bool IsParams { get; }
-
-    public string Name { get; }
-
-    public string XmlHelp { get; }
+    public IReadOnlyList<string> XmlHelpRows { get; }
 }

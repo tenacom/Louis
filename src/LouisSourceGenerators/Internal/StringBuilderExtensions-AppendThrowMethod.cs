@@ -6,7 +6,6 @@
 // See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
 // ---------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -14,17 +13,17 @@ namespace LouisSourceGenerators.Internal;
 
 partial class StringBuilderExtensions
 {
-    public static StringBuilder AppendThrowMethod(this StringBuilder @this, ExceptionDefinition exception, IReadOnlyCollection<ParameterDefinition> parameterList, bool generic)
+    public static StringBuilder AppendThrowMethod(this StringBuilder @this, ExceptionDefinition exception, ExceptionConstructorDefinition ctor, bool generic)
     {
-        var parameters = string.Join(", ", parameterList.Select(p => $"{p.Type} {p.Name}"));
-        var arguments = string.Join(", ", parameterList.Select(p => p.Name));
-        var withTheSpecifiedParameters = parameterList.Count switch {
+        var parameters = string.Join(", ", ctor.Parameters.Select(p => $"{(p.IsParams ? "params " : null)}{p.Type} {p.Name}"));
+        var arguments = string.Join(", ", ctor.Parameters.Select(p => p.Name));
+        var withTheSpecifiedParameters = ctor.Parameters.Count switch {
             0 => string.Empty,
             1 => " with the specified parameter",
             _ => " with the specified parameters",
         };
 
-        var theSpecifiedParameters = parameterList.Count switch {
+        var theSpecifiedParameters = ctor.Parameters.Count switch {
             0 => "no parameters",
             1 => "the specified parameter",
             _ => "the specified parameters",
@@ -41,9 +40,9 @@ partial class StringBuilderExtensions
             _ = @this.AppendLine("    /// <typeparam name=\"T\">The expected return type.</typeparam>");
         }
 
-        foreach (var parameter in parameterList)
+        foreach (var parameter in ctor.Parameters)
         {
-            _ = @this.AppendLine($$"""    /// <param name="{{parameter.Name}}">{{parameter.XmlHelp}}</param>""");
+            _ = @this.AppendLine($"    /// <param name=\"{parameter.Name}\">{parameter.XmlHelp}</param>");
         }
 
         if (generic)
@@ -51,9 +50,24 @@ partial class StringBuilderExtensions
             _ = @this.AppendLine("    /// <returns>This method does not return.</returns>");
         }
 
+        var xmlExceptionHelp = ctor.Exceptions.Count > 0
+            ? $"Thrown with {theSpecifiedParameters} if the exception constructor is successful."
+            : $"Always thrown with {theSpecifiedParameters}.";
+
+        _ = @this.AppendLine($"    /// <exception cref=\"{exception.TypeName}\">{xmlExceptionHelp}.</exception>");
+        foreach (var xmlException in ctor.Exceptions)
+        {
+            _ = @this.AppendLine($"    /// <exception cref=\"{xmlException.TypeName}\">");
+            foreach (var row in xmlException.XmlHelpRows)
+            {
+                _ = @this.AppendLine("    /// " + row);
+            }
+
+            _ = @this.AppendLine("    /// </exception>");
+        }
+
         return @this
-            .AppendLine($$"""
-                            /// <exception cref="{{exception.TypeName}}">Always thrown with {{theSpecifiedParameters}}.</exception>
+            .AppendLine("""
                             [DoesNotReturn]
                             [DebuggerHidden]
                             [DebuggerStepThrough]

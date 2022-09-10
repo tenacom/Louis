@@ -23,75 +23,78 @@ public class ThrowMethodsGenerator : IIncrementalGenerator
         {
             ParameterDefinition message = new(null, "string?", "message", "An error message that describes the reason for the exception.");
             ParameterDefinition innerException = new("System", "Exception?", "innerException", "The exception that is the cause of the exception being thrown.");
+            ParameterDefinition innerExceptionNotNull = new("System", "Exception", "innerException", "The exception that is the cause of the exception being thrown.");
             ParameterDefinition paramName = new(null, "string?", "paramName", "The name of the parameter that caused the exception.");
             ParameterDefinition invalidValue = new(null, "int", "invalidValue", "The value of the argument that caused the exception.");
-            ParameterDefinition enumType = new("System", "Type", "enumType", @"The type of the enumeration.");
+            ParameterDefinition enumType = new("System", "Type", "enumType", "The type of the enumeration.");
             ParameterDefinition actualValue = new(null, "object?", "actualValue", "The value of the argument that caused the exception.");
             ParameterDefinition objectName = new(null, "string?", "objectName", "The name of the disposed object.");
             ParameterDefinition token = new("System.Threading", "CancellationToken", "token", "A cancellation token associated with the operation that was canceled.");
+            ParameterDefinition paramsInnerExceptions = new("System", "Exception[]", true, "innerExceptions", "The exceptions that are the cause of the exception being thrown.");
+            ParameterDefinition innerExceptions = new("System.Collections.Generic", "IEnumerable<Exception>", "innerExceptions", "The exceptions that are the cause of the exception being thrown.");
 
-            _ = _exceptions.Define("System", "Argument")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException)
-                           .WithParameters(message, paramName)
-                           .WithParameters(message, paramName, innerException);
+            _ = _exceptions.Define("Argument", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException))
+                           .WithConstructor(c => c.WithParameters(message, paramName))
+                           .WithConstructor(c => c.WithParameters(message, paramName, innerException));
 
-            _ = _exceptions.Define("System", "ArgumentNull")
-                           .WithoutParameters()
-                           .WithParameters(paramName)
-                           .WithParameters(message, innerException)
-                           .WithParameters(paramName, message);
+            _ = _exceptions.Define("ArgumentNull", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(paramName))
+                           .WithConstructor(c => c.WithParameters(message, innerException))
+                           .WithConstructor(c => c.WithParameters(paramName, message));
 
-            _ = _exceptions.Define("System", "ArgumentOutOfRange")
-                           .WithoutParameters()
-                           .WithParameters(paramName)
-                           .WithParameters(message, innerException)
-                           .WithParameters(paramName, message)
-                           .WithParameters(paramName, actualValue, message);
+            _ = _exceptions.Define("ArgumentOutOfRange", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(paramName))
+                           .WithConstructor(c => c.WithParameters(message, innerException))
+                           .WithConstructor(c => c.WithParameters(paramName, message))
+                           .WithConstructor(c => c.WithParameters(paramName, actualValue, message));
 
-            _ = _exceptions.Define("System", "Format")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("Format", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
-            _ = _exceptions.Define("System", "InvalidOperation")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("InvalidOperation", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
-            _ = _exceptions.Define("System", "NotSupported")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("NotSupported", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
-            _ = _exceptions.Define("System", "PlatformNotSupported")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("PlatformNotSupported", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
-            _ = _exceptions.Define("System", "ObjectDisposed")
-                           .WithParameters(objectName)
-                           .WithParameters(message, innerException)
-                           .WithParameters(objectName, message);
+            _ = _exceptions.Define("ObjectDisposed", "System")
+                           .WithConstructor(c => c.WithParameters(objectName))
+                           .WithConstructor(c => c.WithParameters(message, innerException))
+                           .WithConstructor(c => c.WithParameters(objectName, message));
 
-            _ = _exceptions.Define("System", "OperationCanceled")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(token)
-                           .WithParameters(message, innerException)
-                           .WithParameters(message, token)
-                           .WithParameters(message, innerException, token);
+            _ = _exceptions.Define("OperationCanceled", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(token))
+                           .WithConstructor(c => c.WithParameters(message, innerException))
+                           .WithConstructor(c => c.WithParameters(message, token))
+                           .WithConstructor(c => c.WithParameters(message, innerException, token));
 
-            _ = _exceptions.Define("System", "Timeout")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("Timeout", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
-            _ = _exceptions.Define("System", "Overflow")
-                           .WithoutParameters()
-                           .WithParameters(message)
-                           .WithParameters(message, innerException);
+            _ = _exceptions.Define("Overflow", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c.WithParameters(message, innerException));
 
             var sourceBuilder = new StringBuilder()
                                .AppendCodeHeader(
@@ -105,7 +108,7 @@ public class ThrowMethodsGenerator : IIncrementalGenerator
             var first = true;
             foreach (var exception in _exceptions)
             {
-                foreach (var parameterList in exception.ParameterLists)
+                foreach (var ctor in exception.Constructors)
                 {
                     if (first)
                     {
@@ -116,9 +119,9 @@ public class ThrowMethodsGenerator : IIncrementalGenerator
                         _ = sourceBuilder.AppendLine();
                     }
 
-                    _ = sourceBuilder.AppendThrowMethod(exception, parameterList, false)
+                    _ = sourceBuilder.AppendThrowMethod(exception, ctor, false)
                                      .AppendLine()
-                                     .AppendThrowMethod(exception, parameterList, true);
+                                     .AppendThrowMethod(exception, ctor, true);
                 }
             }
 
