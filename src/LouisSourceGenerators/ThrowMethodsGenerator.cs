@@ -96,6 +96,27 @@ public class ThrowMethodsGenerator : IIncrementalGenerator
                            .WithConstructor(c => c.WithParameters(message))
                            .WithConstructor(c => c.WithParameters(message, innerException));
 
+            _ = _exceptions.Define("Aggregate", "System")
+                           .WithParameterlessConstructor()
+                           .WithConstructor(c => c
+                                                .WithParameters(innerExceptions)
+                                                .WithException("System", "ArgumentNullException", @"<paramref name=""innerExceptions"" /> is <see langword=""null""/>.")
+                                                .WithException("System", "ArgumentException", @"One or more elements of <paramref name=""innerExceptions"" /> are <see langword=""null""/>."))
+                           .WithConstructor(c => c
+                                                .WithParameters(paramsInnerExceptions)
+                                                .WithException("System", "ArgumentNullException", @"<paramref name=""innerExceptions"" /> is <see langword=""null""/>.")
+                                                .WithException("System", "ArgumentException", @"One or more elements of <paramref name=""innerExceptions"" /> are <see langword=""null""/>."))
+                           .WithConstructor(c => c.WithParameters(message))
+                           .WithConstructor(c => c
+                                                .WithParameters(message, innerExceptions)
+                                                .WithException("System", "ArgumentNullException", @"<paramref name=""innerExceptions"" /> is <see langword=""null""/>.")
+                                                .WithException("System", "ArgumentException", @"One or more elements of <paramref name=""innerExceptions"" /> are <see langword=""null""/>."))
+                           .WithConstructor(c => c.WithParameters(message, innerExceptionNotNull))
+                           .WithConstructor(c => c
+                                                .WithParameters(message, paramsInnerExceptions)
+                                                .WithException("System", "ArgumentNullException", @"<paramref name=""innerExceptions"" /> is <see langword=""null""/>.")
+                                                .WithException("System", "ArgumentException", @"One or more elements of <paramref name=""innerExceptions"" /> are <see langword=""null""/>."));
+
             var sourceBuilder = new StringBuilder()
                                .AppendCodeHeader(
                                     "Louis.Diagnostics",

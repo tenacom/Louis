@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `Louis.RangeCheck` class provides methods for easy in-range verification and clamping, with or without custom comparers.
 - The new `Validated` class provides methods for faster argument validation than `Require`, when only a simple non-nullability check is needed. Methods of `Validated` do not initiate validation chains, but are faster and consume less stack than their namesakes in `Require`.  
 More importantly, `Validated.NotNull` can be used when the type of the checked parameter is an open generic type with neither a `class` nor a `struct` constraint. `Require.NotNull` would not work in this case, because the compiler could not resolve the ambiguity between overloads.
+- New `Throw.Aggregate` and `Throw.Aggregate<T>` helper methods for throwing `AggregateException`s.
 
 ### Changes to existing features
 
