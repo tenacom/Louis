@@ -23,6 +23,7 @@ More importantly, `Validated.NotNull` can be used when the type of the checked p
 - **BREAKING CHANGE:** The `Value` method in class `Require` (f.k.a. `Arg` has been renamed to `Of`, as in `Require.Of(value).GreaterThanZero()`.
 - **BREAKING CHANGE:** The `ArgHelper` class has been completely revamped and now includes methods that create _and throw_ exceptions, so that calling methods can remain `throw`-less and be better optimized and JITted.
 - **BREAKING CHANGE:** The `AsyncWorker` class has been retired from this project. It may reappear in a future version.
+- **BREAKING CHANGE:** The `ThreadSafeDisposable` class has been retired from this project, as it brought too little value to be of any actual use.
 
 ### Bugs fixed in this release
 
