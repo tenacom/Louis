@@ -25,6 +25,7 @@ More importantly, `Validated.NotNull` can be used when the type of the checked p
 - **BREAKING CHANGE:** The `AsyncWorker` class has been retired from this project. It may reappear in a future version.
 - **BREAKING CHANGE:** The `ThreadSafeDisposable` class has been retired from this project, as it brought too little value to be of any actual use.
 - **BREAKING CHANGE:** The `ArgExtensions` class, containing methods to check `string` arguments for conformance to URI / URL formats, has been retired. Its methods may reappear in a future version, probably in a different form.
+- All overloads of the `AppendQuotedClippedLiteral`, `AppendVerbatimClippedLiteral`, and `AppendClippedLiteral` methods (in class `Louis.Text.StringBuilderExtensions`) have been split in two versions (with and without the `useUnicodeEllipsis` parameter) instead of having an optional parameter. This change minimizes the chance of binary incompatibilities with future versions of L.o.U.I.S.
 
 ### Bugs fixed in this release
 
