@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+### Changes to existing features
+
+### Bugs fixed in this release
+
+### Known problems introduced by this release
+
+## [1.0.0-preview.7](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.7) (2022-09-13)
+
+### New features
+
 - New extension methods for `string`, `ReadOnlySpan<char>`, and `StringBuilder` can convert a string (or span) to a C# literal while clipping long strings, leaving a head and/or a tail and an ellipsis. Especially useful for logging and exception messages.
 - Method `Louis.Diagnostics.ExceptionHelper.FormatObject` returns a text representation for an object, suitable for inclusion in an exception message.
 - Extension method `Louis.Diagnostics.StringBuilderExtensions.AppendFormattedObject` appends a text representation for an object, suitable for inclusion in an exception message, to the end of a `StringBuilder`.
