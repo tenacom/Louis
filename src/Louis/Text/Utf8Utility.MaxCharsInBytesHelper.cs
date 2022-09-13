@@ -22,7 +22,7 @@ partial class Utf8Utility
 
         public static int GetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
         {
-            if (maxBytes < 1)
+            if (chars.Length == 0 || maxBytes < 1)
             {
                 return 0;
             }
@@ -35,13 +35,15 @@ partial class Utf8Utility
         {
             foreach (var c in chars)
             {
-                if ((int)c switch {
+                var charAdded = (int)c switch {
                     < 0x80 => TryAddSingleByte(),
                     < 0x800 => TryAddTwoByteSequence(),
                     >= 0xD800 and < 0xDC00 => TryAddHighSurrogate(),
                     >= 0xDC00 and < 0xDFFF => TryAddLowSurrogate(),
                     _ => TryAddThreeByteSequence(),
-                })
+                };
+
+                if (!charAdded)
                 {
                     break;
                 }
@@ -50,21 +52,21 @@ partial class Utf8Utility
             return _totalCharsTaken;
         }
 
-        private bool TryAddSingleByte() => TryAddPrecedingHighSurrogate() || TryAddBytes(1, 1);
+        private bool TryAddSingleByte() => TryAddPrecedingHighSurrogate() && TryAddBytes(1, 1);
 
-        private bool TryAddTwoByteSequence() => TryAddPrecedingHighSurrogate() || TryAddBytes(1, 2);
+        private bool TryAddTwoByteSequence() => TryAddPrecedingHighSurrogate() && TryAddBytes(1, 2);
 
-        private bool TryAddThreeByteSequence() => TryAddPrecedingHighSurrogate() || TryAddBytes(1, 3);
+        private bool TryAddThreeByteSequence() => TryAddPrecedingHighSurrogate() && TryAddBytes(1, 3);
 
         private bool TryAddHighSurrogate()
         {
-            if (TryAddPrecedingHighSurrogate())
+            if (!TryAddPrecedingHighSurrogate())
             {
-                return true;
+                return false;
             }
 
             _highSurrogateEncountered = true;
-            return false;
+            return true;
         }
 
         private bool TryAddLowSurrogate()
@@ -92,7 +94,7 @@ partial class Utf8Utility
         {
             if (!_highSurrogateEncountered)
             {
-                return false;
+                return true;
             }
 
             _highSurrogateEncountered = false;
@@ -103,12 +105,12 @@ partial class Utf8Utility
         {
             if (MaxBytes - _totalBytesAdded < bytesAdded)
             {
-                return true;
+                return false;
             }
 
             _totalCharsTaken += charsTaken;
             _totalBytesAdded += bytesAdded;
-            return false;
+            return true;
         }
     }
 }
