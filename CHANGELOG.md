@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
-- Due to a logic bug, the `Louis.Text.Utf8Utility.GetMaxCharsInBytes` method returned incorrect results. This has been fixed.
-
 ### Known problems introduced by this release
+
+## [1.0.0-preview.8](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.8) (2022-09-13)
+
+### Bugs fixed in this release
+
+- Due to a logic bug, the `Louis.Text.Utf8Utility.GetMaxCharsInBytes` method returned incorrect results. This has been fixed.
 
 ## [1.0.0-preview.7](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.7) (2022-09-13)
 
