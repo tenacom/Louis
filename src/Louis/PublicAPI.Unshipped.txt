@@ -15,7 +15,6 @@ Louis.ArgumentValidation.ArgCheckFunc<T, T1, T2, T3>
 Louis.ArgumentValidation.ArgCheckFunc<T, T1, T2>
 Louis.ArgumentValidation.ArgCheckFunc<T, T1>
 Louis.ArgumentValidation.ArgCheckFunc<T>
-Louis.ArgumentValidation.ArgExtensions
 Louis.ArgumentValidation.ArgHelper
 Louis.ArgumentValidation.ArgumentCheckFunc<T>
 Louis.ArgumentValidation.NullableArg<T>
@@ -190,12 +189,6 @@ static Louis.ArgumentValidation.Arg.Nullable<T>(T? value, string! name = "") -> 
 static Louis.ArgumentValidation.Arg.Nullable<T>(T? value, string! name = "") -> Louis.ArgumentValidation.NullableValueArg<T>
 static Louis.ArgumentValidation.Arg.Value<T>(T value, string! name = "") -> Louis.ArgumentValidation.ValueArg<T>
 static Louis.ArgumentValidation.Arg<T>.implicit operator T!(Louis.ArgumentValidation.Arg<T!> arg) -> T!
-static Louis.ArgumentValidation.ArgExtensions.AbsoluteUri(this Louis.ArgumentValidation.Arg<System.Uri!> this, string? message = null) -> Louis.ArgumentValidation.Arg<System.Uri!>
-static Louis.ArgumentValidation.ArgExtensions.HttpOrHttpsUri(this Louis.ArgumentValidation.Arg<System.Uri!> this) -> Louis.ArgumentValidation.Arg<System.Uri!>
-static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, out System.Uri! uri) -> Louis.ArgumentValidation.Arg<string!>
-static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, out System.Uri! uri, bool enforceHttp) -> Louis.ArgumentValidation.Arg<string!>
-static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, System.Uri! baseUri, out System.Uri! uri) -> Louis.ArgumentValidation.Arg<string!>
-static Louis.ArgumentValidation.ArgExtensions.Url(this Louis.ArgumentValidation.Arg<string!> this, System.Uri! baseUri, out System.Uri! uri, bool enforceHttp) -> Louis.ArgumentValidation.Arg<string!>
 static Louis.ArgumentValidation.ArgHelper.FormatMessage(string! message, object? value) -> string!
 static Louis.ArgumentValidation.ArgHelper.MakeArgumentException(string! name, object? value, string? message) -> System.Exception!
 static Louis.ArgumentValidation.ArgHelper.MakeArgumentException(string! name, object? value, System.Exception! innerException, string? message) -> System.Exception!

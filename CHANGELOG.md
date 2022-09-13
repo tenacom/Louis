@@ -24,6 +24,7 @@ More importantly, `Validated.NotNull` can be used when the type of the checked p
 - **BREAKING CHANGE:** The `ArgHelper` class has been completely revamped and now includes methods that create _and throw_ exceptions, so that calling methods can remain `throw`-less and be better optimized and JITted.
 - **BREAKING CHANGE:** The `AsyncWorker` class has been retired from this project. It may reappear in a future version.
 - **BREAKING CHANGE:** The `ThreadSafeDisposable` class has been retired from this project, as it brought too little value to be of any actual use.
+- **BREAKING CHANGE:** The `ArgExtensions` class, containing methods to check `string` arguments for conformance to URI / URL formats, has been retired. Its methods may reappear in a future version, probably in a different form.
 
 ### Bugs fixed in this release
 
