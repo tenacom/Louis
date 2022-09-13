@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
+- Due to a logic bug, the `Louis.Text.Utf8Utility.GetMaxCharsInBytes` method returned incorrect results. This has been fixed.
+
 ### Known problems introduced by this release
 
 ## [1.0.0-preview.7](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.7) (2022-09-13)
@@ -36,10 +38,6 @@ More importantly, `Validated.NotNull` can be used when the type of the checked p
 - **BREAKING CHANGE:** The `ThreadSafeDisposable` class has been retired from this project, as it brought too little value to be of any actual use.
 - **BREAKING CHANGE:** The `ArgExtensions` class, containing methods to check `string` arguments for conformance to URI / URL formats, has been retired. Its methods may reappear in a future version, probably in a different form.
 - All overloads of the `AppendQuotedClippedLiteral`, `AppendVerbatimClippedLiteral`, and `AppendClippedLiteral` methods (in class `Louis.Text.StringBuilderExtensions`) have been split in two versions (with and without the `useUnicodeEllipsis` parameter) instead of having an optional parameter. This change minimizes the chance of binary incompatibilities with future versions of L.o.U.I.S.
-
-### Bugs fixed in this release
-
-### Known problems introduced by this release
 
 ## [1.0.0-preview.6](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.6) (2022-08-24)
 

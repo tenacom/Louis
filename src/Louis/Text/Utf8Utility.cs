@@ -15,7 +15,7 @@ namespace Louis.Text;
 /// <summary>
 /// Provides useful methods to work with UTF-8 encoding.
 /// </summary>
-public static class Utf8Utility
+public static partial class Utf8Utility
 {
     /// <summary>
     /// <para>An <see cref="Encoding"/> that can be used to encode UTF-8 text without a byte order mark (BOM).</para>
@@ -30,8 +30,8 @@ public static class Utf8Utility
     /// <param name="maxBytes">The maximum number of bytes available for the encoded text.</param>
     /// <returns>The maximum number of characters, starting from the beginning of <paramref name="str"/>,
     /// whose UTF-8 representation will fit in a maximum of <paramref name="maxBytes"/> bytes.</returns>
-    /// <exception cref="System.ArgumentNullException"><paramref name="str"/> is <see langword="null"/>.</exception>
-    /// <exception cref="System.ArgumentException"><paramref name="maxBytes"/> is zero or a negative number.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="str"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="maxBytes"/> is a negative number.</exception>
     /// <remarks>
     /// <para>This method does not use any functionality from the <c>System.Text</c> namespace;
     /// its computations are based solely on the UTF-8 standard.</para>
@@ -43,9 +43,9 @@ public static class Utf8Utility
     /// of available bytes when calling this method.</para>
     /// </remarks>
     public static int GetMaxCharsInBytes(string str, int maxBytes)
-        => UnsafeGetMaxCharsInBytes(
+        => MaxCharsInBytesHelper.GetMaxCharsInBytes(
             Validated.NotNull(str).AsSpan(),
-            Require.Of(maxBytes).GreaterThanZero());
+            Require.Of(maxBytes).GreaterThanOrEqualTo(0));
 
     /// <summary>
     /// Computes the maximum number of characters from a given span
@@ -55,7 +55,7 @@ public static class Utf8Utility
     /// <param name="maxBytes">The maximum number of bytes available for the encoded text.</param>
     /// <returns>The maximum number of characters, starting from the beginning of <paramref name="chars"/>,
     /// whose UTF-8 representation will fit in a maximum of <paramref name="maxBytes"/> bytes.</returns>
-    /// <exception cref="System.ArgumentException"><paramref name="maxBytes"/> is zero or a negative number.</exception>
+    /// <exception cref="ArgumentException"><paramref name="maxBytes"/> is a negative number.</exception>
     /// <remarks>
     /// <para>This method does not use any functionality from the <c>System.Text</c> namespace;
     /// its computations are based solely on the UTF-8 standard.</para>
@@ -67,135 +67,7 @@ public static class Utf8Utility
     /// of available bytes when calling this method.</para>
     /// </remarks>
     public static int GetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
-        => UnsafeGetMaxCharsInBytes(
+        => MaxCharsInBytesHelper.GetMaxCharsInBytes(
             chars,
-            Require.Of(maxBytes).GreaterThanZero());
-
-    internal static int UnsafeGetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
-    {
-        var result = 0;
-        var highSurrogateEncountered = false;
-        foreach (var c in chars)
-        {
-            switch ((int)c)
-            {
-                case < 0x80: // ASCII equivalent -> one byte
-                    if (highSurrogateEncountered)
-                    {
-                        // High surrogate followed by non-surrogate.
-                        // The high surrogate will be encoded as the Unicode replacement character (0xFFFD)
-                        // which takes 3 bytes in UTF-8.
-                        if (AddBytesAndCheckLimit(1, 3))
-                        {
-                            return result;
-                        }
-
-                        highSurrogateEncountered = false;
-                    }
-
-                    if (AddBytesAndCheckLimit(1, 1))
-                    {
-                        return result;
-                    }
-
-                    break;
-
-                case < 0x800: // UTF-16 character -> UTF-8 two-byte sequence
-                    if (highSurrogateEncountered)
-                    {
-                        // High surrogate followed by non-surrogate.
-                        // The high surrogate will be encoded as the Unicode replacement character (0xFFFD)
-                        // which takes 3 bytes in UTF-8.
-                        if (AddBytesAndCheckLimit(1, 3))
-                        {
-                            return result;
-                        }
-
-                        highSurrogateEncountered = false;
-                    }
-
-                    if (AddBytesAndCheckLimit(1, 2))
-                    {
-                        return result;
-                    }
-
-                    break;
-
-                case >= 0xD800 and < 0xDC00: // UTF-16 high surrogate
-                    if (highSurrogateEncountered)
-                    {
-                        // High surrogate is followed by another high surrogate.
-                        // The first high surrogate will be encoded as the Unicode replacement character (0xFFFD)
-                        // which takes 3 bytes in UTF-8.
-                        // The second high surrogate is accounted for, but translates to no UTF-8 bytes for now.
-                        if (AddBytesAndCheckLimit(1, 3))
-                        {
-                            return result;
-                        }
-                    }
-
-                    highSurrogateEncountered = true;
-                    break;
-
-                case >= 0xDC00 and < 0xDFFF: // UTF-16 low surrogate
-                    if (highSurrogateEncountered)
-                    {
-                        // High surrogate followed by low surrogate.
-                        // This means a code point outside of the Basic Multilingual Plane,
-                        // which will be encoded as 4 bytes in UTF-8.
-                        if (AddBytesAndCheckLimit(2, 4))
-                        {
-                            return result;
-                        }
-
-                        highSurrogateEncountered = false;
-                    }
-                    else
-                    {
-                        // Low surrogate without a high surrogate.
-                        // Will be encoded as the Unicode replacement character (0xFFFD) hence 3 bytes.
-                        if (AddBytesAndCheckLimit(1, 3))
-                        {
-                            return result;
-                        }
-                    }
-
-                    break;
-
-                default: // 0x1000..0xFFFF (excluding surrogates) -> UTF-8 three-byte sequence
-                    if (highSurrogateEncountered)
-                    {
-                        // High surrogate followed by non-surrogate.
-                        // The high surrogate will be encoded as the Unicode replacement character (0xFFFD)
-                        // which takes 3 bytes in UTF-8.
-                        if (AddBytesAndCheckLimit(1, 3))
-                        {
-                            return result;
-                        }
-
-                        highSurrogateEncountered = false;
-                    }
-
-                    if (AddBytesAndCheckLimit(1, 3))
-                    {
-                        return result;
-                    }
-
-                    break;
-            }
-        }
-
-        return result;
-
-        bool AddBytesAndCheckLimit(int charsTaken, int bytesAdded)
-        {
-            if (maxBytes - result < bytesAdded)
-            {
-                return true;
-            }
-
-            result += charsTaken;
-            return false;
-        }
-    }
+            Require.Of(maxBytes).GreaterThanOrEqualTo(0));
 }
