@@ -36,7 +36,7 @@ public static class Require
     /// <code>
     /// void Foo(int bar)
     /// {
-    ///     _ = Arg.Of(bar).GreaterThanZero();
+    ///     _ = Require.Of(bar).GreaterThanZero();
     ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
@@ -44,7 +44,7 @@ public static class Require
     /// <code>
     /// void Foo(int bar)
     /// {
-    ///     _ = Arg.Of(bar, nameof(bar)).GreaterThanZero();
+    ///     _ = Require.Of(bar, nameof(bar)).GreaterThanZero();
     ///     // bar is now guaranteed to be > 0
     /// }
     /// </code>
@@ -72,7 +72,7 @@ public static class Require
     /// <code>
     /// void Foo(string? bar)
     /// {
-    ///     _ = Arg.Nullable(bar).NotEmpty();
+    ///     _ = Require.Nullable(bar).NotEmpty();
     ///     // bar is now guaranteed to not be the empty string (but it can be null)
     /// }
     /// </code>
@@ -80,7 +80,7 @@ public static class Require
     /// <code>
     /// void Foo(string? bar)
     /// {
-    ///     _ = Arg.Nullable(bar, nameof(bar)).NotEmpty();
+    ///     _ = Require.Nullable(bar, nameof(bar)).NotEmpty();
     ///     // bar is now guaranteed to not be the empty string (but it can be null)
     /// }
     /// </code>
@@ -110,7 +110,7 @@ public static class Require
     /// <code>
     /// void Foo(int? bar)
     /// {
-    ///     _ = Arg.Nullable(bar).GreaterThanZero();
+    ///     _ = Require.Nullable(bar).GreaterThanZero();
     ///     // bar is now guaranteed to not be either null or > 0
     /// }
     /// </code>
@@ -118,7 +118,7 @@ public static class Require
     /// <code>
     /// void Foo(int? bar)
     /// {
-    ///     _ = Arg.Nullable(bar, nameof(bar)).GreaterThanZero();
+    ///     _ = Require.Nullable(bar, nameof(bar)).GreaterThanZero();
     ///     // bar is now guaranteed to not be either null or > 0
     /// }
     /// </code>
@@ -150,7 +150,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNull(bar);
+    ///     _ = Require.NotNull(bar);
     ///     // bar is now guaranteed to be non-null
     /// }
     /// </code>
@@ -158,7 +158,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNull(bar, nameof(bar));
+    ///     _ = Require.NotNull(bar, nameof(bar));
     ///     // bar is now guaranteed to be non-null
     /// }
     /// </code>
@@ -192,7 +192,7 @@ public static class Require
     /// <code>
     /// void Foo(int? bar)
     /// {
-    ///     _ = Arg.NotNull(bar).GreaterThanZero();
+    ///     _ = Require.NotNull(bar).GreaterThanZero();
     ///     // bar is now guaranteed to be non-null and > 0
     /// }
     /// </code>
@@ -200,7 +200,7 @@ public static class Require
     /// <code>
     /// void Foo(int? bar)
     /// {
-    ///     _ = Arg.NotNull(bar, nameof(bar)).GreaterThanZero();
+    ///     _ = Require.NotNull(bar, nameof(bar)).GreaterThanZero();
     ///     // bar is now guaranteed to be non-null and > 0
     /// }
     /// </code>
@@ -238,7 +238,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNullOrEmpty(bar);
+    ///     _ = Require.NotNullOrEmpty(bar);
     ///     // bar is now guaranteed to be non-null and contain at least one character
     /// }
     /// </code>
@@ -246,7 +246,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNullOrEmpty(bar, nameof(bar));
+    ///     _ = Require.NotNullOrEmpty(bar, nameof(bar));
     ///     // bar is now guaranteed to be non-null and contain at least one character
     /// }
     /// </code>
@@ -285,7 +285,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNullOrWhiteSpace(bar);
+    ///     _ = Require.NotNullOrWhiteSpace(bar);
     ///     // bar is now guaranteed to be non-null and contain at least one non-white-space character
     /// }
     /// </code>
@@ -293,7 +293,7 @@ public static class Require
     /// <code>
     /// void Foo(string bar)
     /// {
-    ///     _ = Arg.NotNullOrWhiteSpace(bar, nameof(bar));
+    ///     _ = Require.NotNullOrWhiteSpace(bar, nameof(bar));
     ///     // bar is now guaranteed to be non-null and contain at least one non-white-space character
     /// }
     /// </code>
