@@ -1,10 +1,5 @@
-﻿// ---------------------------------------------------------------------------------------
-// Copyright (C) Tenacom and L.o.U.I.S. contributors. Licensed under the MIT license.
+﻿// Copyright (c) Tenacom and contributors. Licensed under the MIT license.
 // See the LICENSE file in the project root for full license information.
-//
-// Part of this file may be third-party code, distributed under a compatible license.
-// See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
-// ---------------------------------------------------------------------------------------
 
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
@@ -18,11 +13,11 @@ namespace Louis.Logging;
 partial struct LogInterpolatedStringHandler
 {
     [InterpolatedStringHandler]
-    public ref struct Warning
+    public ref struct Debug
     {
         private LogInterpolatedStringHandler _handler;
 
-        public Warning(int literalLength, int formattedCount, ILogger logger, out bool isEnabled)
+        public Debug(int literalLength, int formattedCount, ILogger logger, out bool isEnabled)
         {
             _handler = new(literalLength, formattedCount, logger, LogLevel.Critical, out isEnabled);
         }

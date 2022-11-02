@@ -1,10 +1,5 @@
-﻿// ---------------------------------------------------------------------------------------
-// Copyright (C) Tenacom and L.o.U.I.S. contributors. Licensed under the MIT license.
+﻿// Copyright (c) Tenacom and contributors. Licensed under the MIT license.
 // See the LICENSE file in the project root for full license information.
-//
-// Part of this file may be third-party code, distributed under a compatible license.
-// See the THIRD-PARTY-NOTICES file in the project root for third-party copyright notices.
-// ---------------------------------------------------------------------------------------
 
 using System;
 using System.Runtime.CompilerServices;
@@ -18,134 +13,134 @@ namespace Louis.Logging;
 partial class LoggerExtensions
 {
     /// <summary>
-    /// Writes a trace log message.
+    /// Writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="message">The log message to write.</param>
-    public static void LogTrace(this ILogger @this, string message)
+    public static void LogError(this ILogger @this, string message)
     {
-        if (@this.IsEnabled(LogLevel.Trace))
+        if (@this.IsEnabled(LogLevel.Error))
         {
-            @this.Log(LogLevel.Trace, message);
+            @this.Log(LogLevel.Error, message);
         }
     }
 
     /// <summary>
-    /// Writes a trace log message.
+    /// Writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="message">The log message to write.</param>
-    public static void LogTrace(this ILogger @this, EventId eventId, string message)
+    public static void LogError(this ILogger @this, EventId eventId, string message)
     {
-        if (@this.IsEnabled(LogLevel.Trace))
+        if (@this.IsEnabled(LogLevel.Error))
         {
-            @this.Log(LogLevel.Trace, eventId, message);
+            @this.Log(LogLevel.Error, eventId, message);
         }
     }
 
     /// <summary>
-    /// Writes a trace log message.
+    /// Writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write.</param>
-    public static void LogTrace(this ILogger @this, Exception? exception, string message)
+    public static void LogError(this ILogger @this, Exception? exception, string message)
     {
-        if (@this.IsEnabled(LogLevel.Trace))
+        if (@this.IsEnabled(LogLevel.Error))
         {
-            @this.Log(LogLevel.Trace, exception, message);
+            @this.Log(LogLevel.Error, exception, message);
         }
     }
 
     /// <summary>
-    /// Writes a trace log message.
+    /// Writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write.</param>
-    public static void LogTrace(this ILogger @this, EventId eventId, Exception? exception, string message)
+    public static void LogError(this ILogger @this, EventId eventId, Exception? exception, string message)
     {
-        if (@this.IsEnabled(LogLevel.Trace))
+        if (@this.IsEnabled(LogLevel.Error))
         {
-            @this.Log(LogLevel.Trace, eventId, exception, message);
+            @this.Log(LogLevel.Error, eventId, exception, message);
         }
     }
 
     /// <summary>
-    /// Formats and writes a trace log message.
+    /// Formats and writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
-    public static void LogTrace(
+    public static void LogError(
         this ILogger @this,
         [InterpolatedStringHandlerArgument("this")]
-        ref LogInterpolatedStringHandler.Trace message)
+        ref LogInterpolatedStringHandler.Error message)
     {
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
-            @this.Log(LogLevel.Trace, template, arguments);
+            @this.Log(LogLevel.Error, template, arguments);
         }
     }
 
     /// <summary>
-    /// Formats and writes a trace log message.
+    /// Formats and writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
-    public static void LogTrace(
+    public static void LogError(
         this ILogger @this,
         EventId eventId,
         [InterpolatedStringHandlerArgument("this")]
-        ref LogInterpolatedStringHandler.Trace message)
+        ref LogInterpolatedStringHandler.Error message)
     {
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
-            @this.Log(LogLevel.Trace, eventId, template, arguments);
+            @this.Log(LogLevel.Error, eventId, template, arguments);
         }
     }
 
     /// <summary>
-    /// Formats and writes a trace log message.
+    /// Formats and writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
-    public static void LogTrace(
+    public static void LogError(
         this ILogger @this,
         Exception? exception,
         [InterpolatedStringHandlerArgument("this")]
-        ref LogInterpolatedStringHandler.Trace message)
+        ref LogInterpolatedStringHandler.Error message)
     {
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
-            @this.Log(LogLevel.Trace, exception, template, arguments);
+            @this.Log(LogLevel.Error, exception, template, arguments);
         }
     }
 
     /// <summary>
-    /// Formats and writes a trace log message.
+    /// Formats and writes an error log message.
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
-    public static void LogTrace(
+    public static void LogError(
         this ILogger @this,
         EventId eventId,
         Exception? exception,
         [InterpolatedStringHandlerArgument("this")]
-        ref LogInterpolatedStringHandler.Trace message)
+        ref LogInterpolatedStringHandler.Error message)
     {
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
-            @this.Log(LogLevel.Trace, eventId, exception, template, arguments);
+            @this.Log(LogLevel.Error, eventId, exception, template, arguments);
         }
     }
 }

@@ -15,6 +15,7 @@ As part of the new build system, versioning is now managed with [`Nerdbank.GitVe
 
 ### Changes to existing features
 
+- **BREAKING CHANGE:** The `Louis.Logging` namespace has been moved to its own library. Therefore, `Louis` no longer depends on `Microsoft.Extensions.Logging.Abstractions`.
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
