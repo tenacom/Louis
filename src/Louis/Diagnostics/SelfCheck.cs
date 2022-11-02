@@ -40,8 +40,8 @@ public static class SelfCheck
         => new(BuildMessage(message, filePath, lineNumber));
 
     /// <summary>
-    /// Creates and returns a critical exception telling that an internal self-check has failed.
-    /// The returned exception should cause the application to terminate immediately.
+    /// Creates and returns a critical exception telling that an internal self-check has failed
+    /// and the application should terminate immediately.
     /// </summary>
     /// <param name="message">The exception message.</param>
     /// <param name="filePath">The path of the source file where this method is called.
@@ -56,8 +56,9 @@ public static class SelfCheck
     /// <see cref="Exception.Message">Message</see> property will contain the specified
     /// <paramref name="message"/>, preceded by an indication of the assembly, source file,
     /// and line number of the failed check.</para>
-    /// <para>The returned exception is of a type that will be considered critical by the <see cref="ExceptionExtensions.IsCriticalError"/>
-    /// method; therefore, assuming critical exception checks are implemented correctly, it will not
+    /// <para>The returned exception is of a type that will be considered a critical error
+    /// by the <see cref="ExceptionExtensions.IsCriticalError"/> method;
+    /// therefore, assuming critical error checks are implemented correctly, it will not
     /// be caught and will cause the application to terminate immediately.</para>
     /// </remarks>
     /// <seealso cref="Failure"/>

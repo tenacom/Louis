@@ -4,12 +4,12 @@
 namespace Louis.Diagnostics;
 
 /// <summary>
-/// Identifies an exception as critical. Critical exceptions indicate an unrecoverable error
+/// Identifies an exception as a critical error. Critical errors indicate an unrecoverable error
 /// that should terminate an application immediately; therefore they should never be caught.
 /// </summary>
 /// <remarks>
-/// <para>Exceptions implementing this interface will be recognized as critical by the
-/// <see cref="ExceptionExtensions.IsCriticalError"/> method.</para>
+/// <para>Exceptions implementing this interface will be recognized as critical errors
+/// by the <see cref="ExceptionExtensions.IsCriticalError"/> method.</para>
 /// <para>While using an empty interface as a marker
 /// <see href="https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1040#rule-description">is usually considered bad practice</see>,
 /// in this case it is the best alternative, because:</para>
