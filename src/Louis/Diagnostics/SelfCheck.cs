@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Louis.Fluency;
 
 namespace Louis.Diagnostics;
 
@@ -191,19 +192,18 @@ public static class SelfCheck
         //   - if filePath is specified, file path length + 2 chars for ": " + 12 chars for "(<line number>)"
         //     (assuming 10 digits for lineNumber, as that's the maximum number of digits for a positive 32-bit integer)
         var capacity = message.Length + assemblyName.Length + 3 + (haveFilePath ? filePath.Length + 14 : 0);
-        var sb = new StringBuilder(capacity)
-                .Append('[')
-                .Append(assemblyName);
-
-        if (haveFilePath)
-        {
-            _ = sb.Append(": ").Append(filePath);
-            if (lineNumber > 0)
-            {
-                _ = sb.Append('(').Append(lineNumber).Append(')');
-            }
-        }
-
-        return sb.Append("] ").Append(message).ToString();
+        return new StringBuilder(capacity)
+            .Append('[')
+            .Append(assemblyName)
+            .If(haveFilePath, x => x
+                .Append(": ")
+                .Append(filePath)
+                .If(lineNumber > 0, y => y
+                    .Append('(')
+                    .Append(lineNumber)
+                    .Append(')')))
+            .Append("] ")
+            .Append(message)
+            .ToString();
     }
 }
