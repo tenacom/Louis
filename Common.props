@@ -3,37 +3,45 @@
   <!-- Branding, ownership, licensing, project information -->
   <PropertyGroup>
     <Product>L.o.U.I.S.</Product>
-    <Authors>Riccardo De Agostini and L.o.U.I.S. contributors</Authors>
-    <Owners>rdeago,tenacom.it</Owners>
+    <Authors>Tenacom and contributors</Authors>
+    <Owners>Tenacom</Owners>
     <Company>Tenacom</Company>
-    <Copyright>Copyright (C) 2022 Riccardo De Agostini and L.o.U.I.S. contributors.</Copyright>
+    <Copyright>Copyright (c) $(Authors)</Copyright>
+    <Trademark />
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/Tenacom/Louis</PackageProjectUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReleaseNotes>See $(PackageProjectUrl)/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Tenacom/Louis.git</RepositoryUrl>
+    <IconInPackage>true</IconInPackage>
+    <ReadmeFileInPackage>true</ReadmeFileInPackage>
+    <LicenseFileInPackage>true</LicenseFileInPackage>
+    <ThirdPartyNoticeInPackage>true</ThirdPartyNoticeInPackage>
+    <UseVersionFile>false</UseVersionFile>
   </PropertyGroup>
 
   <!-- Common build options -->
   <PropertyGroup>
-    <Deterministic>true</Deterministic>
     <LangVersion>latest</LangVersion>
+    <ImplicitUsings>false</ImplicitUsings>
+    <Deterministic>true</Deterministic>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <AnalysisMode>All</AnalysisMode>
-    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     <CLSCompliant>true</CLSCompliant>
     <ComVisible>false</ComVisible>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <!-- Automatic versioning -->
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" />
+  </ItemGroup>
 
   <!-- Solution-wide build options -->
   <PropertyGroup>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <UsePublicApiAnalyzers>true</UsePublicApiAnalyzers>
+    <IsTrimmable>true</IsTrimmable>
+    <EmitCompilerGeneratedFiles Condition="'$(Configuration)' == 'Debug'">true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
 </Project>

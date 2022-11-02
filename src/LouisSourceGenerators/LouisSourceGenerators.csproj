@@ -7,7 +7,6 @@
     <IsPackable>false</IsPackable>
     <XmlDocs>false</XmlDocs>
     <UsePublicApiAnalyzers>false</UsePublicApiAnalyzers>
-    <UsePolyfills>false</UsePolyfills>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,19 @@
+<Project>
+
+  <!-- SourceLink -->
+  <PropertyGroup>
+    <IsPackable Condition="'$(IsPackable)' == '' And '$(IsTestProject)' == 'true'">false</IsPackable>
+    <IsPackable Condition="'$(IsPackable)' == ''">true</IsPackable>
+    <IsPackable Condition="'$(IsPackable)' != 'true'">false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup Condition="$(IsPackable)">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all" />
+  </ItemGroup>
+  <PropertyGroup Condition="$(IsPackable)">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+</Project>

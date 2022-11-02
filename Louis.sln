@@ -22,30 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Configuration", "- Config
 		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
 		stylecop.json = stylecop.json
-		VERSION = VERSION
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- GitHub", "- GitHub", "{40A7FBC7-86AA-499F-B4ED-E6585576DFDA}"
-	ProjectSection(SolutionItems) = preProject
-		.github\dependabot.yml = .github\dependabot.yml
-		.github\labeler.yml = .github\labeler.yml
-		.github\labels.json = .github\labels.json
-		.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issue templates", "Issue templates", "{5A974087-41DA-4401-B591-B5FC925A2127}"
-	ProjectSection(SolutionItems) = preProject
-		.github\ISSUE_TEMPLATE\01_bug_report.md = .github\ISSUE_TEMPLATE\01_bug_report.md
-		.github\ISSUE_TEMPLATE\02_enhancement_proposal.md = .github\ISSUE_TEMPLATE\02_enhancement_proposal.md
-		.github\ISSUE_TEMPLATE\03_blank_issue.md = .github\ISSUE_TEMPLATE\03_blank_issue.md
-		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{85F1BB33-0110-4904-BEF6-5D910DC698D7}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\continuous-integration.yml = .github\workflows\continuous-integration.yml
-		.github\workflows\define-labels.yml = .github\workflows\define-labels.yml
-		.github\workflows\label-pull-requests.yml = .github\workflows\label-pull-requests.yml
+		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF6E590F-F997-442E-8F77-356C7E4DF275}"
@@ -85,8 +62,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5A974087-41DA-4401-B591-B5FC925A2127} = {40A7FBC7-86AA-499F-B4ED-E6585576DFDA}
-		{85F1BB33-0110-4904-BEF6-5D910DC698D7} = {40A7FBC7-86AA-499F-B4ED-E6585576DFDA}
 		{62064F40-927E-4421-AF63-AAD08A8CC360} = {AF6E590F-F997-442E-8F77-356C7E4DF275}
 		{80A11279-C52A-4437-AA1A-0380EF133576} = {AF6E590F-F997-442E-8F77-356C7E4DF275}
 		{E9C789C3-E611-4BF1-BCEF-73F2F4BF13BB} = {75CB1268-E052-4A3F-8022-2C21C84D9B32}
