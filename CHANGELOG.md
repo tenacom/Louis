@@ -16,6 +16,11 @@ As part of the new build system, versioning is now managed with [`Nerdbank.GitVe
 ### Changes to existing features
 
 - **BREAKING CHANGE:** The `Louis.Logging` namespace has been moved to its own library. Therefore, `Louis` no longer depends on `Microsoft.Extensions.Logging.Abstractions`.
+- The algorithm used by `ExceptionHelper.FormatObject` has changed as follows:
+  - any exception thrown while trying to format an instance of `IFormattable` causes a fallback (previously, exceptions different from `FormatException` were not caught);
+  - if formatting an `IFormattable` with an empty format causes an exception, the fallback action is now to treat the object as non-formattable (previously, the string `<invalid_format>` was returned);
+  - an exception thrown by `obj.ToString()` causes a string like `<{objTypeName}:{exceptionTypeName}>` to be returned (previously, only the exception type name was specified in the returned string).
+
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release

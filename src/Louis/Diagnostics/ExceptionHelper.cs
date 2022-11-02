@@ -29,12 +29,6 @@ public static class ExceptionHelper
     /// </summary>
     public const string ToStringEmptyText = "<empty!>";
 
-    /// <summary>
-    /// The text used by <see cref="FormatObject"/> to represent instances of <see cref="IFormattable"/>
-    /// that cannot be formatted.
-    /// </summary>
-    public const string InvalidFormatText = "<invalid_format>";
-
 #pragma warning disable SA1629 // Documentation text should end with a period - The colon in the <remarks> section is as intended.
     /// <summary>
     /// Returns a text representation of an object.
@@ -53,16 +47,27 @@ public static class ExceptionHelper
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/#quoted-string-literals">quoted string literal</see>,
     /// clipping it if longer than 43 characters by leaving the first and last 20 characters
     /// separated by an ellipsis (three dots);</description></item>
-    /// <item><description>if <paramref name="obj"/> implements <see cref="IFormattable"/>, try to format it
-    /// using the specified <paramref name="format"/> and the <see cref="CultureInfo.InvariantCulture">invariant culture</see>;
-    /// on <see cref="FormatException"/>, fall back to an empty format string,
-    /// then fall further back by returning <see cref="InvalidFormatText"/>;</description></item>
-    /// <item><description>if <paramref name="obj"/> is the <see langword="default"/> value of a
-    /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value type</see>,
-    /// return <see cref="NullText"/>;</description></item>
-    /// <item><description>otherwise, call <paramref name="obj"/>.<see cref="object.ToString">ToString()</see> and return the result.
-    /// If <c>ToString</c> throws an exception, return the exception's type name between angle brackets.</description></item>
+    /// <item><description>otherwise, check whether <paramref name="obj"/> implements <see cref="IFormattable"/>
+    /// and act accordingly.</description></item>
     /// </list>
+    /// <para>If <paramref name="obj"/> implements <see cref="IFormattable"/>:</para>
+    /// <list type="bullet">
+    /// <item><description>try to format <paramref name="obj"/> using the specified <paramref name="format"/>
+    /// and the <see cref="CultureInfo.InvariantCulture">invariant culture</see>;</description></item>
+    /// <item><description>if an exception is thrown, try again using an empty format string;</description></item>
+    /// <item><description>if another exception is thrown, treat <paramref name="obj"/> as if it didn't implement <see cref="IFormattable"/>.</description></item>
+    /// </list>
+    /// <para>If <paramref name="obj"/> does not implement <see cref="IFormattable"/>:</para>
+    /// <list type="bullet">
+    /// <item><description>call <paramref name="obj"/>.<see cref="object.ToString">ToString()</see>;</description></item>
+    /// <item><description>if <c>ToString</c> throws an exception, return a string of the form <c>&lt;{objType}:{exceptionType}&gt;</c>;</description></item>
+    /// <item><description>if <c>ToString</c> returns <see langword="null"/>, return <see cref="ToStringNullText"/>;</description></item>
+    /// <item><description>if <c>ToString</c> returns the empty string, return <see cref="ToStringNullText"/>;</description></item>
+    /// <item><description>otherwise, return the result of <c>ToString</c>.</description></item>
+    /// </list>
+    /// <para>Keep in mind that instances of <see href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</see>
+    /// will be passed <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#boxing-and-unboxing">boxed</see>
+    /// and therefore seen as either <see langword="null"/> or a non-nullable value.</para>
     /// </remarks>
 #pragma warning restore SA1629 // Documentation text should end with a period
     public static string FormatObject(object? obj, string? format = null)
@@ -73,31 +78,30 @@ public static class ExceptionHelper
             _ => FormatNonFormattable(obj),
         };
 
-    internal static string FormatFormattable(IFormattable formattable, string? format)
+    private static string FormatFormattable(IFormattable formattable, string? format)
     {
         try
         {
             return formattable.ToString(format, CultureInfo.InvariantCulture);
         }
-        catch (FormatException)
+        catch (Exception e) when (!e.IsCriticalError())
         {
-            if (string.IsNullOrEmpty(format))
+            if (!string.IsNullOrEmpty(format))
             {
-                return InvalidFormatText;
+                try
+                {
+                    return formattable.ToString(string.Empty, CultureInfo.InvariantCulture);
+                }
+                catch (Exception e2) when (!e2.IsCriticalError())
+                {
+                }
             }
 
-            try
-            {
-                return formattable.ToString(string.Empty, CultureInfo.InvariantCulture);
-            }
-            catch (FormatException)
-            {
-                return InvalidFormatText;
-            }
+            return FormatNonFormattable(formattable);
         }
     }
 
-    internal static string FormatNonFormattable(object obj)
+    private static string FormatNonFormattable(object obj)
     {
         string? result;
         try
@@ -106,11 +110,11 @@ public static class ExceptionHelper
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
-            return $"<{e.GetType().Name}>";
+            return $"<{obj.GetType().Name}:{e.GetType().Name}>";
         }
 
-        return result == null ? (Nullable.GetUnderlyingType(obj.GetType()) != null ? NullText : ToStringNullText)
-            : result.Length == 0 ? (Nullable.GetUnderlyingType(obj.GetType()) != null ? NullText : ToStringEmptyText)
+        return result == null ? ToStringNullText
+            : result.Length == 0 ? ToStringEmptyText
             : result;
     }
 }

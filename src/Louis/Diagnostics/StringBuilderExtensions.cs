@@ -3,7 +3,6 @@
 
 using System;
 using System.Text;
-using Louis.Text;
 
 namespace Louis.Diagnostics;
 
@@ -22,10 +21,5 @@ public static class StringBuilderExtensions
     /// implements <see cref="IFormattable"/>.</param>
     /// <returns>A reference to this instance after the append operation has completed..</returns>
     public static StringBuilder AppendFormattedObject(this StringBuilder @this, object? obj, string? format = null)
-        => obj switch {
-            null => @this.Append(ExceptionHelper.NullText),
-            string str => @this.AppendClippedQuotedLiteral(str, 20, 20, false),
-            IFormattable formattable => @this.Append(ExceptionHelper.FormatFormattable(formattable, format)),
-            _ => @this.Append(ExceptionHelper.FormatNonFormattable(obj)),
-        };
+        => @this.Append(ExceptionHelper.FormatObject(obj, format));
 }
