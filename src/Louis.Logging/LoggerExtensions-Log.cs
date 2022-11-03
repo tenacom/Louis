@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace Louis.Logging;
@@ -21,7 +21,8 @@ partial class LoggerExtensions
     /// <param name="message">The log message to write.</param>
     public static void Log(this ILogger @this, LogLevel logLevel, string message)
     {
-        _ = Validated.NotNull(@this);
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(logLevel))
         {
             @this.Log(logLevel, NullEventId, message, null, StaticMessageFormatter);
@@ -37,7 +38,8 @@ partial class LoggerExtensions
     /// <param name="message">The log message to write.</param>
     public static void Log(this ILogger @this, LogLevel logLevel, EventId eventId, string message)
     {
-        _ = Validated.NotNull(@this);
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(logLevel))
         {
             @this.Log(logLevel, eventId, message, null, StaticMessageFormatter);
@@ -53,7 +55,8 @@ partial class LoggerExtensions
     /// <param name="message">The log message to write.</param>
     public static void Log(this ILogger @this, LogLevel logLevel, Exception? exception, string message)
     {
-        _ = Validated.NotNull(@this);
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(logLevel))
         {
             @this.Log(logLevel, NullEventId, message, exception, StaticMessageFormatter);
@@ -70,7 +73,8 @@ partial class LoggerExtensions
     /// <param name="message">The log message to write.</param>
     public static void Log(this ILogger @this, LogLevel logLevel, EventId eventId, Exception? exception, string message)
     {
-        _ = Validated.NotNull(@this);
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(logLevel))
         {
             @this.Log(logLevel, eventId, message, exception, StaticMessageFormatter);

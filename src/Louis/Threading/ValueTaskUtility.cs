@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Threading;
 
@@ -22,7 +22,8 @@ public static class ValueTaskUtility
     /// <exception cref="ArgumentNullException"><paramref name="valueTasks"/> is <see langword="null"/>.</exception>
     public static async ValueTask WhenAll(IEnumerable<ValueTask> valueTasks)
     {
-        _ = Validated.NotNull(valueTasks);
+        Guard.IsNotNull(valueTasks);
+
         var pendingTasks = valueTasks.Where(vt => !vt.IsCompletedSuccessfully).Select(vt => vt.AsTask()).ToList();
         if (pendingTasks.Count > 0)
         {

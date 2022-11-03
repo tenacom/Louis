@@ -3,7 +3,7 @@
 
 using System;
 using System.Text;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Text;
 
@@ -16,7 +16,11 @@ partial class StringBuilderExtensions
     /// <param name="provider">The method to call.</param>
     /// <returns>A reference to <paramref name="this"/> after the operation is completed.</returns>
     public static StringBuilder AppendResult(this StringBuilder @this, Func<string?> provider)
-        => @this.Append(Validated.NotNull(provider)());
+    {
+        Guard.IsNotNull(provider);
+
+        return @this.Append(provider());
+    }
 
     /// <summary>
     /// Appends the result of a method to the end of this builder.
@@ -25,9 +29,13 @@ partial class StringBuilderExtensions
     /// <param name="func">The method to call.</param>
     /// <returns>A reference to <paramref name="this"/> after the operation is completed.</returns>
     public static StringBuilder AppendResult(this StringBuilder @this, ReadOnlySpanFunc<char> func)
-#if NETSTANDARD2_0 || NETFRAMEWORK
-        => @this.Append(Validated.NotNull(func)().ToString());
+    {
+        Guard.IsNotNull(func);
+
+#if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
+        return @this.Append(func());
 #else
-        => @this.Append(Validated.NotNull(func)());
+        return @this.Append(func().ToString());
 #endif
+    }
 }

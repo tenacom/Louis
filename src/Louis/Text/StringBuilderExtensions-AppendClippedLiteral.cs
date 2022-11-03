@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using CommunityToolkit.Diagnostics;
 using Louis.Diagnostics;
 using Louis.Text.Internal;
 
@@ -383,7 +384,7 @@ partial class StringBuilderExtensions
         => literalKind switch {
             StringLiteralKind.Quoted => AppendClippedQuotedLiteral(@this, chars, headLength, tailLength, useUnicodeEllipsis),
             StringLiteralKind.Verbatim => AppendClippedVerbatimLiteral(@this, chars, headLength, tailLength, useUnicodeEllipsis),
-            _ => Throw.Argument<StringBuilder>($"{literalKind} is not a valid {nameof(StringLiteralKind)}.", nameof(literalKind)),
+            _ => ThrowHelper.ThrowArgumentException<StringBuilder>(nameof(literalKind), $"{literalKind} is not a valid {nameof(StringLiteralKind)}."),
         };
 
     private static StringBuilder AppendEllipsis(this StringBuilder @this, bool useUnicodeEllipsis)

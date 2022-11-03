@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 using Louis.Text;
 using Microsoft.Extensions.Logging;
 
@@ -31,8 +31,10 @@ public ref partial struct LogInterpolatedStringHandler
 
     public LogInterpolatedStringHandler(int literalLength, int formattedCount, ILogger logger, LogLevel logLevel, out bool isEnabled)
     {
+        Guard.IsNotNull(logger);
+
         _argumentIndex = 0;
-        isEnabled = IsEnabled = Validated.NotNull(logger).IsEnabled(logLevel);
+        isEnabled = IsEnabled = logger.IsEnabled(logLevel);
         if (isEnabled)
         {
             _templateBuilder ??= new(InitialTemplateCapacity);

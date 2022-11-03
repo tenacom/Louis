@@ -3,7 +3,7 @@
 
 using System;
 using System.Text;
-using Louis.Diagnostics;
+using CommunityToolkit.Diagnostics;
 using Louis.Text.Internal;
 
 namespace Louis.Text;
@@ -103,6 +103,6 @@ partial class StringBuilderExtensions
         => literalKind switch {
             StringLiteralKind.Quoted => AppendQuotedLiteral(@this, chars),
             StringLiteralKind.Verbatim => AppendVerbatimLiteral(@this, chars),
-            _ => Throw.Argument<StringBuilder>($"{literalKind} is not a valid {nameof(StringLiteralKind)}.", nameof(literalKind)),
+            _ => ThrowHelper.ThrowArgumentException<StringBuilder>(nameof(literalKind), $"{literalKind} is not a valid {nameof(StringLiteralKind)}."),
         };
 }

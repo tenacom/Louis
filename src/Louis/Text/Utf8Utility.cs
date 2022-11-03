@@ -3,7 +3,7 @@
 
 using System;
 using System.Text;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Text;
 
@@ -26,7 +26,7 @@ public static partial class Utf8Utility
     /// <returns>The maximum number of characters, starting from the beginning of <paramref name="str"/>,
     /// whose UTF-8 representation will fit in a maximum of <paramref name="maxBytes"/> bytes.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="str"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="maxBytes"/> is a negative number.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBytes"/> is a negative number.</exception>
     /// <remarks>
     /// <para>This method does not use any functionality from the <c>System.Text</c> namespace;
     /// its computations are based solely on the UTF-8 standard.</para>
@@ -38,9 +38,12 @@ public static partial class Utf8Utility
     /// of available bytes when calling this method.</para>
     /// </remarks>
     public static int GetMaxCharsInBytes(string str, int maxBytes)
-        => MaxCharsInBytesHelper.GetMaxCharsInBytes(
-            Validated.NotNull(str).AsSpan(),
-            Require.Of(maxBytes).GreaterThanOrEqualTo(0));
+    {
+        Guard.IsNotNull(str);
+        Guard.IsGreaterThanOrEqualTo(maxBytes, 0);
+
+        return MaxCharsInBytesHelper.GetMaxCharsInBytes(str.AsSpan(), maxBytes);
+    }
 
     /// <summary>
     /// Computes the maximum number of characters from a given span
@@ -50,7 +53,7 @@ public static partial class Utf8Utility
     /// <param name="maxBytes">The maximum number of bytes available for the encoded text.</param>
     /// <returns>The maximum number of characters, starting from the beginning of <paramref name="chars"/>,
     /// whose UTF-8 representation will fit in a maximum of <paramref name="maxBytes"/> bytes.</returns>
-    /// <exception cref="ArgumentException"><paramref name="maxBytes"/> is a negative number.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBytes"/> is a negative number.</exception>
     /// <remarks>
     /// <para>This method does not use any functionality from the <c>System.Text</c> namespace;
     /// its computations are based solely on the UTF-8 standard.</para>
@@ -62,7 +65,9 @@ public static partial class Utf8Utility
     /// of available bytes when calling this method.</para>
     /// </remarks>
     public static int GetMaxCharsInBytes(ReadOnlySpan<char> chars, int maxBytes)
-        => MaxCharsInBytesHelper.GetMaxCharsInBytes(
-            chars,
-            Require.Of(maxBytes).GreaterThanOrEqualTo(0));
+    {
+        Guard.IsGreaterThanOrEqualTo(maxBytes, 0);
+
+        return MaxCharsInBytesHelper.GetMaxCharsInBytes(chars, maxBytes);
+    }
 }

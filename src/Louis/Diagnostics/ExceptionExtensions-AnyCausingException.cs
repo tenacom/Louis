@@ -2,7 +2,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using Louis.ArgumentValidation;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Diagnostics;
 
@@ -24,7 +24,11 @@ partial class ExceptionExtensions
     /// but is faster and allocates less memory. It is used internally by the <see cref="IsCriticalError"/> method.</para>
     /// </remarks>
     public static bool AnyCausingException(this Exception @this, Func<Exception, bool> predicate)
-        => AnyCausingExceptionCore(@this, Validated.NotNull(predicate));
+    {
+        Guard.IsNotNull(predicate);
+
+        return AnyCausingExceptionCore(@this, predicate);
+    }
 
     private static bool AnyCausingExceptionCore(Exception exception, Func<Exception, bool> predicate)
     {

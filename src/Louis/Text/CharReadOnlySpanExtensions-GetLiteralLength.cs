@@ -3,7 +3,7 @@
 
 using System;
 using System.Globalization;
-using Louis.Diagnostics;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Text;
 
@@ -88,6 +88,6 @@ partial class CharReadOnlySpanExtensions
         => literalKind switch {
             StringLiteralKind.Quoted => GetQuotedLiteralLength(@this),
             StringLiteralKind.Verbatim => GetVerbatimLiteralLength(@this),
-            _ => Throw.Argument<int>($"{literalKind} is not a valid {nameof(StringLiteralKind)}.", nameof(literalKind)),
+            _ => ThrowHelper.ThrowArgumentException<int>(nameof(literalKind), $"{literalKind} is not a valid {nameof(StringLiteralKind)}."),
         };
 }
