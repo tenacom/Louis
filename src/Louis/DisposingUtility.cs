@@ -26,6 +26,8 @@ public static class DisposingUtility
     /// it is disposed synchronously and this method returns a completed <see cref="ValueTask"/>.</para>
     /// <para>Otherwise, or if <paramref name="obj"/> is <see langword="null"/>,
     /// this method immediately returns a completed <see cref="ValueTask"/>.</para>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
     /// <seealso cref="Dispose"/>
     public static ValueTask DisposeAsync(object? obj)
@@ -54,6 +56,8 @@ public static class DisposingUtility
     /// and the resulting <see cref="ValueTask"/> is awaited before this method returns.</para>
     /// <para>Otherwise, or if <paramref name="obj"/> is <see langword="null"/>,
     /// this method returns immediately.</para>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
     /// <seealso cref="DisposeAsync"/>
     public static void Dispose(object? obj)
@@ -76,8 +80,12 @@ public static class DisposingUtility
     /// </summary>
     /// <param name="items">The objects to dispose.</param>
     /// <returns>A <see cref="ValueTask"/> representing the ongoing operation.</returns>
-    /// <remarks>This method works by calling <see cref="EnumerableExtensions.DisposeAllAsync"/>
-    /// on the <paramref name="items"/> array.</remarks>
+    /// <remarks>
+    /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAllAsync"/>
+    /// on the <paramref name="items"/> array.</para>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
+    /// </remarks>
     /// <seealso cref="EnumerableExtensions.DisposeAllAsync"/>
     public static ValueTask DisposeAllAsync(params object?[] items) => items.DisposeAllAsync();
 
@@ -85,8 +93,12 @@ public static class DisposingUtility
     /// Synchronously dispose all specified disposable objects.
     /// </summary>
     /// <param name="items">The objects to dispose.</param>
-    /// <remarks>This method works by calling <see cref="EnumerableExtensions.DisposeAll"/>
-    /// on the <paramref name="items"/> array.</remarks>
+    /// <remarks>
+    /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAll"/>
+    /// on the <paramref name="items"/> array.</para>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
+    /// </remarks>
     /// <seealso cref="EnumerableExtensions.DisposeAll"/>
     public static void DisposeAll(params object?[] items) => items.DisposeAll();
 }

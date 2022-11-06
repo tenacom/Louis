@@ -20,6 +20,10 @@ partial class EnumerableExtensions
     /// <exception cref="AggregateException">
     /// One or more exceptions were raised by the <see cref="IAsyncDisposable.DisposeAsync"/>
     /// and/or <see cref="IDisposable.Dispose"/> methods of items.</exception>
+    /// <remarks>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
+    /// </remarks>
     public static async ValueTask DisposeAllAsync(this IEnumerable @this)
     {
         List<Exception>? exceptions = null;
@@ -86,6 +90,10 @@ partial class EnumerableExtensions
     /// <exception cref="AggregateException">
     /// One or more exceptions were raised by the <see cref="IDisposable.Dispose"/>
     /// and/or <see cref="IAsyncDisposable.DisposeAsync"/> methods of items.</exception>
+    /// <remarks>
+    /// <para>This method will not dispose
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
+    /// </remarks>
     public static void DisposeAll(this IEnumerable @this)
     {
         List<Exception>? exceptions = null;
