@@ -142,5 +142,6 @@ static Louis.Text.Utf8Utility.GetMaxCharsInBytes(string! str, int maxBytes) -> i
 static Louis.Text.Utf8Utility.GetMaxCharsInBytes(System.ReadOnlySpan<char> chars, int maxBytes) -> int
 static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
 static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
+static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.ValueTask[]! valueTasks) -> System.Threading.Tasks.ValueTask
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
