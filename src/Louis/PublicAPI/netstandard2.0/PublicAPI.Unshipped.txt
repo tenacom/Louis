@@ -3,6 +3,7 @@ const Louis.Diagnostics.ExceptionHelper.InvalidFormatText = "<invalid_format>" -
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringNullText = "<null!>" -> string!
+Louis.AsyncDisposableExtensions
 Louis.Collections.EnumerableExtensions
 Louis.Diagnostics.CriticalInternalErrorException
 Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException() -> void
@@ -48,6 +49,7 @@ Louis.Threading.ValueTaskUtility
 override Louis.Threading.InterlockedFlag.Equals(object? obj) -> bool
 override Louis.Threading.InterlockedFlag.GetHashCode() -> int
 override Louis.Threading.InterlockedFlag.ToString() -> string!
+static Louis.AsyncDisposableExtensions.DisposeSynchronously(this System.IAsyncDisposable! this) -> void
 static Louis.Collections.EnumerableExtensions.DisposeAll(this System.Collections.IEnumerable! this) -> void
 static Louis.Collections.EnumerableExtensions.DisposeAllAsync(this System.Collections.IEnumerable! this) -> System.Threading.Tasks.ValueTask
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
