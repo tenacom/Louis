@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    height="640"
    width="1280"
-   sodipodi:docname="Louis-SocialCard.svg"
+   sodipodi:docname="SocialCard.svg"
    id="svg16"
    version="1.1"
    y="0px"
@@ -44,9 +44,9 @@
      inkscape:window-maximized="1"
      inkscape:window-y="-8"
      inkscape:window-x="-8"
-     inkscape:cy="320.1617"
+     inkscape:cy="320"
      inkscape:cx="640"
-     inkscape:zoom="1.5460938"
+     inkscape:zoom="1.5375"
      inkscape:snap-page="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox="true"
@@ -319,42 +319,6 @@
          style="fill:none;stroke:#660000;stroke-width:18;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
   </g>
-  <g
-     aria-label="L.o.U.I.S."
-     transform="scale(1.0508367,0.95162264)"
-     id="text835"
-     style="font-weight:bold;font-size:168.142px;line-height:1.25;font-family:Repo;-inkscape-font-specification:'Repo, Bold';letter-spacing:0px;word-spacing:0px;fill:#660000;stroke:#ff9999;stroke-width:3.98729;stroke-opacity:0.501961">
-    <path
-       d="M 563.99778,207.05607 V 187.04718 H 522.63485 V 88.347823 H 496.74098 V 207.05607 Z"
-       id="path477" />
-    <path
-       d="m 619.31653,193.77286 c 0,-8.74339 -6.72568,-14.96464 -14.96463,-14.96464 -8.23896,0 -15.13278,6.22125 -15.13278,15.13278 0,8.91152 6.89382,14.79649 15.13278,14.79649 8.23895,0 14.96463,-5.88497 14.96463,-14.96463 z"
-       id="path479" />
-    <path
-       d="m 712.29907,161.15331 c 0,-28.24786 -15.97349,-47.92047 -42.0355,-47.92047 -25.89386,0 -42.0355,19.67261 -42.0355,47.92047 0,28.24785 15.80535,47.92047 42.0355,47.92047 26.3983,0 42.0355,-19.67262 42.0355,-47.92047 z m -25.05315,-0.16814 c 0,16.47791 -4.87612,28.58414 -16.98235,28.58414 -12.10622,0 -17.15048,-12.10623 -17.15048,-28.58414 0,-16.30978 4.87612,-28.92043 17.15048,-28.92043 12.10623,0 16.98235,12.44251 16.98235,28.92043 z"
-       id="path481" />
-    <path
-       d="m 754.16643,193.77286 c 0,-8.74339 -6.72568,-14.96464 -14.96464,-14.96464 -8.23896,0 -15.13278,6.22125 -15.13278,15.13278 0,8.91152 6.89382,14.79649 15.13278,14.79649 8.23896,0 14.96464,-5.88497 14.96464,-14.96463 z"
-       id="path483" />
-    <path
-       d="M 855.55604,166.87014 V 88.347823 h -24.88501 v 66.416087 c 0,5.2124 -0.16815,10.08852 -0.50443,14.62836 -0.84071,12.77879 -8.23896,18.49562 -18.15934,18.49562 -15.13277,0 -18.8319,-10.59295 -18.8319,-32.95584 V 88.347823 h -25.72572 v 70.451497 c 0,5.54869 0.33628,10.92923 0.84071,16.14163 2.52213,20.68147 17.99119,34.30097 43.04435,34.30097 28.75228,0 44.22134,-17.31863 44.22134,-42.37178 z"
-       id="path485" />
-    <path
-       d="m 905.6622,193.77286 c 0,-8.74339 -6.72568,-14.96464 -14.96464,-14.96464 -8.23896,0 -15.13278,6.22125 -15.13278,15.13278 0,8.91152 6.89382,14.79649 15.13278,14.79649 8.23896,0 14.96464,-5.88497 14.96464,-14.96463 z"
-       id="path487" />
-    <path
-       d="M 950.55623,207.05607 V 88.347823 H 924.66236 V 207.05607 Z"
-       id="path489" />
-    <path
-       d="m 998.47659,193.77286 c 0,-8.74339 -6.72568,-14.96464 -14.96464,-14.96464 -8.23895,0 -15.13278,6.22125 -15.13278,15.13278 0,8.91152 6.89383,14.79649 15.13278,14.79649 8.23896,0 14.96464,-5.88497 14.96464,-14.96463 z"
-       id="path491" />
-    <path
-       d="m 1089.9461,173.25953 c 0,-16.64606 -7.3983,-26.90272 -27.7434,-35.6461 -13.1151,-5.38055 -22.0266,-9.07967 -22.0266,-18.66376 0,-8.4071 5.8849,-12.7788 16.4779,-12.7788 8.7434,0 16.4779,3.02656 22.3629,6.55754 l 6.8938,-18.663759 c -6.8938,-4.035408 -18.1594,-7.902674 -31.6107,-7.902674 -22.1948,0 -36.9913,12.106224 -39.3452,30.097413 -0.3363,3.02656 -0.3363,6.05312 0,8.91153 1.1769,13.11508 9.584,22.69917 24.885,29.59299 15.8053,6.22126 23.3717,10.08852 23.3717,19.50447 0,8.91153 -6.2212,13.78765 -18.1593,13.78765 -11.4337,0 -20.3452,-3.86727 -25.8939,-7.06197 -2.1858,6.55754 -4.5398,13.28322 -6.7257,19.84076 6.2213,4.03541 17.8231,8.23896 35.1417,8.23896 26.2302,0 42.3718,-13.95579 42.3718,-35.81425 z"
-       id="path493" />
-    <path
-       d="m 1140.0523,193.77286 c 0,-8.74339 -6.7256,-14.96464 -14.9646,-14.96464 -8.239,0 -15.1328,6.22125 -15.1328,15.13278 0,8.91152 6.8938,14.79649 15.1328,14.79649 8.239,0 14.9646,-5.88497 14.9646,-14.96463 z"
-       id="path495" />
-  </g>
   <text
      id="text839"
      y="321.25848"
@@ -378,7 +342,18 @@
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:39.2563px;line-height:1.25;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#331524;fill-opacity:1;stroke:none;stroke-width:0.464583"
      xml:space="preserve"><tspan
        sodipodi:role="line"
-       id="tspan862"
+       id="tspan1006"
        x="264.4487"
-       y="551.9494">https://github.com/tenacom/Louis</tspan></text>
+       y="551.9494">https://github.com/Tenacom/Louis</tspan></text>
+  <text
+     id="text1002"
+     y="208.3213"
+     x="511.31085"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:176.106px;line-height:1.05;font-family:Repo;-inkscape-font-specification:'Repo, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#660000;fill-opacity:1;stroke:#ff9999;stroke-width:6.21988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.501961;paint-order:normal"
+     xml:space="preserve"><tspan
+       sodipodi:role="line"
+       id="tspan1004"
+       x="511.31085"
+       y="208.3213"
+       style="stroke-width:6.21988">L.o.U.I.S.</tspan></text>
 </svg>

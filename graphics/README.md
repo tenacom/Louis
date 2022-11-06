@@ -1,52 +1,52 @@
 # Graphics
 
-All the following graphics, except for third-party material, are provided under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
+All the graphic elements listed below, except where otherwise specified, are Copyright (c) Tenacom and contributors and are licensed under the MIT license. See the LICENSE file in the project root for full license information.
 
-## `Louis`
+## `SquareLogo`
 
-Reference logo, basic square logo. Also used as NuGet package icon.
+Reference logo, basic square logo. Used as NuGet package icon, favicon for web-based documentation, and anywhere a square-shaped logo is needed or preferred.
 
 This is a modified version of [Happy](#happy). Modified by [@rdeago](https://github.com/rdeago).
 
 Related files:
 
 - `PackageIcon.png` (512x512px)
-![PackageIcon](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/PackageIcon.png)
+![PackageIcon.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/PackageIcon.png)
 
-## `Louis-Readme`
+- `docs/logo.svg` (optimized)
+![docs/logo.svg](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/logo.png)
+
+- `docs/favicon.ico` (16x16px,32bpp; 32x32px,32bpp; 48x48px,32bpp; 64x64px,32bpp; 128x128px,32bpp)
+![docs/favicon.ico](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/favicon.ico)
+
+## `Readme`
 
 Graphic header for README file.
 
-Uses the following material:
-
-- [Louis](#louis)
-- [Repo](#repo)
-- [Pragati Narrow](#pragati-narrow)
+Uses the following materials: [SquareLogo](#squarelogo); [Repo](#repo); [Pragati Narrow](#pragati-narrow).
 
 Related files:
 
 - `Readme.png` (540x160px)
 ![Readme.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/Readme.png)
 
-## `Louis-SocialCard`
+- `docs/images/banner.png` (540x160px)
+![docs/images/banner.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/images/banner.png)
+
+## `SocialCard`
 
 Social card for GitHub project.
 
-Uses the following material:
-
-- [Louis](#louis)
-- [Repo](#repo)
-- [Pragati Narrow](#pragati-narrow)
-- [Courier Prime](#courier-prime)
+Uses the following materials: [SquareLogo](#squarelogo); [Repo](#repo); [Pragati Narrow](#pragati-narrow); [Courier Prime](#courier-prime).
 
 Related files:
 
 - `SocialCard.png` (1280x640px)
 ![SocialCard.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/SocialCard.png)
 
-## Third-party material
+## Third-party materials
 
-The following third-party material was used to produce the above files.
+The following third-party materials were used to produce the above files.
 
 ### Happy
 
