@@ -47,49 +47,6 @@ Louis.Threading.ValueTaskUtility
 override Louis.Threading.InterlockedFlag.Equals(object? obj) -> bool
 override Louis.Threading.InterlockedFlag.GetHashCode() -> int
 override Louis.Threading.InterlockedFlag.ToString() -> string!
-static Louis.ArgumentValidation.Arg<T>.implicit operator T!(Louis.ArgumentValidation.Arg<T!> arg) -> T!
-static Louis.ArgumentValidation.ArgHelper.FormatArgumentExceptionMessage(string? format, object? value) -> string!
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentException<T>(Louis.ArgumentValidation.Arg<T!> arg, string? format) -> Louis.ArgumentValidation.Arg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentException<T>(Louis.ArgumentValidation.NullableArg<T!> arg, string? format) -> Louis.ArgumentValidation.NullableArg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentException<T>(Louis.ArgumentValidation.NullableValueArg<T> arg, string? format) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentException<T>(Louis.ArgumentValidation.ValueArg<T> arg, string? format) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentOutOfRangeException<T>(Louis.ArgumentValidation.Arg<T!> arg, string? format) -> Louis.ArgumentValidation.Arg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentOutOfRangeException<T>(Louis.ArgumentValidation.NullableArg<T!> arg, string? format) -> Louis.ArgumentValidation.NullableArg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentOutOfRangeException<T>(Louis.ArgumentValidation.NullableValueArg<T> arg, string? format) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowArgumentOutOfRangeException<T>(Louis.ArgumentValidation.ValueArg<T> arg, string? format) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowCallbackCannotBeNull<T>(Louis.ArgumentValidation.Arg<T!> arg) -> Louis.ArgumentValidation.Arg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowCallbackCannotBeNull<T>(Louis.ArgumentValidation.NullableArg<T!> arg) -> Louis.ArgumentValidation.NullableArg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowCallbackCannotBeNull<T>(Louis.ArgumentValidation.NullableValueArg<T> arg) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowCallbackCannotBeNull<T>(Louis.ArgumentValidation.ValueArg<T> arg) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowPredicateCannotBeNull<T>(Louis.ArgumentValidation.Arg<T!> arg) -> Louis.ArgumentValidation.Arg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowPredicateCannotBeNull<T>(Louis.ArgumentValidation.NullableArg<T!> arg) -> Louis.ArgumentValidation.NullableArg<T!>
-static Louis.ArgumentValidation.ArgHelper.ThrowPredicateCannotBeNull<T>(Louis.ArgumentValidation.NullableValueArg<T> arg) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.ArgHelper.ThrowPredicateCannotBeNull<T>(Louis.ArgumentValidation.ValueArg<T> arg) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.NullableArg<T>.implicit operator T?(Louis.ArgumentValidation.NullableArg<T!> arg) -> T?
-static Louis.ArgumentValidation.NullableValueArg<T>.implicit operator T?(Louis.ArgumentValidation.NullableValueArg<T> arg) -> T?
-static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThan<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThanOrEqualTo<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.NullableValueArgExtensions.GreaterThanZero<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.NullableValueArgExtensions.InRange<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T minValue, T maxValue, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.NullableValueArgExtensions.LessThan<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.NullableValueArgExtensions.LessThanOrEqualTo<T>(this Louis.ArgumentValidation.NullableValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.Require.NotNull<T>(T? value, string! name = "") -> Louis.ArgumentValidation.Arg<T!>
-static Louis.ArgumentValidation.Require.NotNull<T>(T? value, string! name = "") -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.Require.NotNullOrEmpty(string? value, string! name = "") -> Louis.ArgumentValidation.Arg<string!>
-static Louis.ArgumentValidation.Require.NotNullOrWhiteSpace(string? value, string! name = "") -> Louis.ArgumentValidation.Arg<string!>
-static Louis.ArgumentValidation.Require.Nullable<T>(T? value, string! name = "") -> Louis.ArgumentValidation.NullableArg<T!>
-static Louis.ArgumentValidation.Require.Nullable<T>(T? value, string! name = "") -> Louis.ArgumentValidation.NullableValueArg<T>
-static Louis.ArgumentValidation.Require.Of<T>(T value, string! name = "") -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.Validated.NotNull<T>(T? value, string! name = "") -> T
-static Louis.ArgumentValidation.Validated.NotNullOrEmpty(string? value, string! name = "") -> string!
-static Louis.ArgumentValidation.Validated.NotNullOrWhiteSpace(string? value, string! name = "") -> string!
-static Louis.ArgumentValidation.ValueArg<T>.implicit operator T(Louis.ArgumentValidation.ValueArg<T> arg) -> T
-static Louis.ArgumentValidation.ValueArgExtensions.GreaterThan<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ValueArgExtensions.GreaterThanOrEqualTo<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ValueArgExtensions.GreaterThanZero<T>(this Louis.ArgumentValidation.ValueArg<T> this, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ValueArgExtensions.InRange<T>(this Louis.ArgumentValidation.ValueArg<T> this, T minValue, T maxValue, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ValueArgExtensions.LessThan<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
-static Louis.ArgumentValidation.ValueArgExtensions.LessThanOrEqualTo<T>(this Louis.ArgumentValidation.ValueArg<T> this, T threshold, string? message = null) -> Louis.ArgumentValidation.ValueArg<T>
 static Louis.Collections.EnumerableExtensions.DisposeAll(this System.Collections.IEnumerable! this) -> void
 static Louis.Collections.EnumerableExtensions.DisposeAllAsync(this System.Collections.IEnumerable! this) -> System.Threading.Tasks.ValueTask
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
