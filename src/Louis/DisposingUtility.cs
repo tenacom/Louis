@@ -68,9 +68,7 @@ public static class DisposingUtility
                 disposable.Dispose();
                 break;
             case IAsyncDisposable asyncDisposable:
-#pragma warning disable CA2012 // Use ValueTasks correctly - We are consuming it once, hence this is a correct, albeit unusual, use of ValueTask.
-                asyncDisposable.DisposeAsync().ConfigureAwait(true).GetAwaiter().GetResult();
-#pragma warning restore CA2012 // Use ValueTasks correctly
+                asyncDisposable.DisposeSynchronously();
                 break;
         }
     }
