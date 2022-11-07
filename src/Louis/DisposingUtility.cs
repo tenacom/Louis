@@ -30,7 +30,8 @@ public static class DisposingUtility
     /// <para>This method will not dispose
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
-    /// <seealso cref="Dispose"/>
+    /// <seealso cref="Dispose(object?)"/>
+    /// <seealso cref="DisposeAsync(object?[])"/>
     public static ValueTask DisposeAsync(object? obj)
     {
         switch (obj)
@@ -60,7 +61,8 @@ public static class DisposingUtility
     /// <para>This method will not dispose
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
-    /// <seealso cref="DisposeAsync"/>
+    /// <seealso cref="DisposeAsync(object?)"/>
+    /// <seealso cref="Dispose(object?[])"/>
     public static void Dispose(object? obj)
     {
         switch (obj)
@@ -81,13 +83,15 @@ public static class DisposingUtility
     /// <returns>A <see cref="ValueTask"/> representing the ongoing operation.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAllAsync"/>
+    /// <para>This method calls <see cref="EnumerableExtensions.DisposeAllAsync"/>
     /// on the <paramref name="items"/> array.</para>
     /// <para>This method will not dispose
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
+    /// <seealso cref="DisposeAsync(object?)"/>
+    /// <seealso cref="Dispose(object?[])"/>
     /// <seealso cref="EnumerableExtensions.DisposeAllAsync"/>
-    public static ValueTask DisposeAllAsync(params object?[] items)
+    public static ValueTask DisposeAsync(params object?[] items)
     {
         Guard.IsNotNull(items);
 
@@ -100,13 +104,15 @@ public static class DisposingUtility
     /// <param name="items">The objects to dispose.</param>
     /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <remarks>
-    /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAll"/>
+    /// <para>This method calls <see cref="EnumerableExtensions.DisposeAll"/>
     /// on the <paramref name="items"/> array.</para>
     /// <para>This method will not dispose
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
+    /// <seealso cref="Dispose(object?)"/>
+    /// <seealso cref="DisposeAsync(object?[])"/>
     /// <seealso cref="EnumerableExtensions.DisposeAll"/>
-    public static void DisposeAll(params object?[] items)
+    public static void Dispose(params object?[] items)
     {
         Guard.IsNotNull(items);
 

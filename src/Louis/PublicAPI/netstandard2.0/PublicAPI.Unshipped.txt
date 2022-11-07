@@ -67,9 +67,9 @@ static Louis.Diagnostics.SelfCheck.FailCritically<T>(string! message, string! fi
 static Louis.Diagnostics.SelfCheck.Failure(string! message, string! filePath = "", int lineNumber = 0) -> Louis.Diagnostics.InternalErrorException!
 static Louis.Diagnostics.StringBuilderExtensions.AppendFormattedObject(this System.Text.StringBuilder! this, object? obj, string? format = null) -> System.Text.StringBuilder!
 static Louis.DisposingUtility.Dispose(object? obj) -> void
-static Louis.DisposingUtility.DisposeAll(params object?[]! items) -> void
-static Louis.DisposingUtility.DisposeAllAsync(params object?[]! items) -> System.Threading.Tasks.ValueTask
+static Louis.DisposingUtility.Dispose(params object?[]! items) -> void
 static Louis.DisposingUtility.DisposeAsync(object? obj) -> System.Threading.Tasks.ValueTask
+static Louis.DisposingUtility.DisposeAsync(params object?[]! items) -> System.Threading.Tasks.ValueTask
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
