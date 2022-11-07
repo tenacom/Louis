@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace Louis.Logging;
@@ -17,8 +18,11 @@ partial class LoggerExtensions
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="message">The log message to write.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(this ILogger @this, string message)
     {
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(LogLevel.Information))
         {
             @this.Log(LogLevel.Information, message);
@@ -31,8 +35,11 @@ partial class LoggerExtensions
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="message">The log message to write.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(this ILogger @this, EventId eventId, string message)
     {
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(LogLevel.Information))
         {
             @this.Log(LogLevel.Information, eventId, message);
@@ -45,8 +52,11 @@ partial class LoggerExtensions
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(this ILogger @this, Exception? exception, string message)
     {
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(LogLevel.Information))
         {
             @this.Log(LogLevel.Information, exception, message);
@@ -60,8 +70,11 @@ partial class LoggerExtensions
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(this ILogger @this, EventId eventId, Exception? exception, string message)
     {
+        Guard.IsNotNull(@this);
+
         if (@this.IsEnabled(LogLevel.Information))
         {
             @this.Log(LogLevel.Information, eventId, exception, message);
@@ -73,11 +86,13 @@ partial class LoggerExtensions
     /// </summary>
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(
         this ILogger @this,
         [InterpolatedStringHandlerArgument("this")]
         ref LogInterpolatedStringHandler.Information message)
     {
+        // Arguments are validated in the constructor of LogInterpolatedStringHandler.
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
@@ -91,12 +106,14 @@ partial class LoggerExtensions
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(
         this ILogger @this,
         EventId eventId,
         [InterpolatedStringHandlerArgument("this")]
         ref LogInterpolatedStringHandler.Information message)
     {
+        // Arguments are validated in the constructor of LogInterpolatedStringHandler.
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
@@ -110,12 +127,14 @@ partial class LoggerExtensions
     /// <param name="this">The <see cref="ILogger"/> to write to.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(
         this ILogger @this,
         Exception? exception,
         [InterpolatedStringHandlerArgument("this")]
         ref LogInterpolatedStringHandler.Information message)
     {
+        // Arguments are validated in the constructor of LogInterpolatedStringHandler.
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();
@@ -130,6 +149,7 @@ partial class LoggerExtensions
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
     /// <param name="message">The log message to write. This parameter must be an interpolated string.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static void LogInformation(
         this ILogger @this,
         EventId eventId,
@@ -137,6 +157,7 @@ partial class LoggerExtensions
         [InterpolatedStringHandlerArgument("this")]
         ref LogInterpolatedStringHandler.Information message)
     {
+        // Arguments are validated in the constructor of LogInterpolatedStringHandler.
         if (message.IsEnabled)
         {
             var (template, arguments) = message.GetDataAndDispose();

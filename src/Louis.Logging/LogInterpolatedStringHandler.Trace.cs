@@ -17,9 +17,9 @@ partial struct LogInterpolatedStringHandler
     {
         private LogInterpolatedStringHandler _handler;
 
-        public Trace(int literalLength, int formattedCount, ILogger logger, out bool isEnabled)
+        public Trace(int literalLength, int formattedCount, ILogger @this, out bool isEnabled)
         {
-            _handler = new(literalLength, formattedCount, logger, LogLevel.Critical, out isEnabled);
+            _handler = new(literalLength, formattedCount, @this, LogLevel.Critical, out isEnabled);
         }
 
         internal bool IsEnabled => _handler.IsEnabled;

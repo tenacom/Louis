@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 using CommunityToolkit.Diagnostics;
+using Louis.Logging.Internal;
 using Louis.Text;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +21,7 @@ public ref partial struct LogInterpolatedStringHandler
 #pragma warning disable CA1062 // Validate arguments of public methods
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #pragma warning disable SA1600 // Elements should be documented
+#pragma warning disable RS0016 // Add public types and members to the declared API
 
     private const int InitialTemplateCapacity = 1024;
 
@@ -29,12 +31,15 @@ public ref partial struct LogInterpolatedStringHandler
     private object?[] _arguments = null!;
     private int _argumentIndex;
 
-    public LogInterpolatedStringHandler(int literalLength, int formattedCount, ILogger logger, LogLevel logLevel, out bool isEnabled)
+    // This constructor is the first place where we can check for a null @this in extension methods taking a LogInterpolatedStringHandler.
+    // We want a NullArgumentException to refer to the public-facing @this parameter, hence the name.
+    public LogInterpolatedStringHandler(int literalLength, int formattedCount, ILogger @this, LogLevel logLevel, out bool isEnabled)
     {
-        Guard.IsNotNull(logger);
+        Guard.IsNotNull(@this);
+        InternalGuard.IsValidLogLevelForWriting(logLevel);
 
         _argumentIndex = 0;
-        isEnabled = IsEnabled = logger.IsEnabled(logLevel);
+        isEnabled = IsEnabled = @this.IsEnabled(logLevel);
         if (isEnabled)
         {
             _templateBuilder ??= new(InitialTemplateCapacity);

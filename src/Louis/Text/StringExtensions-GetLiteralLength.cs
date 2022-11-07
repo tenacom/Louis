@@ -37,6 +37,12 @@ partial class StringExtensions
     /// <returns>The length of the string that would result from calling
     /// <see cref="ToLiteral"/>on <paramref name="this"/>
     /// with <paramref name="literalKind"/> as last parameter.</returns>
+    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
     public static int GetLiteralLength(this string? @this, StringLiteralKind literalKind)
-        => @this is null ? InternalConstants.QuotedNullLength : @this.AsSpan().GetLiteralLength(literalKind);
+    {
+        InternalGuard.IsDefinedStringLiteralKind(literalKind);
+
+        return @this is null ? InternalConstants.QuotedNullLength : @this.AsSpan().GetLiteralLength(literalKind);
+    }
 }

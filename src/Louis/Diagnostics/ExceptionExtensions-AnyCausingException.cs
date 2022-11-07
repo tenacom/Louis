@@ -17,6 +17,11 @@ partial class ExceptionExtensions
     /// <returns><see langword="true"/> if <paramref name="predicate"/> returns <c>true</c> for at least one
     /// of the causing exceptions of <paramref name="this"/>; otherwise, <see langword="false"/>.
     /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="predicate"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <remarks>
     /// <para>For an explanation of what are considered causing exceptions of an exception, see the "Remarks"
     /// section of <see cref="GetCausingExceptions"/>.</para>
@@ -25,6 +30,7 @@ partial class ExceptionExtensions
     /// </remarks>
     public static bool AnyCausingException(this Exception @this, Func<Exception, bool> predicate)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(predicate);
 
         return AnyCausingExceptionCore(@this, predicate);

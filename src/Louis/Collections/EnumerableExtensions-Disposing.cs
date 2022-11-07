@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CommunityToolkit.Diagnostics;
 using Louis.Diagnostics;
 
 namespace Louis.Collections;
@@ -17,6 +18,7 @@ partial class EnumerableExtensions
     /// </summary>
     /// <param name="this">The <see cref="IEnumerable"/> interface on which this method is called.</param>
     /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     /// <exception cref="AggregateException">
     /// One or more exceptions were raised by the <see cref="IAsyncDisposable.DisposeAsync"/>
     /// and/or <see cref="IDisposable.Dispose"/> methods of items.</exception>
@@ -26,6 +28,8 @@ partial class EnumerableExtensions
     /// </remarks>
     public static async ValueTask DisposeAllAsync(this IEnumerable @this)
     {
+        Guard.IsNotNull(@this);
+
         List<Exception>? exceptions = null;
         List<Task>? pendingTasks = null;
         foreach (var item in @this)
@@ -87,6 +91,7 @@ partial class EnumerableExtensions
     /// <para>If an item implements both, only <see cref="IDisposable"/> is considered.</para>
     /// </summary>
     /// <param name="this">The <see cref="IEnumerable"/> interface on which this method is called.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     /// <exception cref="AggregateException">
     /// One or more exceptions were raised by the <see cref="IDisposable.Dispose"/>
     /// and/or <see cref="IAsyncDisposable.DisposeAsync"/> methods of items.</exception>
@@ -96,6 +101,8 @@ partial class EnumerableExtensions
     /// </remarks>
     public static void DisposeAll(this IEnumerable @this)
     {
+        Guard.IsNotNull(@this);
+
         List<Exception>? exceptions = null;
         List<Task>? pendingTasks = null;
         foreach (var item in @this)

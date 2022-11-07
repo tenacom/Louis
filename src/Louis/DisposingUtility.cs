@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading.Tasks;
+using CommunityToolkit.Diagnostics;
 using Louis.Collections;
 
 namespace Louis;
@@ -78,6 +79,7 @@ public static class DisposingUtility
     /// </summary>
     /// <param name="items">The objects to dispose.</param>
     /// <returns>A <see cref="ValueTask"/> representing the ongoing operation.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <remarks>
     /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAllAsync"/>
     /// on the <paramref name="items"/> array.</para>
@@ -85,12 +87,18 @@ public static class DisposingUtility
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
     /// <seealso cref="EnumerableExtensions.DisposeAllAsync"/>
-    public static ValueTask DisposeAllAsync(params object?[] items) => items.DisposeAllAsync();
+    public static ValueTask DisposeAllAsync(params object?[] items)
+    {
+        Guard.IsNotNull(items);
+
+        return items.DisposeAllAsync();
+    }
 
     /// <summary>
     /// Synchronously dispose all specified disposable objects.
     /// </summary>
     /// <param name="items">The objects to dispose.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <remarks>
     /// <para>This method works by calling <see cref="EnumerableExtensions.DisposeAll"/>
     /// on the <paramref name="items"/> array.</para>
@@ -98,5 +106,10 @@ public static class DisposingUtility
     /// <see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct">disposable ref structs</see>.</para>
     /// </remarks>
     /// <seealso cref="EnumerableExtensions.DisposeAll"/>
-    public static void DisposeAll(params object?[] items) => items.DisposeAll();
+    public static void DisposeAll(params object?[] items)
+    {
+        Guard.IsNotNull(items);
+
+        items.DisposeAll();
+    }
 }

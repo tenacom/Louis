@@ -5,6 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Diagnostics;
 
@@ -17,6 +18,7 @@ partial class ExceptionExtensions
     /// <param name="this">The exception being thrown.</param>
     /// <returns><see langword="true"/> if <paramref name="this"/> represents a critical error;
     /// otherwise, <see langword="false"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     /// <remarks>
     /// <para>The following exception types are considered critical errors:</para>
     /// <list type="bullet">
@@ -49,7 +51,11 @@ partial class ExceptionExtensions
     /// prevent the warning, but correctly avoid hiding unrecoverable error conditions.</para>
     /// </remarks>
     public static bool IsCriticalError(this Exception @this)
-        => AnyCausingExceptionCore(@this, IsCriticalErrorCore);
+    {
+        Guard.IsNotNull(@this);
+
+        return AnyCausingExceptionCore(@this, IsCriticalErrorCore);
+    }
 
     private static bool IsCriticalErrorCore(Exception exception) => exception
         is NullReferenceException

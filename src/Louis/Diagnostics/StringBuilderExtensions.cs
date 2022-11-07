@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Diagnostics;
 
@@ -20,6 +21,11 @@ public static class StringBuilderExtensions
     /// <param name="format">An optional format string to apply if <paramref name="obj"/>
     /// implements <see cref="IFormattable"/>.</param>
     /// <returns>A reference to this instance after the append operation has completed..</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static StringBuilder AppendFormattedObject(this StringBuilder @this, object? obj, string? format = null)
-        => @this.Append(ExceptionHelper.FormatObject(obj, format));
+    {
+        Guard.IsNotNull(@this);
+
+        return @this.Append(ExceptionHelper.FormatObject(obj, format));
+    }
 }

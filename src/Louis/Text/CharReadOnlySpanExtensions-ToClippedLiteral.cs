@@ -3,6 +3,8 @@
 
 using System;
 using System.Text;
+using CommunityToolkit.Diagnostics;
+using Louis.Text.Internal;
 
 namespace Louis.Text;
 
@@ -18,13 +20,18 @@ partial class CharReadOnlySpanExtensions
     /// </summary>
     /// <param name="this">The <see cref="ReadOnlySpan{T}">ReadOnlySpan&lt;char&gt;</see>
     /// on which this method is called.</param>
-    /// <param name="headLength">The number of characters to leave before clipping. Negative values will be treated as 0.</param>
-    /// <param name="tailLength">The number of characters to leave after clipping. Negative values will be treated as 0.</param>
+    /// <param name="headLength">The number of characters to leave before clipping.</param>
+    /// <param name="tailLength">The number of characters to leave after clipping.</param>
     /// <param name="useUnicodeEllipsis">
     /// <see langword="true"/> to use a single Unicode character Ellipsis (<c>'\x2026'</c>, <c>…</c>) to replace the clipped part;
     /// <see langword="false"/> to use three dots (<c>.</c>) instead. Default is <see langword="false"/>.
     /// </param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <para><paramref name="headLength"/> is less than 0.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="tailLength"/> is less than 0.</para>
+    /// </exception>
     /// <seealso cref="ToClippedVerbatimLiteral"/>
     /// <seealso cref="ToClippedLiteral"/>
     public static string ToClippedQuotedLiteral(
@@ -32,9 +39,14 @@ partial class CharReadOnlySpanExtensions
         int headLength,
         int tailLength,
         bool useUnicodeEllipsis = false)
-        => new StringBuilder(@this.Length + 2)
-          .AppendClippedQuotedLiteral(@this, headLength, tailLength, useUnicodeEllipsis)
-          .ToString();
+    {
+        Guard.IsGreaterThanOrEqualTo(headLength, 0);
+        Guard.IsGreaterThanOrEqualTo(tailLength, 0);
+
+        return new StringBuilder(@this.Length + 2)
+              .AppendClippedQuotedLiteral(@this, headLength, tailLength, useUnicodeEllipsis)
+              .ToString();
+    }
 
     /// <summary>
     /// Builds and returns a string representing a given span of characters as a C#
@@ -46,13 +58,18 @@ partial class CharReadOnlySpanExtensions
     /// </summary>
     /// <param name="this">The <see cref="ReadOnlySpan{T}">ReadOnlySpan&lt;char&gt;</see>
     /// on which this method is called.</param>
-    /// <param name="headLength">The number of characters to leave before clipping. Negative values will be treated as 0.</param>
-    /// <param name="tailLength">The number of characters to leave after clipping. Negative values will be treated as 0.</param>
+    /// <param name="headLength">The number of characters to leave before clipping.</param>
+    /// <param name="tailLength">The number of characters to leave after clipping.</param>
     /// <param name="useUnicodeEllipsis">
     /// <see langword="true"/> to use a single Unicode character Ellipsis (<c>'\x2026'</c>, <c>…</c>) to replace the clipped part;
     /// <see langword="false"/> to use three dots (<c>.</c>) instead. Default is <see langword="false"/>.
     /// </param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <para><paramref name="headLength"/> is less than 0.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="tailLength"/> is less than 0.</para>
+    /// </exception>
     /// <seealso cref="ToClippedQuotedLiteral"/>
     /// <seealso cref="ToClippedLiteral"/>
     public static string ToClippedVerbatimLiteral(
@@ -60,9 +77,14 @@ partial class CharReadOnlySpanExtensions
         int headLength,
         int tailLength,
         bool useUnicodeEllipsis = false)
-        => new StringBuilder(@this.Length + 3)
-          .AppendClippedVerbatimLiteral(@this, headLength, tailLength, useUnicodeEllipsis)
-          .ToString();
+    {
+        Guard.IsGreaterThanOrEqualTo(headLength, 0);
+        Guard.IsGreaterThanOrEqualTo(tailLength, 0);
+
+        return new StringBuilder(@this.Length + 3)
+              .AppendClippedVerbatimLiteral(@this, headLength, tailLength, useUnicodeEllipsis)
+              .ToString();
+    }
 
     /// <summary>
     /// Builds and returns a string representing a given span of characters as a C# string literal.
@@ -75,13 +97,20 @@ partial class CharReadOnlySpanExtensions
     /// on which this method is called.</param>
     /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
     /// to build.</param>
-    /// <param name="headLength">The number of characters to leave before clipping. Negative values will be treated as 0.</param>
-    /// <param name="tailLength">The number of characters to leave after clipping. Negative values will be treated as 0.</param>
+    /// <param name="headLength">The number of characters to leave before clipping.</param>
+    /// <param name="tailLength">The number of characters to leave after clipping.</param>
     /// <param name="useUnicodeEllipsis">
     /// <see langword="true"/> to use a single Unicode character Ellipsis (<c>'\x2026'</c>, <c>…</c>) to replace the clipped part;
     /// <see langword="false"/> to use three dots (<c>.</c>) instead. Default is <see langword="false"/>.
     /// </param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
+    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <para><paramref name="headLength"/> is less than 0.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="tailLength"/> is less than 0.</para>
+    /// </exception>
     /// <seealso cref="ToClippedQuotedLiteral"/>
     /// <seealso cref="ToClippedVerbatimLiteral"/>
     public static string ToClippedLiteral(
@@ -90,7 +119,13 @@ partial class CharReadOnlySpanExtensions
         int headLength,
         int tailLength,
         bool useUnicodeEllipsis = false)
-        => new StringBuilder(@this.Length + 2)
-          .AppendClippedLiteral(literalKind, @this, headLength, tailLength, useUnicodeEllipsis)
-          .ToString();
+    {
+        InternalGuard.IsDefinedStringLiteralKind(literalKind);
+        Guard.IsGreaterThanOrEqualTo(headLength, 0);
+        Guard.IsGreaterThanOrEqualTo(tailLength, 0);
+
+        return new StringBuilder(@this.Length + 2)
+              .AppendClippedLiteral(literalKind, @this, headLength, tailLength, useUnicodeEllipsis)
+              .ToString();
+    }
 }

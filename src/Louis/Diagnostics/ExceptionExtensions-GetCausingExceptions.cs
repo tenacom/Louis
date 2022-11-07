@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis.Diagnostics;
 
@@ -14,6 +15,7 @@ partial class ExceptionExtensions
     /// </summary>
     /// <param name="this">The <see cref="Exception"/> on which this method is called.</param>
     /// <returns>An enumeration of the causing exceptions of <paramref name="this"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     /// <remarks>
     /// <para>The "causing exceptions" of an exceptions are the exceptions that caused it to be thrown,
     /// including itself (but excluding <see cref="AggregateException"/>s, as they are only meant
@@ -29,7 +31,12 @@ partial class ExceptionExtensions
     /// the <see cref="AnyCausingException"/> extension method, which is optimized specifically
     /// for this case.</para>
     /// </remarks>
-    public static IEnumerable<Exception> GetCausingExceptions(this Exception @this) => new CausingExceptions(@this);
+    public static IEnumerable<Exception> GetCausingExceptions(this Exception @this)
+    {
+        Guard.IsNotNull(@this);
+
+        return new CausingExceptions(@this);
+    }
 
     private static IEnumerator<Exception> GetCausingExceptionsCore(Exception exception)
     {

@@ -18,7 +18,11 @@ partial class StringExtensions
     /// <seealso cref="ToVerbatimLiteral"/>
     /// <seealso cref="ToLiteral"/>
     public static string ToQuotedLiteral(this string? @this)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 2).AppendQuotedLiteral(@this.AsSpan()).ToString();
+        => @this is null
+            ? InternalConstants.QuotedNull
+            : new StringBuilder(@this.Length + 2)
+                .UnsafeAppendQuotedLiteral(@this.AsSpan())
+                .ToString();
 
     /// <summary>
     /// Builds and returns a string representing a given string as a C#
@@ -29,7 +33,11 @@ partial class StringExtensions
     /// <seealso cref="ToQuotedLiteral"/>
     /// <seealso cref="ToLiteral"/>
     public static string ToVerbatimLiteral(this string? @this)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 3).AppendVerbatimLiteral(@this.AsSpan()).ToString();
+        => @this is null
+            ? InternalConstants.QuotedNull
+            : new StringBuilder(@this.Length + 3)
+                .UnsafeAppendVerbatimLiteral(@this.AsSpan())
+                .ToString();
 
     /// <summary>
     /// Builds and returns a string representing a given string as a C# string literal.
@@ -38,8 +46,18 @@ partial class StringExtensions
     /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
     /// to build.</param>
     /// <returns>A newly-constructed <see langword="string"/>.</returns>
+    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
     /// <seealso cref="ToQuotedLiteral"/>
     /// <seealso cref="ToVerbatimLiteral"/>
     public static string ToLiteral(this string? @this, StringLiteralKind literalKind)
-        => @this is null ? InternalConstants.QuotedNull : new StringBuilder(@this.Length + 2).AppendLiteral(literalKind, @this.AsSpan()).ToString();
+    {
+        InternalGuard.IsDefinedStringLiteralKind(literalKind);
+
+        return @this is null
+            ? InternalConstants.QuotedNull
+            : new StringBuilder(@this.Length + 2)
+                .UnsafeAppendLiteral(literalKind, @this.AsSpan())
+                .ToString();
+    }
 }

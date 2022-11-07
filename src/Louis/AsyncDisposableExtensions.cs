@@ -2,6 +2,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis;
 
@@ -22,7 +23,11 @@ public static class AsyncDisposableExtensions
     /// </code>
     /// </remarks>
     public static void DisposeSynchronously(this IAsyncDisposable @this)
+    {
+        Guard.IsNotNull(@this);
+
 #pragma warning disable CA2012 // Use ValueTasks correctly - ValueTask gets consumed only once, hence this is correct usage.
-        => @this.DisposeAsync().GetAwaiter().GetResult();
+        @this.DisposeAsync().GetAwaiter().GetResult();
 #pragma warning restore CA2012 // Use ValueTasks correctly
+    }
 }

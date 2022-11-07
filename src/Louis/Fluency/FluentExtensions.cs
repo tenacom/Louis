@@ -19,8 +19,14 @@ public static class FluentExtensions
     /// <param name="this">The object on which this method was called.</param>
     /// <param name="action">The action to perform on <paramref name="this"/>.</param>
     /// <returns>A reference to <paramref name="this"/> after <paramref name="action"/> returns.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// </exception>
     public static T Invoke<T>(this T @this, Action<T> action)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(action);
 
         action(@this);
@@ -35,8 +41,14 @@ public static class FluentExtensions
     /// <param name="condition">The condition to test.</param>
     /// <param name="then">The action to perform on <paramref name="this"/> if <paramref name="condition"/> is <see langword="true"/>.</param>
     /// <returns>A reference to <paramref name="this"/> after <paramref name="then"/>, if called, returns.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="then"/> is <see langword="null"/>.</para>
+    /// </exception>
     public static T If<T>(this T @this, bool condition, FluentAction<T> then)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(then);
 
         return condition ? then(@this) : @this;
@@ -51,8 +63,16 @@ public static class FluentExtensions
     /// <param name="then">The action to perform on <paramref name="this"/> if <paramref name="condition"/> is <see langword="true"/>.</param>
     /// <param name="else">The action to perform on <paramref name="this"/> if <paramref name="condition"/> is <see langword="false"/>.</param>
     /// <returns>A reference to <paramref name="this"/> after either <paramref name="then"/> or <paramref name="else"/> returns.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="then"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="else"/> is <see langword="null"/>.</para>
+    /// </exception>
     public static T IfElse<T>(this T @this, bool condition, FluentAction<T> then, FluentAction<T> @else)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(then);
         Guard.IsNotNull(@else);
 
@@ -73,6 +93,11 @@ public static class FluentExtensions
     /// instead, the method returns immediately.</para>
     /// </param>
     /// <returns>A reference to <paramref name="this"/> after one of the actions in <paramref name="cases"/>, if any, returns.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="cases"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <remarks>
     /// <para>If <paramref name="value"/> is not equal to any of the values in <paramref name="cases"/>, this method returns immediately.</para>
     /// </remarks>
@@ -100,9 +125,15 @@ public static class FluentExtensions
     /// instead, the method returns immediately.</para>
     /// </param>
     /// <returns>A reference to <paramref name="this"/> after one of the actions in <paramref name="cases"/>, if any, returns.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="cases"/> is <see langword="null"/>.</para>
+    /// </exception>
     public static T Switch<T, TValue>(this T @this, TValue value, FluentAction<T>? @default, params (TValue Comparand, FluentAction<T>? Action)[] cases)
         where TValue : IEquatable<TValue>
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(cases);
 
         foreach (var (comparand, action) in cases)
@@ -127,9 +158,17 @@ public static class FluentExtensions
     /// <param name="sequence">The sequence of elements.</param>
     /// <param name="action">The action to perform.</param>
     /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement> action)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(action);
         Guard.IsNotNull(sequence);
 
@@ -157,9 +196,17 @@ public static class FluentExtensions
     /// but it also passes an index to <paramref name="action"/>. The passed index is 0 for the first call and is incremented by 1
     /// for each subsequent call.</para>
     /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement, int> action)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(action);
         Guard.IsNotNull(sequence);
 
@@ -183,9 +230,15 @@ public static class FluentExtensions
     /// <param name="span">The span of elements.</param>
     /// <param name="action">The action to perform.</param>
     /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement> action)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(action);
 
         foreach (var item in span)
@@ -211,9 +264,15 @@ public static class FluentExtensions
     /// <para>This method is essentially the same as <see cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>,
     /// but it also passes the index of each element to <paramref name="action"/>.</para>
     /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// </exception>
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement, int> action)
     {
+        Guard.IsNotNull(@this);
         Guard.IsNotNull(action);
 
         for (var i = 0; i < span.Length; i++)

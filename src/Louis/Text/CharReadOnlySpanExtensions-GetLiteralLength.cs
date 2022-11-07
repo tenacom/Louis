@@ -3,7 +3,7 @@
 
 using System;
 using System.Globalization;
-using CommunityToolkit.Diagnostics;
+using Louis.Text.Internal;
 
 namespace Louis.Text;
 
@@ -84,10 +84,16 @@ partial class CharReadOnlySpanExtensions
     /// <returns>The length of the string that would result from calling
     /// <see cref="ToLiteral"/>on <paramref name="this"/>
     /// with <paramref name="literalKind"/> as last parameter.</returns>
+    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
     public static int GetLiteralLength(this ReadOnlySpan<char> @this, StringLiteralKind literalKind)
-        => literalKind switch {
+    {
+        InternalGuard.IsDefinedStringLiteralKind(literalKind);
+
+        return literalKind switch {
             StringLiteralKind.Quoted => GetQuotedLiteralLength(@this),
             StringLiteralKind.Verbatim => GetVerbatimLiteralLength(@this),
-            _ => ThrowHelper.ThrowArgumentException<int>(nameof(literalKind), $"{literalKind} is not a valid {nameof(StringLiteralKind)}."),
+            _ => 0,
         };
+    }
 }
