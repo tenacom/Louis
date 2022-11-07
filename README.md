@@ -22,7 +22,7 @@
 
 ---
 
-## :custom_arrow_right_strong: :custom_arrow_right_strong: :custom_arrow_right_strong: [CLICK HERE](https://tenacom.github.io/Louis) for full documentation :custom_arrow_left_strong: :custom_arrow_left_strong: :custom_arrow_left_strong:
+## :point_right: [CLICK HERE](https://tenacom.github.io/Louis) for full documentation :point_left:
 
 ---
 
