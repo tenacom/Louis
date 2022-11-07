@@ -29,7 +29,7 @@ Louis.Logging.LogInterpolatedStringHandler.Information.AppendLiteral(string! s) 
 Louis.Logging.LogInterpolatedStringHandler.Information.Information() -> void
 Louis.Logging.LogInterpolatedStringHandler.Information.Information(int literalLength, int formattedCount, Microsoft.Extensions.Logging.ILogger! this, out bool isEnabled) -> void
 Louis.Logging.LogInterpolatedStringHandler.LogInterpolatedStringHandler() -> void
-Louis.Logging.LogInterpolatedStringHandler.LogInterpolatedStringHandler(int literalLength, int formattedCount, Microsoft.Extensions.Logging.ILogger! logger, Microsoft.Extensions.Logging.LogLevel logLevel, out bool isEnabled) -> void
+Louis.Logging.LogInterpolatedStringHandler.LogInterpolatedStringHandler(int literalLength, int formattedCount, Microsoft.Extensions.Logging.ILogger! this, Microsoft.Extensions.Logging.LogLevel logLevel, out bool isEnabled) -> void
 Louis.Logging.LogInterpolatedStringHandler.Trace
 Louis.Logging.LogInterpolatedStringHandler.Trace.AppendFormatted(object? value, int alignment = 0, string? format = null, string! name = "") -> void
 Louis.Logging.LogInterpolatedStringHandler.Trace.AppendFormatted<T>(T? value, int alignment = 0, string? format = null, string! name = "") -> void

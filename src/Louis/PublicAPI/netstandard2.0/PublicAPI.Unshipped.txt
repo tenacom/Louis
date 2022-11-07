@@ -1,5 +1,4 @@
 #nullable enable
-const Louis.Diagnostics.ExceptionHelper.InvalidFormatText = "<invalid_format>" -> string!
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringNullText = "<null!>" -> string!
