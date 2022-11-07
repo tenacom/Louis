@@ -9,19 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This version uses completely revamped build scripts and workflows.
 
-As part of the new build system, versioning is now managed with [`Nerdbank.GitVersioning`](https://github.com/dotnet/Nerdbank.GitVersioning).
+As part of the transition to the new build system, versioning is now managed with [`Nerdbank.GitVersioning`](https://github.com/dotnet/Nerdbank.GitVersioning), hence the versioning scheme change.
+
 
 ### New features
 
+- The new `DisposeSynchronously()` extension method for the `IAsyncDisposable` interface lets you implement `Dispose()` in a class where you already have a `DisposeAsync()` implementation. Calling `DisposeAsync().GetAwaiter().GetResult()` is the same as calling `DisposeSynchronously()`, but triggers warning `CA2012` ("UseValueTask correctly"); besides, `DisposeSynchronously()` better conveys intent, making code more readable.
+- A new overload of `ValueTaskUtility.WhenAll()` takes a variable number of `ValueTask` parameters.
+
 ### Changes to existing features
 
-- **BREAKING CHANGE:** The `Louis.Logging` namespace has been moved to its own library. Therefore, `Louis` no longer depends on `Microsoft.Extensions.Logging.Abstractions`.
+- **BREAKING CHANGE:** The `Louis.Logging` namespace has been moved to its own library. Therefore, `Louis.dll` no longer depends on `Microsoft.Extensions.Logging.Abstractions.dll`; the new `Louis.Logging.dll` of course does.
 - The algorithm used by `ExceptionHelper.FormatObject` has changed as follows:
-  - any exception thrown while trying to format an instance of `IFormattable` causes a fallback (previously, exceptions different from `FormatException` were not caught);
+  - any exception thrown while trying to format an instance of `IFormattable` causes a fallback (previously, exceptions other than `FormatException` were not caught);
   - if formatting an `IFormattable` with an empty format causes an exception, the fallback action is now to treat the object as non-formattable (previously, the string `<invalid_format>` was returned);
   - an exception thrown by `obj.ToString()` causes a string like `<{objTypeName}:{exceptionTypeName}>` to be returned (previously, only the exception type name was specified in the returned string).
+- **BREAKING CHANGE:** `Louis.dll` no longer provides polyfills. Instead, it uses the [PolyKit](https://github.com/Tenacom/PolyKit) package. Projects that relied on polyfills provided by L.o.U.I.S. now should add a `PackageReference` to `PolyKit`.
+- **BREAKING CHANGE:** Class `Louis.Diagnostics.Throw` and the whole `Louis.ArgumentValidation` namespace have been removed. L.o.U.I.S. now relies on the [`CommunityToolkit.Diagnostics`](https://github.com/CommunityToolkit/dotnet#readme) package for throw helpers and argument validation. This change frees up development resources by eliminating the need to maintain features that, since [the release of the .NET Community Toolkit 8.0](https://devblogs.microsoft.com/dotnet/announcing-the-dotnet-community-toolkit-800/), didn't add much value to begin with.
+- **BREAKING CHANGE:** All extension methods in `Louis.Text` that generate clipped string literals (`StringExtensions.ToClippedLiteral`, `StringBuilderExtensions.AppendClippedLiteral`, etc.) now throw `ArgumentOutOfRangeException` if the `headLength` and/or `tailLength` parameter is a negative number. Previously, negative head / tail lengths were treated as 0.
+- **BREAKING CHANGE:** Methods `DisposingUtility.DisposeAll` and `DisposingUtility.DisposeAllAsync` have been renamed to `Dispose` and `DisposeAsync` respectively, so they are now overloads of the single-object `Dispose` and `DisposeAsync`.
 
 ### Bugs fixed in this release
+
+- Passing incorrect parameter values to most public-facing methods could previously result in confusing exception messages. This has been fixed by implementing parameter checking in all public-facing methods instead of relying on dependency / runtime methods to fail.
+- Calling `EnumerableExtensions.DisposeAll` or `DisposingUtility.DisposeAll` from a UI thread could result in failures due to the loss of synchronization context. Tjhis has been fixed.
 
 ### Known problems introduced by this release
 
