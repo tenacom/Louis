@@ -145,7 +145,7 @@ partial class EnumerableExtensions
 
         try
         {
-            Task.WhenAll(pendingTasks).ConfigureAwait(false).GetAwaiter().GetResult();
+            Task.WhenAll(pendingTasks).GetAwaiter().GetResult();
         }
         catch (AggregateException e)
         {
