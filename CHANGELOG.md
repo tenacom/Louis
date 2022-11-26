@@ -14,11 +14,13 @@ As part of the transition to the new build system, versioning is now managed wit
 
 ### New features
 
+- .NET 7 has been added as a target platform.
 - The new `DisposeSynchronously()` extension method for the `IAsyncDisposable` interface lets you implement `Dispose()` in a class where you already have a `DisposeAsync()` implementation. Calling `DisposeAsync().GetAwaiter().GetResult()` is the same as calling `DisposeSynchronously()`, but triggers warning `CA2012` ("UseValueTask correctly"); besides, `DisposeSynchronously()` better conveys intent, making code more readable.
 - A new overload of `ValueTaskUtility.WhenAll()` takes a variable number of `ValueTask` parameters.
 
 ### Changes to existing features
 
+- **BREAKING CHANGE:** Following .NET's [Library support for older frameworks](https://learn.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/7.0/old-framework-support) policy, support for .NET Core 3.1 has been removed.
 - **BREAKING CHANGE:** The `Louis.Logging` namespace has been moved to its own library. Therefore, `Louis.dll` no longer depends on `Microsoft.Extensions.Logging.Abstractions.dll`; the new `Louis.Logging.dll` of course does.
 - The algorithm used by `ExceptionHelper.FormatObject` has changed as follows:
   - any exception thrown while trying to format an instance of `IFormattable` causes a fallback (previously, exceptions other than `FormatException` were not caught);
