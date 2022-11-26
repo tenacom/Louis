@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased changes
 
+### New features
+
+### Changes to existing features
+
+### Bugs fixed in this release
+
+### Known problems introduced by this release
+
+## [1.0.39-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.39-preview) (2022-11-26)
+
 This version uses completely revamped build scripts and workflows.
 
 As part of the transition to the new build system, versioning is now managed with [`Nerdbank.GitVersioning`](https://github.com/dotnet/Nerdbank.GitVersioning), hence the versioning scheme change.
@@ -35,8 +45,6 @@ As part of the transition to the new build system, versioning is now managed wit
 
 - Passing incorrect parameter values to most public-facing methods could previously result in confusing exception messages. This has been fixed by implementing parameter checking in all public-facing methods instead of relying on dependency / runtime methods to fail.
 - Calling `EnumerableExtensions.DisposeAll` or `DisposingUtility.DisposeAll` from a UI thread could result in failures due to the loss of synchronization context. Tjhis has been fixed.
-
-### Known problems introduced by this release
 
 ## [1.0.0-preview.8](https://github.com/Tenacom/Louis/releases/tag/1.0.0-preview.8) (2022-09-13)
 
