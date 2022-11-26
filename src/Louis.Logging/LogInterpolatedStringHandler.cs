@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using CommunityToolkit.Diagnostics;
 using Louis.Logging.Internal;
 using Louis.Text;
@@ -25,8 +26,7 @@ public ref partial struct LogInterpolatedStringHandler
 
     private const int InitialTemplateCapacity = 1024;
 
-    [ThreadStatic]
-    private static StringBuilder _templateBuilder = null!;
+    private static readonly ThreadLocal<StringBuilder> TemplateBuilder = new(static () => new(InitialTemplateCapacity));
 
     private object?[] _arguments = null!;
     private int _argumentIndex;
@@ -42,7 +42,6 @@ public ref partial struct LogInterpolatedStringHandler
         isEnabled = IsEnabled = @this.IsEnabled(logLevel);
         if (isEnabled)
         {
-            _templateBuilder ??= new(InitialTemplateCapacity);
             _arguments = new object?[formattedCount];
         }
     }
@@ -53,6 +52,7 @@ public ref partial struct LogInterpolatedStringHandler
     public void AppendLiteral(string s)
 #pragma warning restore CA1822 // Mark members as static
     {
+        var tb = TemplateBuilder.Value!;
         var source = s.AsSpan();
         while (!source.IsEmpty)
         {
@@ -60,9 +60,9 @@ public ref partial struct LogInterpolatedStringHandler
             if (escapeIndex < 0)
             {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-                _ = _templateBuilder.Append(source);
+                _ = tb.Append(source);
 #else
-                _ = _templateBuilder.Append(source.ToString());
+                _ = tb.Append(source.ToString());
 #endif
                 break;
             }
@@ -70,13 +70,13 @@ public ref partial struct LogInterpolatedStringHandler
             if (escapeIndex > 0)
             {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-                _ = _templateBuilder.Append(source[..escapeIndex]);
+                _ = tb.Append(source[..escapeIndex]);
 #else
-                _ = _templateBuilder.Append(source[..escapeIndex].ToString());
+                _ = tb.Append(source[..escapeIndex].ToString());
 #endif
             }
 
-            _ = _templateBuilder.Append(source[escapeIndex], 2);
+            _ = tb.Append(source[escapeIndex], 2);
             source = source[(escapeIndex + 1)..];
         }
     }
@@ -85,6 +85,7 @@ public ref partial struct LogInterpolatedStringHandler
     public void AppendFormatted(object? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
     {
+        var tb = TemplateBuilder.Value!;
         _arguments[_argumentIndex] = value;
         var isNamePrefixed = false;
         var argumentName = ReadOnlySpan<char>.Empty;
@@ -103,30 +104,30 @@ public ref partial struct LogInterpolatedStringHandler
             argumentName = ("Arg" + _argumentIndex.ToString(CultureInfo.InvariantCulture)).AsSpan();
         }
 
-        _templateBuilder.Append('{');
+        tb.Append('{');
         if (isNamePrefixed)
         {
-            _templateBuilder.Append('@');
+            tb.Append('@');
         }
 
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        _templateBuilder.Append(argumentName);
+        tb.Append(argumentName);
 #else
-        _templateBuilder.Append(argumentName.ToString());
+        tb.Append(argumentName.ToString());
 #endif
         if (alignment != 0)
         {
-            _templateBuilder.Append(',');
-            _templateBuilder.Append(alignment);
+            tb.Append(',');
+            tb.Append(alignment);
         }
 
         if (format != null)
         {
-            _templateBuilder.Append(':');
-            _templateBuilder.Append(format);
+            tb.Append(':');
+            tb.Append(format);
         }
 
-        _templateBuilder.Append('}');
+        tb.Append('}');
         _argumentIndex++;
     }
 
@@ -138,8 +139,9 @@ public ref partial struct LogInterpolatedStringHandler
 
     internal (string Template, object?[] Arguments) GetDataAndClear()
     {
-        var template = _templateBuilder.ToString();
-        _ = _templateBuilder.Clear();
+        var tb = TemplateBuilder.Value!;
+        var template = tb.ToString();
+        _ = tb.Clear();
         var arguments = _arguments;
         _arguments = null!;
         return (template, arguments);
