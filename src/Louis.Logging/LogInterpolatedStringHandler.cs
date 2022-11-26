@@ -13,17 +13,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Louis.Logging;
 
+// Disable some documentation-related warnings because this type is for internal use.
+#pragma warning disable SA1611 // Element parameters should be documented
+#pragma warning disable SA1618 // Generic type parameters should be documented
+#pragma warning disable SA1642 // Constructor summary documentation should begin with standard text
+
 /// <summary>
 /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
 /// </summary>
 [InterpolatedStringHandler]
 public ref partial struct LogInterpolatedStringHandler
 {
-#pragma warning disable CA1062 // Validate arguments of public methods
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable SA1600 // Elements should be documented
-#pragma warning disable RS0016 // Add public types and members to the declared API
-
     private const int InitialTemplateCapacity = 1024;
 
     private static readonly ThreadLocal<StringBuilder> TemplateBuilder = new(static () => new(InitialTemplateCapacity));
@@ -31,6 +31,9 @@ public ref partial struct LogInterpolatedStringHandler
     private object?[] _arguments = null!;
     private int _argumentIndex;
 
+    /// <summary>
+    /// This constructor is only meant for internal use by L.o.U.I.S. and should not be used directly.
+    /// </summary>
     // This constructor is the first place where we can check for a null @this in extension methods taking a LogInterpolatedStringHandler.
     // We want a NullArgumentException to refer to the public-facing @this parameter, hence the name.
     public LogInterpolatedStringHandler(int literalLength, int formattedCount, ILogger @this, LogLevel logLevel, out bool isEnabled)
@@ -48,6 +51,9 @@ public ref partial struct LogInterpolatedStringHandler
 
     internal bool IsEnabled { get; }
 
+    /// <summary>
+    /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
+    /// </summary>
 #pragma warning disable CA1822 // Mark members as static - Would probably violate the custom string interpolation protocol
     public void AppendLiteral(string s)
 #pragma warning restore CA1822 // Mark members as static
@@ -81,6 +87,9 @@ public ref partial struct LogInterpolatedStringHandler
         }
     }
 
+    /// <summary>
+    /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
+    /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
     public void AppendFormatted(object? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
@@ -131,6 +140,9 @@ public ref partial struct LogInterpolatedStringHandler
         _argumentIndex++;
     }
 
+    /// <summary>
+    /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
+    /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
     public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
