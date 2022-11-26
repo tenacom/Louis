@@ -19,18 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Configuration", "- Config
 		.gitignore = .gitignore
 		.globalconfig = .globalconfig
 		Common.props = Common.props
-		Directory.Packages.props = Directory.Packages.props
-		global.json = global.json
 		stylecop.json = stylecop.json
 		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF6E590F-F997-442E-8F77-356C7E4DF275}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "graphics", "graphics", "{A119730E-E4ED-4C92-A0F0-5FFE3A77FC10}"
-	ProjectSection(SolutionItems) = preProject
-		graphics\README.md = graphics\README.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0977BFBE-C5F3-4B90-9F9E-77061320CB9D}"
 EndProject
@@ -42,6 +35,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "graphics", "graphics", "{E9
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Louis.Logging", "src\Louis.Logging\Louis.Logging.csproj", "{9673D9AD-53CE-4768-A74D-E8719A9D8FBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Dependencies", "- Dependencies", "{B14CE04B-AA43-4047-847C-D0E77102E235}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Packages.props = Directory.Packages.props
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

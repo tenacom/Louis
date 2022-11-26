@@ -30,6 +30,7 @@
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     <CLSCompliant>true</CLSCompliant>
     <ComVisible>false</ComVisible>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 

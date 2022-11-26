@@ -4,16 +4,14 @@
 [![Latest GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Tenacom/Louis?include_prereleases)](https://github.com/Tenacom/Louis/releases)
 [![Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.0.0-%23E05735)](https://github.com/Tenacom/Louis/blob/main/CHANGELOG.md)
 
-[![Last commit](https://img.shields.io/github/last-commit/Tenacom/Louis.svg)](https://github.com/Tenacom/Louis/commits/main)
-[![Open issues](https://img.shields.io/github/issues-raw/Tenacom/Louis.svg?label=open+issues)](https://github.com/Tenacom/Louis/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
-[![Closed issues](https://img.shields.io/github/issues-closed-raw/Tenacom/Louis.svg?label=closed+issues)](https://github.com/Tenacom/Louis/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc)
-
 [![Build, test, and pack](https://github.com/Tenacom/Louis/actions/workflows/build-test-pack.yml/badge.svg)](https://github.com/Tenacom/Louis/actions/workflows/build-test-pack.yml)
 [![CodeQL](https://github.com/Tenacom/Louis/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Tenacom/Louis/actions/workflows/codeql-analysis.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/Tenacom/Louis/badge)](https://www.codefactor.io/repository/github/Tenacom/Louis)
 
 [![Code of Conduct](https://img.shields.io/badge/conduct-code-orange)](https://github.com/Tenacom/.github/blob/main/CODE_OF_CONDUCT.md)
 [![Contributing guide](https://img.shields.io/badge/contributing-guide-orange)](https://github.com/Tenacom/.github/blob/main/CONTRIBUTING.md)
+
+![Repobeats analytics image](https://repobeats.axiom.co/api/embed/cfee72019568722653b1a5e8e8d4e55a02cff219.svg "Repobeats analytics image")
 
 | Latest packages | NuGet | MyGet |
 |-----------------|-------|-------|

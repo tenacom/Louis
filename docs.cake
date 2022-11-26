@@ -3,6 +3,7 @@
 
 #load "./build/BuildData.cake"
 #load "./build/DocFx.cake"
+#load "./build/dotnet.cake"
 #load "./build/environment.cake"
 #load "./build/fail.cake"
 #load "./build/filesystem.cake"
@@ -12,8 +13,9 @@
 #load "./build/nbgv.cake"
 #load "./build/options.cake"
 #load "./build/process.cake"
+#load "./build/public-api.cake"
 #load "./build/setup-teardown.cake"
-#load "./build/version.cake"
+#load "./build/versioning.cake"
 #load "./build/workspace.cake"
 
 #nullable enable
@@ -45,7 +47,7 @@ Task("_init")
             RepoOwner = data.RepositoryOwner,
             RepoName = data.RepositoryName,
             RepoUrl = $"{data.RepositoryHostUrl}/{data.RepositoryOwner}/{data.RepositoryName}",
-            RepoVersion = data.Version,
+            RepoVersion = data.VersionStr,
         };
 
         var options = new JsonSerializerOptions
@@ -59,9 +61,14 @@ Task("_init")
         JsonSerializer.Serialize(stream, globalMetadata, options);
     });
 
+Task("_build")
+    .Description("Build solution to get correct metadata")
+    .Does<BuildData>((context, data) => context.BuildSolution(data, true));
+
 Task("Metadata")
     .Description("Generate documentation metadata from sources")
     .IsDependentOn("_init")
+    .IsDependentOn("_build")
     .Does<BuildData>(_ => _docfx.Metadata());
 
 Task("Build")

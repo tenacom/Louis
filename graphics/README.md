@@ -2,7 +2,7 @@
 
 All the graphic elements listed below, except where otherwise specified, are Copyright (c) Tenacom and contributors and are licensed under the MIT license. See the LICENSE file in the project root for full license information.
 
-## `SquareLogo`
+## `SquareLogo.svg`
 
 Reference logo, basic square logo. Used as NuGet package icon, favicon for web-based documentation, and anywhere a square-shaped logo is needed or preferred.
 
@@ -11,38 +11,29 @@ This is a modified version of [Happy](#happy). Modified by [@rdeago](https://git
 Related files:
 
 - `PackageIcon.png` (512x512px)
-![PackageIcon.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/PackageIcon.png)
-
 - `docs/logo.svg` (optimized)
-![docs/logo.svg](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/logo.png)
-
 - `docs/favicon.ico` (16x16px,32bpp; 32x32px,32bpp; 48x48px,32bpp; 64x64px,32bpp; 128x128px,32bpp)
-![docs/favicon.ico](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/favicon.ico)
 
-## `Readme`
+## `Readme.svg`
 
 Graphic header for README file.
 
-Uses the following materials: [SquareLogo](#squarelogo); [Repo](#repo); [Pragati Narrow](#pragati-narrow).
+Uses the following materials: [SquareLogo.svg](#squarelogo.svg); [Repo](#repo); [Pragati Narrow](#pragati-narrow).
 
 Related files:
 
 - `Readme.png` (540x160px)
-![Readme.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/Readme.png)
-
 - `docs/images/banner.png` (540x160px)
-![docs/images/banner.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/docs/images/banner.png)
 
-## `SocialCard`
+## `SocialCard.svg`
 
 Social card for GitHub project.
 
-Uses the following materials: [SquareLogo](#squarelogo); [Repo](#repo); [Pragati Narrow](#pragati-narrow); [Courier Prime](#courier-prime).
+Uses the following materials: [SquareLogo.svg](#squarelogo.svg); [Repo](#repo); [Pragati Narrow](#pragati-narrow); [Courier Prime](#courier-prime).
 
 Related files:
 
 - `SocialCard.png` (1280x640px)
-![SocialCard.png](https://raw.githubusercontent.com/Tenacom/Louis/main/graphics/SocialCard.png)
 
 ## Third-party materials
 
