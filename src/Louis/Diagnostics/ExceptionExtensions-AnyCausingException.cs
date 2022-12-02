@@ -2,6 +2,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
+using System.Linq;
 using CommunityToolkit.Diagnostics;
 
 namespace Louis.Diagnostics;
@@ -40,27 +41,14 @@ partial class ExceptionExtensions
     {
         if (exception is AggregateException aggregateException)
         {
-            foreach (var innerException in aggregateException.InnerExceptions)
-            {
-                if (AnyCausingExceptionCore(innerException, predicate))
-                {
-                    return true;
-                }
-            }
+            return aggregateException.InnerExceptions.Any(e => AnyCausingExceptionCore(e, predicate));
         }
-        else
+
+        if (exception.InnerException is { } innerException && AnyCausingExceptionCore(innerException, predicate))
         {
-            if (exception.InnerException is { } innerException && AnyCausingExceptionCore(innerException, predicate))
-            {
-                return true;
-            }
-
-            if (predicate(exception))
-            {
-                return true;
-            }
+            return true;
         }
 
-        return false;
+        return predicate(exception);
     }
 }
