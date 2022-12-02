@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes to existing features
 
+- A rough capacity check has been added to all `StringBuilder` extension methods that append quoted strings. Computing the exact needed capacity, although possible, would totally kill performance; the added checks are a compromise that still helps, especially when appending long strings to string builders with no or little available buffer space.
+
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release

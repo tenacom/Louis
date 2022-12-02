@@ -499,6 +499,7 @@ partial class StringBuilderExtensions
         }
 
         var tailStart = chars.Length - tailLength;
+        @this.EnsureCapacity(@this.Length + 2 + headLength + (int)ellipsisLength + tailLength);
         return @this.Append('"')
                     .AppendQuotedLiteralCore(chars[0..headLength])
                     .AppendEllipsis(useUnicodeEllipsis)
@@ -527,6 +528,7 @@ partial class StringBuilderExtensions
         }
 
         var tailStart = chars.Length - tailLength;
+        @this.EnsureCapacity(@this.Length + 3 + headLength + (int)ellipsisLength + tailLength);
         return @this.Append(@"@""")
                     .AppendVerbatimLiteralCore(chars[0..headLength])
                     .AppendEllipsis(useUnicodeEllipsis)

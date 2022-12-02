@@ -141,14 +141,20 @@ partial class StringBuilderExtensions
     }
 
     internal static StringBuilder UnsafeAppendQuotedLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-        => @this.Append('"')
-                .AppendQuotedLiteralCore(chars)
-                .Append('"');
+    {
+        @this.EnsureCapacity(@this.Length + 2 + chars.Length);
+        return @this.Append('"')
+                    .AppendQuotedLiteralCore(chars)
+                    .Append('"');
+    }
 
     internal static StringBuilder UnsafeAppendVerbatimLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-        => @this.Append(@"@""")
-                .AppendVerbatimLiteralCore(chars)
-                .Append('"');
+    {
+        @this.EnsureCapacity(@this.Length + 3 + chars.Length);
+        return @this.Append(@"@""")
+                    .AppendVerbatimLiteralCore(chars)
+                    .Append('"');
+    }
 
     internal static StringBuilder UnsafeAppendLiteral(this StringBuilder @this, StringLiteralKind literalKind, ReadOnlySpan<char> chars)
         => literalKind switch {
