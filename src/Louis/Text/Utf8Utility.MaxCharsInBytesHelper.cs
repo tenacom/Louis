@@ -2,6 +2,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Louis.Text;
 
@@ -30,15 +31,7 @@ partial class Utf8Utility
         {
             foreach (var c in chars)
             {
-                var charAdded = (int)c switch {
-                    < 0x80 => TryAddSingleByte(),
-                    < 0x800 => TryAddTwoByteSequence(),
-                    >= 0xD800 and < 0xDC00 => TryAddHighSurrogate(),
-                    >= 0xDC00 and < 0xDFFF => TryAddLowSurrogate(),
-                    _ => TryAddThreeByteSequence(),
-                };
-
-                if (!charAdded)
+                if (!TryAddChar(c))
                 {
                     break;
                 }
@@ -46,6 +39,16 @@ partial class Utf8Utility
 
             return _totalCharsTaken;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool TryAddChar(char c)
+            => (int)c switch {
+                < 0x80 => TryAddSingleByte(),
+                < 0x800 => TryAddTwoByteSequence(),
+                >= 0xD800 and < 0xDC00 => TryAddHighSurrogate(),
+                >= 0xDC00 and < 0xDFFF => TryAddLowSurrogate(),
+                _ => TryAddThreeByteSequence(),
+            };
 
         private bool TryAddSingleByte() => TryAddPrecedingHighSurrogate() && TryAddBytes(1, 1);
 
