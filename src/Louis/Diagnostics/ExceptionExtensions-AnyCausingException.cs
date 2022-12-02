@@ -50,12 +50,9 @@ partial class ExceptionExtensions
         }
         else
         {
-            if (exception.InnerException is { } innerException)
+            if (exception.InnerException is { } innerException && AnyCausingExceptionCore(innerException, predicate))
             {
-                if (AnyCausingExceptionCore(innerException, predicate))
-                {
-                    return true;
-                }
+                return true;
             }
 
             if (predicate(exception))
