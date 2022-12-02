@@ -86,18 +86,19 @@ public static class ExceptionHelper
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
-            if (!string.IsNullOrEmpty(format))
+            if (string.IsNullOrEmpty(format))
             {
-                try
-                {
-                    return formattable.ToString(string.Empty, CultureInfo.InvariantCulture);
-                }
-                catch (Exception e2) when (!e2.IsCriticalError())
-                {
-                }
+                return FormatNonFormattable(formattable);
             }
 
-            return FormatNonFormattable(formattable);
+            try
+            {
+                return formattable.ToString(string.Empty, CultureInfo.InvariantCulture);
+            }
+            catch (Exception e2) when (!e2.IsCriticalError())
+            {
+                return FormatNonFormattable(formattable);
+            }
         }
     }
 
