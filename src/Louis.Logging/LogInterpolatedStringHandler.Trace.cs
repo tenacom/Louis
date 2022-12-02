@@ -20,9 +20,9 @@ partial struct LogInterpolatedStringHandler
     /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
     /// </summary>
     [InterpolatedStringHandler]
-    public ref struct Trace
+    public readonly ref struct Trace
     {
-        private LogInterpolatedStringHandler _handler;
+        private readonly LogInterpolatedStringHandler _handler;
 
         /// <summary>
         /// This constructor is only meant for internal use by L.o.U.I.S. and should not be used directly.

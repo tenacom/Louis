@@ -20,9 +20,9 @@ partial struct LogInterpolatedStringHandler
     /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
     /// </summary>
     [InterpolatedStringHandler]
-    public ref struct Critical
+    public readonly ref struct Critical
     {
-        private LogInterpolatedStringHandler _handler;
+        private readonly LogInterpolatedStringHandler _handler;
 
         /// <summary>
         /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
