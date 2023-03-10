@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
-- [#24 - Log level checking in interpolated string handlers is wrong](https://github.com/Tenacom/Louis/issues/24)
-
 ### Known problems introduced by this release
+
+## [1.0.59-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.59-preview) (2023-03-10)
+
+### Bugs fixed in this release
+
+- [#24 - Log level checking in interpolated string handlers is wrong](https://github.com/Tenacom/Louis/issues/24)
 
 ## [1.0.47-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.47-preview) (2022-12-02)
 
