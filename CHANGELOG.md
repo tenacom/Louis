@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
+- [#24 - Log level checking in interpolated string handlers is wrong](https://github.com/Tenacom/Louis/issues/24)
+
 ### Known problems introduced by this release
 
 ## [1.0.47-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.47-preview) (2022-12-02)
@@ -26,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This version uses completely revamped build scripts and workflows.
 
 As part of the transition to the new build system, versioning is now managed with [`Nerdbank.GitVersioning`](https://github.com/dotnet/Nerdbank.GitVersioning), hence the versioning scheme change.
-
 
 ### New features
 
