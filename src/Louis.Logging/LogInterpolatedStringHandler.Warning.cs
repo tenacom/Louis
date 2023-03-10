@@ -29,7 +29,7 @@ partial struct LogInterpolatedStringHandler
         /// </summary>
         public Warning(int literalLength, int formattedCount, ILogger @this, out bool isEnabled)
         {
-            _handler = new(literalLength, formattedCount, @this, LogLevel.Critical, out isEnabled);
+            _handler = new(literalLength, formattedCount, @this, LogLevel.Warning, out isEnabled);
         }
 
         internal bool IsEnabled => _handler.IsEnabled;
