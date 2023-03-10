@@ -25,7 +25,7 @@ partial struct LogInterpolatedStringHandler
         private readonly LogInterpolatedStringHandler _handler;
 
         /// <summary>
-        /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
+        /// This constructor is only meant for internal use by L.o.U.I.S. and should not be used directly.
         /// </summary>
         public Critical(int literalLength, int formattedCount, ILogger @this, out bool isEnabled)
         {
@@ -35,12 +35,12 @@ partial struct LogInterpolatedStringHandler
         internal bool IsEnabled => _handler.IsEnabled;
 
         /// <summary>
-        /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
+        /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
         /// </summary>
         public void AppendLiteral(string s) => _handler.AppendLiteral(s);
 
         /// <summary>
-        /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
+        /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
         /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
         public void AppendFormatted(object? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
@@ -48,7 +48,7 @@ partial struct LogInterpolatedStringHandler
             => _handler.AppendFormatted(value, alignment, format, name);
 
         /// <summary>
-        /// This type is only meant for internal use by L.o.U.I.S. and should not be used directly.
+        /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
         /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
         public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
