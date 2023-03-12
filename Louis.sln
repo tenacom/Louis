@@ -26,6 +26,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF6E590F-F997-442E-8F77-356C7E4DF275}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0977BFBE-C5F3-4B90-9F9E-77061320CB9D}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Common.targets = tests\Common.targets
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Louis", "src\Louis\Louis.csproj", "{62064F40-927E-4421-AF63-AAD08A8CC360}"
 EndProject
