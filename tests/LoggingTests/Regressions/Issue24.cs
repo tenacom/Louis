@@ -109,5 +109,36 @@ public sealed class Issue24
               .Should().NotThrow();
     }
 
-    private int Boom() => throw new InvalidOperationException(GotchaMessage);
+    // This is not related to the bug in Issue #24, but strictly related to the other tests in this class.
+    [Theory]
+    [InlineData(LogLevel.Trace)]
+    [InlineData(LogLevel.Debug)]
+    [InlineData(LogLevel.Information)]
+    [InlineData(LogLevel.Warning)]
+    [InlineData(LogLevel.Error)]
+    [InlineData(LogLevel.Critical)]
+    public void Log_WhenLevelEnabled_EvaluatesInterpolations(LogLevel logLevel)
+    {
+        var logger = new TestLogger(logLevel, enable: true);
+        _ = logger.Invoking(l => l.Log(logLevel, $"Let's go {Boom()}!"))
+                  .Should().Throw<InvalidOperationException>()
+                  .WithMessage(GotchaMessage);
+    }
+
+    // This is not related to the bug in Issue #24, but strictly related to the other tests in this class.
+    [Theory]
+    [InlineData(LogLevel.Trace)]
+    [InlineData(LogLevel.Debug)]
+    [InlineData(LogLevel.Information)]
+    [InlineData(LogLevel.Warning)]
+    [InlineData(LogLevel.Error)]
+    [InlineData(LogLevel.Critical)]
+    public void Log_WhenLevelNotEnabled_DoesNotEvaluateInterpolations(LogLevel logLevel)
+    {
+        var logger = new TestLogger(logLevel, enable: false);
+        _ = logger.Invoking(l => l.Log(logLevel, $"Let's go {Boom()}!"))
+                  .Should().NotThrow();
+    }
+
+    private static int Boom() => throw new InvalidOperationException(GotchaMessage);
 }
