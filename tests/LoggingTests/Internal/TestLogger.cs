@@ -12,6 +12,23 @@ public class TestLogger : ILogger
     private readonly bool _enableError;
     private readonly bool _enableCritical;
 
+    internal TestLogger(bool enable = true)
+        : this(enableOthers: enable)
+    {
+    }
+
+    internal TestLogger(LogLevel singleLevel, bool enable = true)
+        : this(
+            enableTrace: singleLevel == LogLevel.Trace ? enable : null,
+            enableDebug: singleLevel == LogLevel.Debug ? enable : null,
+            enableInformation: singleLevel == LogLevel.Information ? enable : null,
+            enableWarning: singleLevel == LogLevel.Warning ? enable : null,
+            enableError: singleLevel == LogLevel.Error ? enable : null,
+            enableCritical: singleLevel == LogLevel.Critical ? enable : null,
+            enableOthers: !enable)
+    {
+    }
+
     internal TestLogger(
         bool? enableTrace = null,
         bool? enableDebug = null,
