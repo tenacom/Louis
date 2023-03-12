@@ -46,6 +46,8 @@ public class TestLogger : ILogger
         _enableCritical = enableCritical ?? enableOthers;
     }
 
+    public (LogLevel LogLevel, bool WasEnabled, string Message) LastEntry { get; private set; } = (LogLevel.None, false, string.Empty);
+
     public IDisposable? BeginScope<TState>(TState state)
         where TState : notnull
         => NullScope.Instance;
@@ -62,6 +64,5 @@ public class TestLogger : ILogger
         };
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
-    {
-    }
+        => LastEntry = (logLevel, IsEnabled(logLevel), formatter(state, exception));
 }
