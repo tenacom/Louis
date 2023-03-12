@@ -147,6 +147,11 @@ public ref partial struct LogInterpolatedStringHandler
     public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression(nameof(value))] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
+
+        // DO NOT merge the conditional below!
+        // As in: => AppendFormatted(value, alignment, format, name);
+        // It will mess with overload resolution, triggering infinite recursion.
+        // ReSharper disable once MergeConditionalExpression
         => AppendFormatted(value.HasValue ? value.GetValueOrDefault() : null, alignment, format, name);
 
     internal (string Template, object?[] Arguments) GetDataAndClear()
