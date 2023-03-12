@@ -21,10 +21,10 @@ partial struct LogInterpolatedStringHandler
     /// </summary>
     [InterpolatedStringHandler]
 #pragma warning disable CA1716 // Identifiers should not match keywords - This type is not meant to be used directly anyway.
-    public readonly ref struct Error
+    public ref struct Error
 #pragma warning restore CA1716 // Identifiers should not match keywords
     {
-        private readonly LogInterpolatedStringHandler _handler;
+        private LogInterpolatedStringHandler _handler;
 
         /// <summary>
         /// This constructor is only meant for internal use by L.o.U.I.S. and should not be used directly.
