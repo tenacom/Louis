@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Added class `PrefixingLogger` (in the `Louis.Logging` package), that wraps an existing `ILogger` adding a given prefix to all log messages. Nice work by @ric15ni in [PR #27](https://github.com/Tenacom/Louis/pull/27).
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
