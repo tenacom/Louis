@@ -9,7 +9,7 @@ namespace Louis.Diagnostics;
 
 partial class ExceptionExtensions
 {
-    private class CausingExceptions : IEnumerable<Exception>
+    private sealed class CausingExceptions : IEnumerable<Exception>
     {
         private readonly Exception _exception;
 
