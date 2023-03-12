@@ -1,0 +1,28 @@
+<Project>
+
+  <!-- Common build options for test projects -->
+  <PropertyGroup Condition="'$(TestProjectType)' != ''">
+
+    <!--
+        This assembly is not going to interoperate with other assemblies.
+        Besides, the type names used here are not apt to cause ambiguities.
+        Therefore there is no need for a root namespace: let's save ourselves some declarations.
+    -->
+    <RootNamespace />
+
+    <!-- No need for public API analyzers -->
+    <UsePublicApiAnalyzers>false</UsePublicApiAnalyzers>
+
+    <!-- Disable some warnings that have no sense in test projects -->
+    <NoWarn>$(NoWarn);CA1050</NoWarn> <!-- Declare types in namespaces -->
+    <NoWarn>$(NoWarn);CA1707</NoWarn> <!-- Identifiers should not contain underscores -->
+    <NoWarn>$(NoWarn);IDE0058</NoWarn> <!-- Expression value is never used -->
+
+  </PropertyGroup>
+
+  <!-- Hide test result files in Visual Studio -->
+  <ItemGroup Condition="'$(TestProjectType)' != ''">
+    <None Remove="TestResults\**" />
+  </ItemGroup>
+
+</Project>
