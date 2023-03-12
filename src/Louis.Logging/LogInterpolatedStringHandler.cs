@@ -91,7 +91,7 @@ public ref partial struct LogInterpolatedStringHandler
     /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
     /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
-    public void AppendFormatted(object? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
+    public void AppendFormatted(object? value, int alignment = 0, string? format = null, [CallerArgumentExpression(nameof(value))] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
     {
         var tb = TemplateBuilder.Value!;
@@ -144,7 +144,7 @@ public ref partial struct LogInterpolatedStringHandler
     /// This method is only meant for internal use by L.o.U.I.S. and should not be used directly.
     /// </summary>
 #pragma warning disable RS0026 // Do not add multiple public overloads with optional parameters - We need CallerArgumentExpression here
-    public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression("value")] string name = "")
+    public void AppendFormatted<T>(T? value, int alignment = 0, string? format = null, [CallerArgumentExpression(nameof(value))] string name = "")
 #pragma warning restore RS0026 // Do not add multiple public overloads with optional parameters
         where T : struct
         => AppendFormatted(value.HasValue ? value.GetValueOrDefault() : null, alignment, format, name);
