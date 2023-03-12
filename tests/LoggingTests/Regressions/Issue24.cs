@@ -3,7 +3,7 @@
 
 namespace Regressions;
 
-public class Issue24
+public sealed class Issue24
 {
     private const string GotchaMessage = "Gotcha!";
 
