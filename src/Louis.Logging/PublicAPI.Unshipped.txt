@@ -42,6 +42,10 @@ Louis.Logging.LogInterpolatedStringHandler.Warning.AppendFormatted<T>(T? value, 
 Louis.Logging.LogInterpolatedStringHandler.Warning.AppendLiteral(string! s) -> void
 Louis.Logging.LogInterpolatedStringHandler.Warning.Warning() -> void
 Louis.Logging.LogInterpolatedStringHandler.Warning.Warning(int literalLength, int formattedCount, Microsoft.Extensions.Logging.ILogger! this, out bool isEnabled) -> void
+Louis.Logging.PrefixingLogger
+Louis.Logging.PrefixingLogger.Prefix.get -> string!
+Louis.Logging.PrefixingLogger.PrefixingLogger(Microsoft.Extensions.Logging.ILogger! logger, string! prefix) -> void
+Louis.Logging.PrefixingLogger.WrappedLogger.get -> Microsoft.Extensions.Logging.ILogger!
 static Louis.Logging.LoggerExtensions.Log(this Microsoft.Extensions.Logging.ILogger! this, Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, ref Louis.Logging.LogInterpolatedStringHandler message) -> void
 static Louis.Logging.LoggerExtensions.Log(this Microsoft.Extensions.Logging.ILogger! this, Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, string! message) -> void
 static Louis.Logging.LoggerExtensions.Log(this Microsoft.Extensions.Logging.ILogger! this, Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, System.Exception? exception, ref Louis.Logging.LogInterpolatedStringHandler message) -> void
