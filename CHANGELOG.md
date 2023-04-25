@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Added method `Louis.Collections.EnumerableExtensions.WhereNot`, which works like `System.Linq.Enumerable.Where` but reverses the meaning of the predicate, returning only elements for which it returns `false`.
+
 ### Changes to existing features
 
 - Both overloads of `Louis.Collections.EnumerableExtensions.WhereNotNull` have been rewritten using local static functions instead of lambdas. Generated IL fornth ese methods is now smaller, slightly more performant, and makes no allocations.

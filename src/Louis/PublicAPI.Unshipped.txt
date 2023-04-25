@@ -51,6 +51,7 @@ override Louis.Threading.InterlockedFlag.ToString() -> string!
 static Louis.AsyncDisposableExtensions.DisposeSynchronously(this System.IAsyncDisposable! this) -> void
 static Louis.Collections.EnumerableExtensions.DisposeAll(this System.Collections.IEnumerable! this) -> void
 static Louis.Collections.EnumerableExtensions.DisposeAllAsync(this System.Collections.IEnumerable! this) -> System.Threading.Tasks.ValueTask
+static Louis.Collections.EnumerableExtensions.WhereNot<T>(this System.Collections.Generic.IEnumerable<T>! this, System.Func<T, bool>! predicate) -> System.Collections.Generic.IEnumerable<T>!
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T!>!
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
 static Louis.Diagnostics.ExceptionExtensions.AnyCausingException(this System.Exception! this, System.Func<System.Exception!, bool>! predicate) -> bool
