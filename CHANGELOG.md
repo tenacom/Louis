@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+### Changes to existing features
+
+### Bugs fixed in this release
+
+### Known problems introduced by this release
+
+## [1.0.83-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.83-preview) (2023-04-25)
+
+### New features
+
 - Added method `Louis.Collections.EnumerableExtensions.WhereNot`, which works like `System.Linq.Enumerable.Where` but reverses the meaning of the predicate, returning only elements for which it returns `false`.
 - Added method `Louis.Collections.EnumerableExtensions.WhereNotNulLOrEmpty`, that filters out null and empty elements from sequences of strings.
 - Added method `Louis.Collections.EnumerableExtensions.WhereNotNulLOrWhiteSpace`, that filters out null, empty, and white-space-only elements from sequences of strings.
@@ -20,8 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Bugs fixed in this release
 
 - The overload of `Louis.Collections.EnumerableExtensions.WhereNotNull` that accepts sequences of nullable value types was not really an extension method (its first parameter had no `this` modifier).
-
-### Known problems introduced by this release
 
 ## [1.0.73-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.73-preview) (2023-03-12)
 
