@@ -21,8 +21,9 @@ partial class EnumerableExtensions
         where T : class
     {
         Guard.IsNotNull(@this);
+        return @this.Where(IsNotNull) as IEnumerable<T>;
 
-        return @this.Where(x => x is not null) as IEnumerable<T>;
+        static bool IsNotNull(T? x) => x is not null;
     }
 
     /// <summary>
@@ -36,7 +37,10 @@ partial class EnumerableExtensions
         where T : struct
     {
         Guard.IsNotNull(@this);
+        return @this.Where(IsNotNull).Select(GetValue);
 
-        return @this.Where(x => x.HasValue).Select(x => x!.Value);
+        static bool IsNotNull(T? x) => x.HasValue;
+
+        static T GetValue(T? x) => x!.Value;
     }
 }

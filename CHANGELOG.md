@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes to existing features
 
+- Both overloads of `Louis.Collections.EnumerableExtensions.WhereNotNull` have been rewritten using local static functions instead of lambdas. Generated IL fornth ese methods is now smaller, slightly more performant, and makes no allocations.
+
 ### Bugs fixed in this release
 
 - The overload of `Louis.Collections.EnumerableExtensions.WhereNotNull` that accepts sequences of nullable value types was not really an extension method (its first parameter had no `this` modifier).
