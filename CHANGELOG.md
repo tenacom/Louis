@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
+- The overload of `Louis.Collections.EnumerableExtensions.WhereNotNull` that accepts sequences of nullable value types was not really an extension method (its first parameter had no `this` modifier).
+
 ### Known problems introduced by this release
 
 ## [1.0.73-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.73-preview) (2023-03-12)

@@ -32,7 +32,7 @@ partial class EnumerableExtensions
     /// <param name="this">An <see cref="IEnumerable{T}"/> to filter.</param>
     /// <returns>An <see cref="IEnumerable{T}"/> that contains the values of the elements from the input sequence that are not <see langword="null"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    public static IEnumerable<T> WhereNotNull<T>(IEnumerable<T?> @this)
+    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> @this)
         where T : struct
     {
         Guard.IsNotNull(@this);
