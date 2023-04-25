@@ -55,6 +55,7 @@ static Louis.Collections.EnumerableExtensions.WhereNot<T>(this System.Collection
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T!>!
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
 static Louis.Collections.EnumerableExtensions.WhereNotNullOrEmpty(this System.Collections.Generic.IEnumerable<string?>! this) -> System.Collections.Generic.IEnumerable<string!>!
+static Louis.Collections.EnumerableExtensions.WhereNotNullOrWhiteSpace(this System.Collections.Generic.IEnumerable<string?>! this) -> System.Collections.Generic.IEnumerable<string!>!
 static Louis.Diagnostics.ExceptionExtensions.AnyCausingException(this System.Exception! this, System.Func<System.Exception!, bool>! predicate) -> bool
 static Louis.Diagnostics.ExceptionExtensions.GetCausingExceptions(this System.Exception! this) -> System.Collections.Generic.IEnumerable<System.Exception!>!
 static Louis.Diagnostics.ExceptionExtensions.IsCriticalError(this System.Exception! this) -> bool

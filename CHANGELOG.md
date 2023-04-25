@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added method `Louis.Collections.EnumerableExtensions.WhereNot`, which works like `System.Linq.Enumerable.Where` but reverses the meaning of the predicate, returning only elements for which it returns `false`.
 - Added method `Louis.Collections.EnumerableExtensions.WhereNotNulLOrEmpty`, that filters out null and empty elements from sequences of strings.
+- Added method `Louis.Collections.EnumerableExtensions.WhereNotNulLOrWhiteSpace`, that filters out null, empty, and white-space-only elements from sequences of strings.
 
 ### Changes to existing features
 
