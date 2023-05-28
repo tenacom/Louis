@@ -74,14 +74,23 @@ static Louis.DisposingUtility.DisposeAsync(object? obj) -> System.Threading.Task
 static Louis.DisposingUtility.DisposeAsync(params object?[]! items) -> System.Threading.Tasks.ValueTask
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, System.Action<T, TElement, int>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, System.Action<T, TElement>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, System.Action<T, TElement, int>! action) -> T
+static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.ReadOnlySpan<TElement> span, System.Action<T, TElement>! action) -> T
 static Louis.Fluency.FluentExtensions.If<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then) -> T
+static Louis.Fluency.FluentExtensions.If<T>(this T this, bool condition, System.Action<T>! then) -> T
 static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, Louis.Fluency.FluentAction<T>! then, Louis.Fluency.FluentAction<T>! else) -> T
+static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, System.Action<T>! then, System.Action<T>! else) -> T
 static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, Louis.Fluency.FluentAction<T, T1>! then) -> T
+static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, System.Action<T, T1>! then) -> T
 static Louis.Fluency.FluentExtensions.Invoke<T>(this T this, System.Action<T>! action) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
 static Louis.RangeCheck.Clamp<T>(T value, T min, T max) -> T
 static Louis.RangeCheck.Clamp<T>(T value, T min, T max, System.Collections.Generic.IComparer<T>! comparer) -> T
 static Louis.RangeCheck.ClampOrNull<T>(T? value, T min, T max) -> T?

@@ -27,6 +27,7 @@ partial class FluentExtensions
     /// <para>- or -</para>
     /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
     /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},Action{T,TElement})"/>
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement> action)
     {
@@ -37,6 +38,39 @@ partial class FluentExtensions
         foreach (var item in sequence)
         {
             @this = action(@this, item);
+        }
+
+        return @this;
+    }
+
+    /// <summary>
+    /// Performs a specified action on an object and each element of a sequence,
+    /// then returns the object.
+    /// </summary>
+    /// <typeparam name="T">The type of the object.</typeparam>
+    /// <typeparam name="TElement">The type of each element of the sequence.</typeparam>
+    /// <param name="this">The object on which this method was called.</param>
+    /// <param name="sequence">The sequence of elements.</param>
+    /// <param name="action">The action to perform.</param>
+    /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
+    /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement})"/>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},Action{T,TElement})"/>
+    public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, Action<T, TElement> action)
+    {
+        Guard.IsNotNull(@this);
+        Guard.IsNotNull(action);
+        Guard.IsNotNull(sequence);
+
+        foreach (var item in sequence)
+        {
+            action(@this, item);
         }
 
         return @this;
@@ -65,6 +99,7 @@ partial class FluentExtensions
     /// <para>- or -</para>
     /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
     /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},Action{T,TElement,int})"/>
     /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, FluentAction<T, TElement, int> action)
     {
@@ -76,6 +111,45 @@ partial class FluentExtensions
         foreach (var item in sequence)
         {
             @this = action(@this, item, index++);
+        }
+
+        return @this;
+    }
+
+    /// <summary>
+    /// Performs a specified action on an object and each element of a sequence,
+    /// then returns the object.
+    /// </summary>
+    /// <typeparam name="T">The type of the object.</typeparam>
+    /// <typeparam name="TElement">The type of each element of the sequence.</typeparam>
+    /// <param name="this">The object on which this method was called.</param>
+    /// <param name="sequence">The sequence of elements.</param>
+    /// <param name="action">The action to perform.</param>
+    /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <remarks>
+    /// <para>This method is essentially the same as <see cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement})"/>,
+    /// but it also passes an index to <paramref name="action"/>. The passed index is 0 for the first call and is incremented by 1
+    /// for each subsequent call.</para>
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="sequence"/> is <see langword="null"/>.</para>
+    /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement,int})"/>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},Action{T,TElement,int})"/>
+    public static T ForEach<T, TElement>(this T @this, IEnumerable<TElement> sequence, Action<T, TElement, int> action)
+    {
+        Guard.IsNotNull(@this);
+        Guard.IsNotNull(action);
+        Guard.IsNotNull(sequence);
+
+        var index = 0;
+        foreach (var item in sequence)
+        {
+            action(@this, item, index++);
         }
 
         return @this;
@@ -97,6 +171,7 @@ partial class FluentExtensions
     /// <para>- or -</para>
     /// <para><paramref name="action"/> is <see langword="null"/>.</para>
     /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},Action{T,TElement})"/>
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement> action)
     {
@@ -106,6 +181,36 @@ partial class FluentExtensions
         foreach (var item in span)
         {
             @this = action(@this, item);
+        }
+
+        return @this;
+    }
+
+    /// <summary>
+    /// Performs a specified action on an object and each element of a span,
+    /// then returns the object.
+    /// </summary>
+    /// <typeparam name="T">The type of the object.</typeparam>
+    /// <typeparam name="TElement">The type of each element of the span.</typeparam>
+    /// <param name="this">The object on which this method was called.</param>
+    /// <param name="span">The span of elements.</param>
+    /// <param name="action">The action to perform.</param>
+    /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},Action{T,TElement})"/>
+    public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, Action<T, TElement> action)
+    {
+        Guard.IsNotNull(@this);
+        Guard.IsNotNull(action);
+
+        foreach (var item in span)
+        {
+            action(@this, item);
         }
 
         return @this;
@@ -131,6 +236,7 @@ partial class FluentExtensions
     /// <para>- or -</para>
     /// <para><paramref name="action"/> is <see langword="null"/>.</para>
     /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},Action{T,TElement,int})"/>
     /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},FluentAction{T,TElement,int})"/>
     public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, FluentAction<T, TElement, int> action)
     {
@@ -140,6 +246,41 @@ partial class FluentExtensions
         for (var i = 0; i < span.Length; i++)
         {
             @this = action(@this, span[i], i);
+        }
+
+        return @this;
+    }
+
+    /// <summary>
+    /// Performs a specified action on an object and each element of a span,
+    /// each time taking the result of the action as the object to pass together with the next element,
+    /// then returns the result of the last action.
+    /// </summary>
+    /// <typeparam name="T">The type of the object.</typeparam>
+    /// <typeparam name="TElement">The type of each element of the span.</typeparam>
+    /// <param name="this">The object on which this method was called.</param>
+    /// <param name="span">The span of elements.</param>
+    /// <param name="action">The action to perform.</param>
+    /// <returns>The result of the last call to <paramref name="action"/>.</returns>
+    /// <remarks>
+    /// <para>This method is essentially the same as <see cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement})"/>,
+    /// but it also passes the index of each element to <paramref name="action"/>.</para>
+    /// </remarks>
+    /// <exception cref="ArgumentNullException">
+    /// <para><paramref name="this"/> is <see langword="null"/>.</para>
+    /// <para>- or -</para>
+    /// <para><paramref name="action"/> is <see langword="null"/>.</para>
+    /// </exception>
+    /// <seealso cref="ForEach{T,TElement}(T,ReadOnlySpan{TElement},FluentAction{T,TElement,int})"/>
+    /// <seealso cref="ForEach{T,TElement}(T,IEnumerable{TElement},Action{T,TElement,int})"/>
+    public static T ForEach<T, TElement>(this T @this, ReadOnlySpan<TElement> span, Action<T, TElement, int> action)
+    {
+        Guard.IsNotNull(@this);
+        Guard.IsNotNull(action);
+
+        for (var i = 0; i < span.Length; i++)
+        {
+            action(@this, span[i], i);
         }
 
         return @this;
