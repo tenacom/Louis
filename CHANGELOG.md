@@ -9,14 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- Added method `Louis.Fluency.FluentExtensions.IfNotNull`, which calls an action on an object and an additional argument only if the latter is not `null`.
-- Added overloads to `Louis.Fluency.FluentExtensions` that take simple `Action`s instead of `FluentAction`s as arguments.
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.0.93-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.93-preview) (2023-05-28)
+
+### New features
+
+- Added method `Louis.Fluency.FluentExtensions.IfNotNull`, which calls an action on an object and an additional argument only if the latter is not `null`.
+- Added overloads to `Louis.Fluency.FluentExtensions` that take simple `Action`s instead of `FluentAction`s as arguments.
 
 ## [1.0.83-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.83-preview) (2023-04-25)
 
