@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Added method `Louis.Fluency.FluentExtensions.IfNotNull`, which calls an action on an object and an additional argument only if the latter is not `null`.
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
