@@ -86,6 +86,10 @@ static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, Lou
 static Louis.Fluency.FluentExtensions.IfElse<T>(this T this, bool condition, System.Action<T>! then, System.Action<T>! else) -> T
 static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, Louis.Fluency.FluentAction<T, T1>! then) -> T
 static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, System.Action<T, T1>! then) -> T
+static Louis.Fluency.FluentExtensions.Invoke<T, TArg1, TArg2, TArg3, TArg4>(this T this, TArg1 arg1, TArg2 arg2, TArg3 arg3, TArg4 arg4, System.Action<T, TArg1, TArg2, TArg3, TArg4>! action) -> T
+static Louis.Fluency.FluentExtensions.Invoke<T, TArg1, TArg2, TArg3>(this T this, TArg1 arg1, TArg2 arg2, TArg3 arg3, System.Action<T, TArg1, TArg2, TArg3>! action) -> T
+static Louis.Fluency.FluentExtensions.Invoke<T, TArg1, TArg2>(this T this, TArg1 arg1, TArg2 arg2, System.Action<T, TArg1, TArg2>! action) -> T
+static Louis.Fluency.FluentExtensions.Invoke<T, TArg>(this T this, TArg arg, System.Action<T, TArg>! action) -> T
 static Louis.Fluency.FluentExtensions.Invoke<T>(this T this, System.Action<T>! action) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
