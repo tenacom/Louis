@@ -9,14 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- Added overloads of `Louis.Fluency.FluentExtensions.Invoke` that allow for additional arguments to be passed to lambdas to avoid the allocation of closure objects.
-- Added method `Louis.Fluency.FluentExtensions.InvokeIf` that calls the provided action only if a condition is `true`.
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.0.101-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.101-preview) (2023-06-25)
+
+### New features
+
+- Added overloads of `Louis.Fluency.FluentExtensions.Invoke` that allow for additional arguments to be passed to lambdas to avoid the allocation of closure objects.
+- Added method `Louis.Fluency.FluentExtensions.InvokeIf` that calls the provided action only if a condition is `true`.
 
 ## [1.0.93-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.93-preview) (2023-05-28)
 
