@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Added overloads of `Louis.Fluency.FluentExtensions.Invoke` that allow for additional arguments to be passed to lambdas to avoid the allocation of closure objects.
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
