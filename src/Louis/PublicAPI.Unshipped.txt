@@ -1,4 +1,7 @@
 #nullable enable
+abstract Louis.Threading.AsyncService.OnStartServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+abstract Louis.Threading.AsyncService.OnStopServiceAsync() -> System.Threading.Tasks.ValueTask
+abstract Louis.Threading.AsyncService.RunServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringNullText = "<null!>" -> string!
@@ -34,6 +37,24 @@ Louis.Text.StringLiteralKind.Quoted = 0 -> Louis.Text.StringLiteralKind
 Louis.Text.StringLiteralKind.Verbatim = 1 -> Louis.Text.StringLiteralKind
 Louis.Text.UnicodeCharacterUtility
 Louis.Text.Utf8Utility
+Louis.Threading.AsyncService
+Louis.Threading.AsyncService.AsyncService() -> void
+Louis.Threading.AsyncService.Dispose() -> void
+Louis.Threading.AsyncService.DisposeAsync() -> System.Threading.Tasks.ValueTask
+Louis.Threading.AsyncService.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Louis.Threading.AsyncService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.AsyncService.State.get -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncService.StopAsync() -> System.Threading.Tasks.Task!
+Louis.Threading.AsyncService.TryStop() -> bool
+Louis.Threading.AsyncService.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.AsyncService.WaitUntilStoppedAsync() -> System.Threading.Tasks.Task!
+Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Created = 0 -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Disposed = 5 -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Running = 2 -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Starting = 1 -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Stopped = 4 -> Louis.Threading.AsyncServiceState
+Louis.Threading.AsyncServiceState.Stopping = 3 -> Louis.Threading.AsyncServiceState
 Louis.Threading.InterlockedFlag
 Louis.Threading.InterlockedFlag.CheckAndSet(bool value) -> bool
 Louis.Threading.InterlockedFlag.Equals(Louis.Threading.InterlockedFlag other) -> bool
@@ -167,3 +188,4 @@ static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFl
 static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.ValueTask[]! valueTasks) -> System.Threading.Tasks.ValueTask
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
+virtual Louis.Threading.AsyncService.OnDisposeServiceAsync() -> System.Threading.Tasks.ValueTask
