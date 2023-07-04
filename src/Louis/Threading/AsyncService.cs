@@ -20,7 +20,7 @@ namespace Louis.Threading;
 /// <list type="bullet">
 /// <item>you can either start your service in background by calling <see cref="StartAsync"/>,
 /// or run it as a task by calling <see cref="RunAsync"/>;</item>
-/// <item>you can, optionally, override the <see cref="OnStartServiceAsync"/> and <see cref="OnStopServiceAsync"/> methods
+/// <item>you can, optionally, override the <see cref="SetupAsync"/> and <see cref="TeardownAsync"/> methods
 /// to separate setup and teardown from the core of your service;</item>
 /// <item>you can use the <see cref="State"/> to know, at any time, if your service has been started, has finished starting,
 /// is stopping, or has finished stopping;</item>
@@ -162,7 +162,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <inheritdoc/>
     /// <remarks>
     /// <para>This method stops the service and waits for completion if it has been started,
-    /// then calls <see cref="OnDisposeServiceAsync"/> before releasing resources
+    /// then calls <see cref="DisposeResourcesAsync"/> before releasing resources
     /// held by this class.</para>
     /// </remarks>
     public async ValueTask DisposeAsync()
@@ -197,7 +197,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             State = AsyncServiceState.Disposed;
         }
 
-        await OnDisposeServiceAsync().ConfigureAwait(false);
+        await DisposeResourcesAsync().ConfigureAwait(false);
         _stoppedTokenSource.Dispose();
     }
 
@@ -217,7 +217,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// cannot directly own unmanaged resources.</para>
     /// </summary>
     /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
-    protected virtual ValueTask OnDisposeServiceAsync() => default;
+    protected virtual ValueTask DisposeResourcesAsync() => default;
 
     /// <summary>
     /// When overridden in a derived class, performs asynchronous operations
@@ -225,7 +225,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the operation.</param>
     /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
-    protected virtual ValueTask OnStartServiceAsync(CancellationToken cancellationToken) => default;
+    protected virtual ValueTask SetupAsync(CancellationToken cancellationToken) => default;
 
     /// <summary>
     /// When overridden in a derived class, performs asynchronous operations
@@ -238,14 +238,14 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// (for example if the <see cref="CancellationToken"/> passed to <see cref="StartAsync"/>
     /// is canceled after <see cref="StartAsync"/> checks it for the last time).</para>
     /// </remarks>
-    protected virtual ValueTask OnStopServiceAsync() => default;
+    protected virtual ValueTask TeardownAsync() => default;
 
     /// <summary>
     /// When overridden in a derived class, performs the actual operations the service is meant to carry out.
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the service.</param>
     /// <returns>A <see cref="Task"/> representing the ongoing operation.</returns>
-    protected abstract Task RunServiceAsync(CancellationToken cancellationToken);
+    protected abstract Task ExecuteAsync(CancellationToken cancellationToken);
 
     [DoesNotReturn]
     private static void ThrowOnObjectDisposed(string message)
@@ -310,7 +310,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             try
             {
                 // Perform start actions.
-                await OnStartServiceAsync(cts.Token).ConfigureAwait(false);
+                await SetupAsync(cts.Token).ConfigureAwait(false);
                 onStartCalled = true;
 
                 // Check the cancellation token, in case cancellation has been requested
@@ -325,7 +325,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
             State = AsyncServiceState.Running;
             _startedCompletionSource.SetResult(true);
-            await RunServiceAsync(cts.Token).ConfigureAwait(false);
+            await ExecuteAsync(cts.Token).ConfigureAwait(false);
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
@@ -337,7 +337,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             State = AsyncServiceState.Stopping;
             try
             {
-                await OnStopServiceAsync().ConfigureAwait(false);
+                await TeardownAsync().ConfigureAwait(false);
             }
             catch (Exception) when (exception is null)
             {

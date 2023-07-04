@@ -1,5 +1,5 @@
 #nullable enable
-abstract Louis.Threading.AsyncService.RunServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+abstract Louis.Threading.AsyncService.ExecuteAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringNullText = "<null!>" -> string!
@@ -186,6 +186,6 @@ static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFl
 static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.ValueTask[]! valueTasks) -> System.Threading.Tasks.ValueTask
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
-virtual Louis.Threading.AsyncService.OnDisposeServiceAsync() -> System.Threading.Tasks.ValueTask
-virtual Louis.Threading.AsyncService.OnStartServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
-virtual Louis.Threading.AsyncService.OnStopServiceAsync() -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.DisposeResourcesAsync() -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.TeardownAsync() -> System.Threading.Tasks.ValueTask
