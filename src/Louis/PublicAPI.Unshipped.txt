@@ -1,6 +1,4 @@
 #nullable enable
-abstract Louis.Threading.AsyncService.OnStartServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
-abstract Louis.Threading.AsyncService.OnStopServiceAsync() -> System.Threading.Tasks.ValueTask
 abstract Louis.Threading.AsyncService.RunServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
@@ -189,3 +187,5 @@ static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.Va
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
 virtual Louis.Threading.AsyncService.OnDisposeServiceAsync() -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.OnStartServiceAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.OnStopServiceAsync() -> System.Threading.Tasks.ValueTask

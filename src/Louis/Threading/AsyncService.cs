@@ -225,7 +225,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the operation.</param>
     /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
-    protected abstract ValueTask OnStartServiceAsync(CancellationToken cancellationToken);
+    protected virtual ValueTask OnStartServiceAsync(CancellationToken cancellationToken) => default;
 
     /// <summary>
     /// When overridden in a derived class, performs asynchronous operations
@@ -238,7 +238,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// (for example if the <see cref="CancellationToken"/> passed to <see cref="StartAsync"/>
     /// is canceled after <see cref="StartAsync"/> checks it for the last time).</para>
     /// </remarks>
-    protected abstract ValueTask OnStopServiceAsync();
+    protected virtual ValueTask OnStopServiceAsync() => default;
 
     /// <summary>
     /// When overridden in a derived class, performs the actual operations the service is meant to carry out.
