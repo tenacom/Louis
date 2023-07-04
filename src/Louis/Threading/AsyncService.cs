@@ -19,15 +19,15 @@ namespace Louis.Threading;
 /// class found in <c>Microsoft.Extensions.Hosting</c> because it gives you more control over your service:</para>
 /// <list type="bullet">
 /// <item>you can either start your service in background by calling <see cref="StartAsync"/>,
-/// or run it as a task by calling <see cref="RunAsync"/>;<description></description></item>
+/// or run it as a task by calling <see cref="RunAsync"/>;</item>
 /// <item>you can, optionally, override the <see cref="OnStartServiceAsync"/> and <see cref="OnStopServiceAsync"/> methods
-/// to separate setup and teardown from the core of your service;<description></description></item>
+/// to separate setup and teardown from the core of your service;</item>
 /// <item>you can use the <see cref="State"/> to know, at any time, if your service has been started, has finished starting,
-/// is stopping, or has finished stopping;<description></description></item>
-/// <item><description>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
-/// and <see cref="WaitUntilStoppedAsync"/>;</description></item>
+/// is stopping, or has finished stopping;</item>
+/// <item>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
+/// and <see cref="WaitUntilStoppedAsync"/>;</item>
 /// <item>you can stop your service and let it complete in the background by calling <see cref="TryStop"/>,
-/// or stop and wait for completion by calling <see cref="StopAsync"/>.<description></description></item>
+/// or stop and wait for completion by calling <see cref="StopAsync"/>.</item>
 /// </list>
 /// </remarks>
 public abstract class AsyncService : IAsyncDisposable, IDisposable
