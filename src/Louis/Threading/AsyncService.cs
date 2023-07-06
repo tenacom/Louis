@@ -26,7 +26,7 @@ namespace Louis.Threading;
 /// is stopping, or has finished stopping;</item>
 /// <item>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
 /// and <see cref="WaitUntilStoppedAsync"/>;</item>
-/// <item>you can stop your service and let it complete in the background by calling <see cref="TryStop"/>,
+/// <item>you can stop your service and let it complete in the background by calling <see cref="Stop"/>,
 /// or stop and wait for completion by calling <see cref="StopAsync"/>.</item>
 /// </list>
 /// </remarks>
@@ -108,28 +108,34 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     }
 
     /// <summary>
-    /// Asynchronously stops an asynchronous service.
+    /// Stops an asynchronous service, without waiting for it to complete.
+    /// If the service has not started yet, calling this method prevents it from starting.
     /// </summary>
     /// <returns>
-    /// A <see cref="Task"/> that will complete as soon as the service has finished stopping.
-    /// If the service has already stopped, the returned task is already completed.
+    /// <see langword="true"/> if the service had started and has been stopped;
+    /// if the service had not started yet, <see langword="false"/>.
     /// </returns>
-    /// <exception cref="InvalidOperationException">
-    /// The service has not been started yet.
-    /// </exception>
-    public Task StopAsync() => TryStop() ? WaitUntilStoppedAsync() : Task.CompletedTask;
+    public bool Stop() => StopCore(false);
 
     /// <summary>
-    /// Tries to stop an asynchronous service.
+    /// Asynchronously stops an asynchronous service and waits for it to complete.
+    /// If the service has not started yet, calling this method prevents it from starting.
     /// </summary>
     /// <returns>
-    /// <see langword="true"/> if the service has been stopped;
-    /// <see langword="false"/> if it had already stopped.
+    /// A <see cref="Task{T}">Task&lt;bool&gt;</see> that will complete as soon as the service has finished stopping
+    /// (in which case the result will be <see langword="true"/>), or immediately if the service had not started yet
+    /// (in which case the result will be <see langword="false"/>).
     /// </returns>
-    /// <exception cref="InvalidOperationException">
-    /// The service has not been started yet.
-    /// </exception>
-    public bool TryStop() => TryStopCore(out var exception) || (exception is null ? false : throw exception);
+    public async Task<bool> StopAsync()
+    {
+        if (!StopCore(false))
+        {
+            return false;
+        }
+
+        await WaitUntilStoppedAsync().ConfigureAwait(false);
+        return true;
+    }
 
     /// <summary>
     /// Asynchronously wait until an asynchronous service has started.
@@ -167,7 +173,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </remarks>
     public async ValueTask DisposeAsync()
     {
-        AsyncServiceState previousState;
+        bool hadStarted;
         lock (_stateSyncRoot)
         {
             if (!_disposed.TrySet())
@@ -175,26 +181,12 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 return;
             }
 
-            previousState = _state;
-            if (previousState < AsyncServiceState.Starting)
-            {
-                _state = AsyncServiceState.Disposed;
-            }
+            hadStarted = StopCore(true);
         }
 
-        if (previousState < AsyncServiceState.Starting)
+        if (hadStarted)
         {
-            _ = _startedCompletionSource.TrySetResult(false);
-            _ = _stoppedCompletionSource.TrySetResult(true);
-        }
-        else
-        {
-            if (TryStopCore(out var exception) && exception is null)
-            {
-                await WaitUntilStoppedAsync().ConfigureAwait(false);
-            }
-
-            State = AsyncServiceState.Disposed;
+            await WaitUntilStoppedAsync().ConfigureAwait(false);
         }
 
         await DisposeResourcesAsync().ConfigureAwait(false);
@@ -255,26 +247,32 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     private static void ThrowMultipleExceptions(params Exception[] innerExceptions)
         => throw new AggregateException(innerExceptions);
 
-    private bool TryStopCore(out Exception? exception)
+    private bool StopCore(bool disposing)
     {
         lock (_stateSyncRoot)
         {
             switch (_state)
             {
                 case < AsyncServiceState.Starting:
-                    exception = new InvalidOperationException("The service has not been started yet.");
+                    _ = _startedCompletionSource.TrySetResult(false);
+                    _ = _stoppedCompletionSource.TrySetResult(true);
+                    _state = disposing ? AsyncServiceState.Disposed : AsyncServiceState.Stopped;
                     return false;
+
                 case > AsyncServiceState.Running:
-                    exception = null;
-                    return false;
+                    if (disposing)
+                    {
+                        _state = AsyncServiceState.Disposed;
+                    }
+
+                    return true;
+
+                default:
+                    _state = disposing ? AsyncServiceState.Disposed : AsyncServiceState.Stopping;
+                    _stoppedTokenSource.Cancel();
+                    return true;
             }
-
-            _state = AsyncServiceState.Stopping;
         }
-
-        _stoppedTokenSource.Cancel();
-        exception = null;
-        return true;
     }
 
     private async Task RunAsyncCore(bool runInBackground, CancellationToken cancellationToken)
