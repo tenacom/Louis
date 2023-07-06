@@ -25,6 +25,8 @@ namespace Louis.Threading;
 /// or run it as a task by calling <see cref="RunAsync"/>;</item>
 /// <item>you can use the <see cref="State"/> property to know, at any time, if your service has been started, has finished starting,
 /// is stopping, has finished stopping, or has been disposed;</item>
+/// <item>you can use the <see cref="DoneToken"/> property to get a cancellation token that will be canceled
+/// as soon as execution of the service stops, just before the teardown phase starts;</item>
 /// <item>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
 /// and <see cref="WaitUntilStoppedAsync"/>;</item>
 /// <item>you can stop your service and let it complete in the background by calling <see cref="Stop"/>,
@@ -34,6 +36,7 @@ namespace Louis.Threading;
 public abstract class AsyncService : IAsyncDisposable, IDisposable
 {
     private readonly CancellationTokenSource _stoppedTokenSource = new();
+    private readonly CancellationTokenSource _doneTokenSource = new();
     private readonly TaskCompletionSource<bool> _startedCompletionSource = new();
     private readonly TaskCompletionSource<bool> _stoppedCompletionSource = new();
     private readonly object _stateSyncRoot = new();
@@ -71,7 +74,13 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     }
 
     /// <summary>
-    /// Asynchronously run an asynchronous service.
+    /// Gets a <see cref="CancellationToken"/> that is canceled as soon as the service has finished executing
+    /// (either successfully or with an exception) or has failed starting.
+    /// </summary>
+    public CancellationToken DoneToken => _doneTokenSource.Token;
+
+    /// <summary>
+    /// Asynchronously runs an asynchronous service.
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the service.</param>
     /// <returns>
@@ -365,6 +374,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         {
             _startedCompletionSource.SetResult(false);
             _stoppedCompletionSource.SetResult(true);
+            _doneTokenSource.Cancel();
             State = AsyncServiceState.Stopped;
 
             // Only propagate exceptions if there is a caller to propagate to.
@@ -391,6 +401,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
 
         Exception? teardownException = null;
+        _doneTokenSource.Cancel();
         State = AsyncServiceState.Stopping;
         try
         {
