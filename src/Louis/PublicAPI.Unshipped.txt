@@ -42,8 +42,8 @@ Louis.Threading.AsyncService.DisposeAsync() -> System.Threading.Tasks.ValueTask
 Louis.Threading.AsyncService.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 Louis.Threading.AsyncService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 Louis.Threading.AsyncService.State.get -> Louis.Threading.AsyncServiceState
-Louis.Threading.AsyncService.StopAsync() -> System.Threading.Tasks.Task!
-Louis.Threading.AsyncService.TryStop() -> bool
+Louis.Threading.AsyncService.Stop() -> bool
+Louis.Threading.AsyncService.StopAsync() -> System.Threading.Tasks.Task<bool>!
 Louis.Threading.AsyncService.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<bool>!
 Louis.Threading.AsyncService.WaitUntilStoppedAsync() -> System.Threading.Tasks.Task!
 Louis.Threading.AsyncServiceState
