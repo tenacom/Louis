@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Integration of L.o.U.I.S. with Microsoft.Extensions.Hosting.</Description>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net6.0;net7.0</TargetFrameworks>
+    <UseTfmSpecificPublicApiFiles>false</UseTfmSpecificPublicApiFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Louis\Louis.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+  </ItemGroup>
+
+</Project>
