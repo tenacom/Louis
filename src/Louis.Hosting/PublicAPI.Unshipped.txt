@@ -1,1 +1,9 @@
 #nullable enable
+Louis.Hosting.AsyncHostedService
+Louis.Hosting.AsyncHostedService.AsyncHostedService(Microsoft.Extensions.Logging.ILogger! logger) -> void
+override sealed Louis.Hosting.AsyncHostedService.LogExecuteCanceled() -> void
+override sealed Louis.Hosting.AsyncHostedService.LogExecuteFailed(System.Exception! exception) -> void
+override sealed Louis.Hosting.AsyncHostedService.LogSetupCanceled() -> void
+override sealed Louis.Hosting.AsyncHostedService.LogSetupFailed(System.Exception! exception) -> void
+override sealed Louis.Hosting.AsyncHostedService.LogStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
+override sealed Louis.Hosting.AsyncHostedService.LogTeardownFailed(System.Exception! exception) -> void
