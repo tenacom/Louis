@@ -264,6 +264,62 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <returns>A <see cref="Task"/> representing the ongoing operation.</returns>
     protected abstract Task ExecuteAsync(CancellationToken cancellationToken);
 
+    /// <summary>
+    /// <para>Called whenever the <see cref="State"/> property changes.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    /// <param name="oldState">The old value of <see cref="State"/>.</param>
+    /// <param name="newState">The new value of <see cref="State"/>.</param>
+    protected virtual void OnStateChanged(AsyncServiceState oldState, AsyncServiceState newState)
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="SetupAsync"/> method throws <see cref="OperationCanceledException"/>
+    /// and the service has been requested to stop.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void OnSetupCanceled()
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="SetupAsync"/> method throws an exception, except when such exception indicates
+    /// that service execution has been canceled.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    /// <param name="exception">The exception thrown by <see cref="SetupAsync"/>.</param>
+    protected virtual void OnSetupFailed(Exception exception)
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="ExecuteAsync"/> method throws <see cref="OperationCanceledException"/>
+    /// and the service has been requested to stop.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void OnExecuteCanceled()
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="ExecuteAsync"/> method throws an exception, except when such exception indicates
+    /// that service execution has been canceled.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    /// <param name="exception">The exception thrown by <see cref="ExecuteAsync"/>.</param>
+    protected virtual void OnExecuteFailed(Exception exception)
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="TeardownAsync"/> method throws an exception.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    /// <param name="exception">The exception thrown by <see cref="TeardownAsync"/>.</param>
+    protected virtual void OnTeardownFailed(Exception exception)
+    {
+    }
 
     [DoesNotReturn]
     private static void ThrowOnObjectDisposed(string message)
@@ -364,9 +420,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
+            OnSetupCanceled();
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
+            OnSetupFailed(e);
             exception = e;
         }
 
@@ -394,9 +452,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
+            OnExecuteCanceled();
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
+            OnExecuteFailed(e);
             exception = e;
         }
 
@@ -409,6 +469,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
+            OnTeardownFailed(e);
             teardownException = e;
         }
 
@@ -426,5 +487,6 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
         var oldState = _state;
         _state = value;
+        OnStateChanged(oldState, _state);
     }
 }

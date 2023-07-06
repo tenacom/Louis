@@ -189,5 +189,11 @@ static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.Va
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
 virtual Louis.Threading.AsyncService.DisposeResourcesAsync() -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.OnExecuteCanceled() -> void
+virtual Louis.Threading.AsyncService.OnExecuteFailed(System.Exception! exception) -> void
+virtual Louis.Threading.AsyncService.OnSetupCanceled() -> void
+virtual Louis.Threading.AsyncService.OnSetupFailed(System.Exception! exception) -> void
+virtual Louis.Threading.AsyncService.OnStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
+virtual Louis.Threading.AsyncService.OnTeardownFailed(System.Exception! exception) -> void
 virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
 virtual Louis.Threading.AsyncService.TeardownAsync() -> System.Threading.Tasks.ValueTask
