@@ -40,6 +40,7 @@ Louis.Threading.AsyncService.AsyncService() -> void
 Louis.Threading.AsyncService.Dispose() -> void
 Louis.Threading.AsyncService.DisposeAsync() -> System.Threading.Tasks.ValueTask
 Louis.Threading.AsyncService.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Louis.Threading.AsyncService.Start(System.Threading.CancellationToken cancellationToken) -> void
 Louis.Threading.AsyncService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 Louis.Threading.AsyncService.State.get -> Louis.Threading.AsyncServiceState
 Louis.Threading.AsyncService.Stop() -> bool
