@@ -270,7 +270,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="oldState">The old value of <see cref="State"/>.</param>
     /// <param name="newState">The new value of <see cref="State"/>.</param>
-    protected virtual void OnStateChanged(AsyncServiceState oldState, AsyncServiceState newState)
+    protected virtual void LogStateChanged(AsyncServiceState oldState, AsyncServiceState newState)
     {
     }
 
@@ -279,7 +279,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// and the service has been requested to stop.</para>
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
-    protected virtual void OnSetupCanceled()
+    protected virtual void LogSetupCanceled()
     {
     }
 
@@ -289,7 +289,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
     /// <param name="exception">The exception thrown by <see cref="SetupAsync"/>.</param>
-    protected virtual void OnSetupFailed(Exception exception)
+    protected virtual void LogSetupFailed(Exception exception)
     {
     }
 
@@ -298,7 +298,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// and the service has been requested to stop.</para>
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
-    protected virtual void OnExecuteCanceled()
+    protected virtual void LogExecuteCanceled()
     {
     }
 
@@ -308,7 +308,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
     /// <param name="exception">The exception thrown by <see cref="ExecuteAsync"/>.</param>
-    protected virtual void OnExecuteFailed(Exception exception)
+    protected virtual void LogExecuteFailed(Exception exception)
     {
     }
 
@@ -317,7 +317,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
     /// <param name="exception">The exception thrown by <see cref="TeardownAsync"/>.</param>
-    protected virtual void OnTeardownFailed(Exception exception)
+    protected virtual void LogTeardownFailed(Exception exception)
     {
     }
 
@@ -420,11 +420,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
-            OnSetupCanceled();
+            LogSetupCanceled();
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
-            OnSetupFailed(e);
+            LogSetupFailed(e);
             exception = e;
         }
 
@@ -452,11 +452,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
-            OnExecuteCanceled();
+            LogExecuteCanceled();
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
-            OnExecuteFailed(e);
+            LogExecuteFailed(e);
             exception = e;
         }
 
@@ -469,7 +469,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
-            OnTeardownFailed(e);
+            LogTeardownFailed(e);
             teardownException = e;
         }
 
@@ -487,6 +487,6 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
         var oldState = _state;
         _state = value;
-        OnStateChanged(oldState, _state);
+        LogStateChanged(oldState, _state);
     }
 }
