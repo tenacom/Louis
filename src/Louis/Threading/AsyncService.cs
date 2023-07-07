@@ -140,7 +140,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <see langword="true"/> if the service was running and has been requested to stop;
     /// <see langword="false"/> if the service was not running.
     /// </returns>
-    public bool Stop() => StopCore(false);
+    public bool Stop() => StopCore();
 
     /// <summary>
     /// Asynchronously stops an asynchronous service and waits for it to complete.
@@ -153,7 +153,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </returns>
     public async Task<bool> StopAsync()
     {
-        if (!StopCore(false))
+        if (!StopCore())
         {
             return false;
         }
@@ -206,7 +206,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 return;
             }
 
-            hadStarted = StopCore(true);
+            hadStarted = StopCore();
         }
 
         if (hadStarted)
@@ -214,6 +214,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             await WaitUntilStoppedAsync().ConfigureAwait(false);
         }
 
+        State = AsyncServiceState.Disposed;
         await DisposeResourcesAsync().ConfigureAwait(false);
         _stoppedTokenSource.Dispose();
     }
@@ -348,7 +349,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     private static void ThrowMultipleExceptions(params Exception[] innerExceptions)
         => throw new AggregateException(innerExceptions);
 
-    private bool StopCore(bool disposing)
+    private bool StopCore()
     {
         lock (_stateSyncRoot)
         {
@@ -357,22 +358,16 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 case < AsyncServiceState.Starting:
                     _ = _startedCompletionSource.TrySetResult(false);
                     _ = _stoppedCompletionSource.TrySetResult(true);
-                    UnsafeSetState(disposing ? AsyncServiceState.Disposed : AsyncServiceState.Stopped);
+                    UnsafeSetState(AsyncServiceState.Stopped);
                     return false;
 
                 case AsyncServiceState.Disposed:
                     return false;
 
                 case > AsyncServiceState.Running:
-                    if (disposing)
-                    {
-                        UnsafeSetState(AsyncServiceState.Disposed);
-                    }
-
                     return true;
 
                 default:
-                    UnsafeSetState(disposing ? AsyncServiceState.Disposed : AsyncServiceState.Stopping);
                     _stoppedTokenSource.Cancel();
                     return true;
             }
@@ -433,10 +428,10 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
         if (!setupCompleted)
         {
+            State = AsyncServiceState.Stopped;
             _startedCompletionSource.SetResult(false);
             _stoppedCompletionSource.SetResult(true);
             _doneTokenSource.Cancel();
-            State = AsyncServiceState.Stopped;
 
             // Only propagate exceptions if there is a caller to propagate to.
             if (exception is not null && !runInBackground)
