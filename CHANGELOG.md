@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Added class `Louis.Threading.AsyncService`: a complete revamp of the old `AsyncWorker` class that was present in the very first alpha version of L.o.U.I.S., this class simplifies the implementation and use of long-running background tasks.
+- Added package `Louis.Hosting` with an `AsyncHostedService` class, that extends `AsyncService` with logging and implements the [`IHostedService`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihostedservice) interface for integration in ASP.NET applications, as well as any application based on the [`generic host`](https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host).
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
