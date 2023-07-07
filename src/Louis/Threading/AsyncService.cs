@@ -327,9 +327,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
     private static void AggregateAndThrowIfNeeded(Exception? exception1, Exception? exception2)
     {
-        if (exception1 is { })
+        if (exception1 is not null)
         {
-            if (exception2 is { })
+            if (exception2 is not null)
             {
                 ThrowMultipleExceptions(exception1, exception2);
             }
@@ -338,7 +338,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 ExceptionDispatchInfo.Capture(exception1).Throw();
             }
         }
-        else if (exception2 is { })
+        else if (exception2 is not null)
         {
             ExceptionDispatchInfo.Capture(exception2).Throw();
         }
@@ -436,7 +436,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             State = AsyncServiceState.Stopped;
 
             // Only propagate exceptions if there is a caller to propagate to.
-            if (!runInBackground && exception is not null)
+            if (exception is not null && !runInBackground)
             {
                 ExceptionDispatchInfo.Capture(exception).Throw();
             }
