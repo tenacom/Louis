@@ -409,10 +409,13 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         Exception? exception = null;
         try
         {
+            // Check the cancellation token first, in case it is already canceled.
+            cts.Token.ThrowIfCancellationRequested();
+
             // Perform start actions.
             await SetupAsync(cts.Token).ConfigureAwait(false);
 
-            // Check the cancellation token, in case cancellation has been requested
+            // Check the cancellation token again, in case cancellation has been requested
             // but SetupAsync has not honored the request.
             cts.Token.ThrowIfCancellationRequested();
 
@@ -448,7 +451,15 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         _startedCompletionSource.SetResult(true);
         try
         {
+            // Check the cancellation token first, in case it is already canceled.
+            cts.Token.ThrowIfCancellationRequested();
+
+            // Execute the service.
             await ExecuteAsync(cts.Token).ConfigureAwait(false);
+
+            // Check the cancellation token again, in case cancellation has been requested
+            // but ExecuteAsync has not honored the request.
+            cts.Token.ThrowIfCancellationRequested();
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
