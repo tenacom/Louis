@@ -35,7 +35,7 @@ namespace Louis.Threading;
 /// </remarks>
 public abstract class AsyncService : IAsyncDisposable, IDisposable
 {
-    private readonly CancellationTokenSource _stoppedTokenSource = new();
+    private readonly CancellationTokenSource _stopTokenSource = new();
     private readonly CancellationTokenSource _doneTokenSource = new();
     private readonly TaskCompletionSource<bool> _startedCompletionSource = new();
     private readonly TaskCompletionSource<bool> _stoppedCompletionSource = new();
@@ -140,7 +140,41 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <see langword="true"/> if the service was running and has been requested to stop;
     /// <see langword="false"/> if the service was not running.
     /// </returns>
-    public bool Stop() => StopCore();
+    public bool Stop()
+    {
+        lock (_stateSyncRoot)
+        {
+            return StopCore();
+        }
+
+        bool StopCore()
+        {
+            switch (_state)
+            {
+                case AsyncServiceState.Created:
+                    _ = _startedCompletionSource.TrySetResult(false);
+                    _ = _stoppedCompletionSource.TrySetResult(true);
+                    UnsafeSetState(AsyncServiceState.Stopped);
+                    return false;
+
+                case AsyncServiceState.Starting:
+                case AsyncServiceState.Running:
+                    _stopTokenSource.Cancel();
+                    return true;
+
+                case AsyncServiceState.Stopping:
+                case AsyncServiceState.Stopped:
+                    return true;
+
+                case AsyncServiceState.Disposed:
+                    return false;
+
+                default:
+                    SelfCheck.Fail($"Unexpected async service state ({_state})");
+                    return false;
+            }
+        }
+    }
 
     /// <summary>
     /// Asynchronously stops an asynchronous service and waits for it to complete.
@@ -153,7 +187,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </returns>
     public async Task<bool> StopAsync()
     {
-        if (!StopCore())
+        if (!Stop())
         {
             return false;
         }
@@ -206,7 +240,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 return;
             }
 
-            hadStarted = StopCore();
+            hadStarted = Stop();
         }
 
         if (hadStarted)
@@ -216,7 +250,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
         State = AsyncServiceState.Disposed;
         await DisposeResourcesAsync().ConfigureAwait(false);
-        _stoppedTokenSource.Dispose();
+        _stopTokenSource.Dispose();
         _doneTokenSource.Dispose();
     }
 
@@ -350,31 +384,6 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     private static void ThrowMultipleExceptions(params Exception[] innerExceptions)
         => throw new AggregateException(innerExceptions);
 
-    private bool StopCore()
-    {
-        lock (_stateSyncRoot)
-        {
-            switch (_state)
-            {
-                case < AsyncServiceState.Starting:
-                    _ = _startedCompletionSource.TrySetResult(false);
-                    _ = _stoppedCompletionSource.TrySetResult(true);
-                    UnsafeSetState(AsyncServiceState.Stopped);
-                    return false;
-
-                case AsyncServiceState.Disposed:
-                    return false;
-
-                case > AsyncServiceState.Running:
-                    return true;
-
-                default:
-                    _stoppedTokenSource.Cancel();
-                    return true;
-            }
-        }
-    }
-
     private async Task RunAsyncCore(bool runInBackground, CancellationToken cancellationToken)
     {
         lock (_stateSyncRoot)
@@ -400,7 +409,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             await Task.Yield();
         }
 
-        using var cts = CancellationTokenSource.CreateLinkedTokenSource(_stoppedTokenSource.Token, cancellationToken);
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(_stopTokenSource.Token, cancellationToken);
         var setupCompleted = false;
         Exception? exception = null;
         try
