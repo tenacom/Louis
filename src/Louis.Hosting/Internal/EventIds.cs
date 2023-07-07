@@ -13,5 +13,6 @@ internal static class EventIds
         public const int ExecuteCanceled = 3;
         public const int ExecuteFailed = 4;
         public const int TeardownFailed = 5;
+        public const int StopRequested = 6;
     }
 }

@@ -6,4 +6,5 @@ override sealed Louis.Hosting.AsyncHostedService.LogExecuteFailed(System.Excepti
 override sealed Louis.Hosting.AsyncHostedService.LogSetupCanceled() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogSetupFailed(System.Exception! exception) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
+override sealed Louis.Hosting.AsyncHostedService.LogStopRequested(Louis.Threading.AsyncServiceState previousState, Louis.Threading.AsyncServiceState currentState, bool result) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogTeardownFailed(System.Exception! exception) -> void

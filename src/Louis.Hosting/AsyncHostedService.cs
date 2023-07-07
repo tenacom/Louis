@@ -86,4 +86,14 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
         level: LogLevel.Error,
         message: "Service teardown phase failed")]
     protected sealed override partial void LogTeardownFailed(Exception exception);
+
+    /// <inheritdoc/>
+    protected sealed override void LogStopRequested(AsyncServiceState previousState, AsyncServiceState currentState, bool result)
+        => LogStopRequestedCore(previousState, result ? "running" : "not running");
+
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.StopRequested,
+        level: LogLevel.Information,
+        message: "Stop requested while service {running} ({previousState})")]
+    private partial void LogStopRequestedCore(AsyncServiceState previousState, string running);
 }

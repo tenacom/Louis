@@ -144,7 +144,10 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     {
         lock (_stateSyncRoot)
         {
-            return StopCore();
+            var previousState = _state;
+            var result = StopCore();
+            LogStopRequested(previousState, _state, result);
+            return result;
         }
 
         bool StopCore()
@@ -354,6 +357,18 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="exception">The exception thrown by <see cref="TeardownAsync"/>.</param>
     protected virtual void LogTeardownFailed(Exception exception)
+    {
+    }
+
+    /// <summary>
+    /// <para>Called upon requesting that a service stops.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    /// <param name="previousState">The value of the <see cref="State"/> property before the stop request.</param>
+    /// <param name="currentState">The value of the <see cref="State"/> property after the stop request.</param>
+    /// <param name="result"><see langword="true"/> if the service was running when requested to stop;
+    /// <see langword="false"/> otherwise.</param>
+    protected virtual void LogStopRequested(AsyncServiceState previousState, AsyncServiceState currentState, bool result)
     {
     }
 
