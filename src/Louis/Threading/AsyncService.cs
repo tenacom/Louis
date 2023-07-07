@@ -407,74 +407,74 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         State = AsyncServiceState.Stopped;
         _stoppedCompletionSource.SetResult(true);
         AggregateAndThrowIfNeeded(exception, teardownException);
+    }
 
-        async Task<(bool Completed, Exception? FailureException)> RunSetupAsync(CancellationToken cancellationToken)
+    private async Task<(bool Completed, Exception? FailureException)> RunSetupAsync(CancellationToken cancellationToken)
+    {
+        try
         {
-            try
-            {
-                // Check the cancellation token first, in case it is already canceled.
-                cancellationToken.ThrowIfCancellationRequested();
+            // Check the cancellation token first, in case it is already canceled.
+            cancellationToken.ThrowIfCancellationRequested();
 
-                // Perform start actions.
-                await SetupAsync(cancellationToken).ConfigureAwait(false);
+            // Perform start actions.
+            await SetupAsync(cancellationToken).ConfigureAwait(false);
 
-                // Check the cancellation token again, in case cancellation has been requested
-                // but SetupAsync has not honored the request.
-                cancellationToken.ThrowIfCancellationRequested();
+            // Check the cancellation token again, in case cancellation has been requested
+            // but SetupAsync has not honored the request.
+            cancellationToken.ThrowIfCancellationRequested();
 
-                return (true, null);
-            }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-                LogSetupCanceled();
-                return (false, null);
-            }
-            catch (Exception e) when (!e.IsCriticalError())
-            {
-                LogSetupFailed(e);
-                return (false, e);
-            }
+            return (true, null);
         }
-
-        async Task<Exception?> RunExecuteAsync(CancellationToken cancellationToken)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            try
-            {
-                // Check the cancellation token first, in case it is already canceled.
-                cancellationToken.ThrowIfCancellationRequested();
-
-                // Execute the service.
-                await ExecuteAsync(cancellationToken).ConfigureAwait(false);
-
-                // Check the cancellation token again, in case cancellation has been requested
-                // but ExecuteAsync has not honored the request.
-                cancellationToken.ThrowIfCancellationRequested();
-                return null;
-            }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-                LogExecuteCanceled();
-                return null;
-            }
-            catch (Exception e) when (!e.IsCriticalError())
-            {
-                LogExecuteFailed(e);
-                return e;
-            }
+            LogSetupCanceled();
+            return (false, null);
         }
-
-        async Task<Exception?> RunTeardownAsync()
+        catch (Exception e) when (!e.IsCriticalError())
         {
-            try
-            {
-                await TeardownAsync().ConfigureAwait(false);
-                return null;
-            }
-            catch (Exception e) when (!e.IsCriticalError())
-            {
-                LogTeardownFailed(e);
-                return e;
-            }
+            LogSetupFailed(e);
+            return (false, e);
+        }
+    }
+
+    private async Task<Exception?> RunExecuteAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            // Check the cancellation token first, in case it is already canceled.
+            cancellationToken.ThrowIfCancellationRequested();
+
+            // Execute the service.
+            await ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+            // Check the cancellation token again, in case cancellation has been requested
+            // but ExecuteAsync has not honored the request.
+            cancellationToken.ThrowIfCancellationRequested();
+            return null;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            LogExecuteCanceled();
+            return null;
+        }
+        catch (Exception e) when (!e.IsCriticalError())
+        {
+            LogExecuteFailed(e);
+            return e;
+        }
+    }
+
+    private async Task<Exception?> RunTeardownAsync()
+    {
+        try
+        {
+            await TeardownAsync().ConfigureAwait(false);
+            return null;
+        }
+        catch (Exception e) when (!e.IsCriticalError())
+        {
+            LogTeardownFailed(e);
+            return e;
         }
     }
 
