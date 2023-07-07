@@ -217,6 +217,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         State = AsyncServiceState.Disposed;
         await DisposeResourcesAsync().ConfigureAwait(false);
         _stoppedTokenSource.Dispose();
+        _doneTokenSource.Dispose();
     }
 
     /// <inheritdoc />
