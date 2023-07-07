@@ -163,9 +163,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                     return true;
 
                 case AsyncServiceState.Stopping:
-                case AsyncServiceState.Stopped:
                     return true;
 
+                case AsyncServiceState.Stopped:
                 case AsyncServiceState.Disposed:
                     return false;
 
