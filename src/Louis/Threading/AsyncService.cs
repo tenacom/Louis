@@ -2,7 +2,6 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,7 +28,7 @@ namespace Louis.Threading;
 /// as soon as execution of the service stops, just before the teardown phase starts;</item>
 /// <item>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
 /// and <see cref="WaitUntilStoppedAsync"/>;</item>
-/// <item>you can stop your service and let it complete in the background by calling <see cref="Stop"/>,
+/// <item>you can stop your service and let it complete in the background by calling <see cref="Stop()"/>,
 /// or stop and wait for completion by calling <see cref="StopAsync"/>.</item>
 /// </list>
 /// </remarks>
@@ -68,7 +67,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         {
             lock (_stateSyncRoot)
             {
-                return _state;
+                return _disposed.Value ? AsyncServiceState.Disposed : _state;
             }
         }
         private set
@@ -147,44 +146,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <see langword="true"/> if the service was running and has been requested to stop;
     /// <see langword="false"/> if the service was not running.
     /// </returns>
-    public bool Stop()
-    {
-        lock (_stateSyncRoot)
-        {
-            var previousState = _state;
-            var result = StopCore();
-            LogStopRequested(previousState, _state, result);
-            return result;
-        }
-
-        bool StopCore()
-        {
-            switch (_state)
-            {
-                case AsyncServiceState.Created:
-                    _ = _startedCompletionSource.TrySetResult(false);
-                    _ = _stoppedCompletionSource.TrySetResult(true);
-                    UnsafeSetState(AsyncServiceState.Stopped);
-                    return false;
-
-                case AsyncServiceState.Starting:
-                case AsyncServiceState.Running:
-                    _stopTokenSource.Cancel();
-                    return true;
-
-                case AsyncServiceState.Stopping:
-                    return true;
-
-                case AsyncServiceState.Stopped:
-                case AsyncServiceState.Disposed:
-                    return false;
-
-                default:
-                    SelfCheck.Fail($"Unexpected async service state ({_state})");
-                    return false;
-            }
-        }
-    }
+    public bool Stop() => Stop(true);
 
     /// <summary>
     /// Asynchronously stops an asynchronous service and waits for it to complete.
@@ -197,7 +159,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </returns>
     public async Task<bool> StopAsync()
     {
-        if (!Stop())
+        if (!Stop(true))
         {
             return false;
         }
@@ -250,7 +212,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                 return;
             }
 
-            hadStarted = Stop();
+            hadStarted = Stop(false);
         }
 
         if (hadStarted)
@@ -258,7 +220,6 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             await WaitUntilStoppedAsync().ConfigureAwait(false);
         }
 
-        State = AsyncServiceState.Disposed;
         await DisposeResourcesAsync().ConfigureAwait(false);
         _stopTokenSource.Dispose();
         _doneTokenSource.Dispose();
@@ -379,17 +340,13 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     {
     }
 
-    [DoesNotReturn]
-    private static void ThrowOnObjectDisposed(string message)
-        => throw new ObjectDisposedException(message);
-
     private static void AggregateAndThrowIfNeeded(Exception? exception1, Exception? exception2)
     {
         if (exception1 is not null)
         {
             if (exception2 is not null)
             {
-                ThrowMultipleExceptions(exception1, exception2);
+                throw new AggregateException(exception1, exception2);
             }
             else
             {
@@ -402,26 +359,17 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
     }
 
-    [DoesNotReturn]
-    private static void ThrowMultipleExceptions(params Exception[] innerExceptions)
-        => throw new AggregateException(innerExceptions);
-
     private async Task RunAsyncCore(bool runInBackground, CancellationToken cancellationToken)
     {
         lock (_stateSyncRoot)
         {
-            switch (_state)
+            EnsureNotDisposed();
+            if (_state != AsyncServiceState.Created)
             {
-                case AsyncServiceState.Created:
-                    UnsafeSetState(AsyncServiceState.Starting);
-                    break;
-                case AsyncServiceState.Disposed:
-                    ThrowOnObjectDisposed("Trying to run a disposed async service.");
-                    break;
-                default:
-                    ThrowHelper.ThrowInvalidOperationException("An async service cannot be started more than once.");
-                    return;
+                ThrowHelper.ThrowInvalidOperationException("An async service cannot be started more than once.");
             }
+
+            UnsafeSetState(AsyncServiceState.Starting);
         }
 
         // Return immediately when called from Start or StartAsync;
@@ -516,6 +464,51 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         AggregateAndThrowIfNeeded(exception, teardownException);
     }
 
+    private bool Stop(bool checkDisposed)
+    {
+        lock (_stateSyncRoot)
+        {
+            if (checkDisposed && _disposed.Value)
+            {
+                LogStopRequested(AsyncServiceState.Disposed, AsyncServiceState.Disposed, false);
+                return false;
+            }
+
+            var previousState = _state;
+            var result = StopCore();
+            LogStopRequested(previousState, _state, result);
+            return result;
+        }
+
+        bool StopCore()
+        {
+            switch (_state)
+            {
+                case AsyncServiceState.Created:
+                    _ = _startedCompletionSource.TrySetResult(false);
+                    _ = _stoppedCompletionSource.TrySetResult(true);
+                    UnsafeSetState(AsyncServiceState.Stopped);
+                    return false;
+
+                case AsyncServiceState.Starting:
+                case AsyncServiceState.Running:
+                    _stopTokenSource.Cancel();
+                    return true;
+
+                case AsyncServiceState.Stopping:
+                    return true;
+
+                case AsyncServiceState.Stopped:
+                case AsyncServiceState.Disposed:
+                    return false;
+
+                default:
+                    SelfCheck.Fail($"Unexpected async service state ({_state})");
+                    return false;
+            }
+        }
+    }
+
     private void UnsafeSetState(AsyncServiceState value)
     {
         if (value == _state)
@@ -526,5 +519,13 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         var oldState = _state;
         _state = value;
         LogStateChanged(oldState, _state);
+    }
+
+    private void EnsureNotDisposed()
+    {
+        if (_disposed.Value)
+        {
+            throw new ObjectDisposedException(GetType().Name);
+        }
     }
 }
