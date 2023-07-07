@@ -194,6 +194,7 @@ virtual Louis.Threading.AsyncService.LogExecuteFailed(System.Exception! exceptio
 virtual Louis.Threading.AsyncService.LogSetupCanceled() -> void
 virtual Louis.Threading.AsyncService.LogSetupFailed(System.Exception! exception) -> void
 virtual Louis.Threading.AsyncService.LogStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
+virtual Louis.Threading.AsyncService.LogStopRequested(Louis.Threading.AsyncServiceState previousState, Louis.Threading.AsyncServiceState currentState, bool result) -> void
 virtual Louis.Threading.AsyncService.LogTeardownFailed(System.Exception! exception) -> void
 virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
 virtual Louis.Threading.AsyncService.TeardownAsync() -> System.Threading.Tasks.ValueTask
