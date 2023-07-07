@@ -35,6 +35,8 @@ namespace Louis.Threading;
 /// </remarks>
 public abstract class AsyncService : IAsyncDisposable, IDisposable
 {
+    private static readonly CancellationTokenSource AlreadyDoneTokenSource = new();
+
     private readonly CancellationTokenSource _stopTokenSource = new();
     private readonly CancellationTokenSource _doneTokenSource = new();
     private readonly TaskCompletionSource<bool> _startedCompletionSource = new();
@@ -43,6 +45,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
     private InterlockedFlag _disposed;
     private AsyncServiceState _state = AsyncServiceState.Created;
+
+    static AsyncService()
+    {
+        AlreadyDoneTokenSource.Cancel();
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AsyncService"/> class.
@@ -77,7 +84,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// Gets a <see cref="CancellationToken"/> that is canceled as soon as the service has finished executing
     /// (either successfully or with an exception) or has failed starting.
     /// </summary>
-    public CancellationToken DoneToken => _doneTokenSource.Token;
+    public CancellationToken DoneToken => (_disposed.Value ? AlreadyDoneTokenSource : _doneTokenSource).Token;
 
     /// <summary>
     /// Asynchronously runs an asynchronous service.
