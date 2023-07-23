@@ -32,7 +32,8 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     /// <inheritdoc/>
     async Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
-        if (await StartAsync(cancellationToken))
+        LogHostedServiceStarting();
+        if (await StartAsync(cancellationToken).ConfigureAwait(false))
         {
             return;
         }
@@ -43,7 +44,11 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     }
 
     /// <inheritdoc/>
-    Task IHostedService.StopAsync(CancellationToken cancellationToken) => Task.WhenAny(StopAsync(), Task.Delay(Timeout.Infinite, cancellationToken));
+    async Task IHostedService.StopAsync(CancellationToken cancellationToken)
+    {
+        LogHostedServiceStopping();
+        _ = await Task.WhenAny(StopAsync(), Task.Delay(Timeout.Infinite, cancellationToken)).ConfigureAwait(false);
+    }
 
     /// <inheritdoc/>
     [LoggerMessage(
@@ -138,4 +143,16 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
         level: LogLevel.Information,
         message: "Stop requested while service {running} ({previousState})")]
     private partial void LogStopRequestedCore(AsyncServiceState previousState, string running);
+
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.HostedServiceStarting,
+        level: LogLevel.Trace,
+        message: "Hosted service starting")]
+    private partial void LogHostedServiceStarting();
+
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.HostedServiceStopping,
+        level: LogLevel.Trace,
+        message: "Hosted service stopping")]
+    private partial void LogHostedServiceStopping();
 }
