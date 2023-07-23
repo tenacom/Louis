@@ -54,6 +54,20 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
 
     /// <inheritdoc/>
     [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.BeforeSetup,
+        level: LogLevel.Trace,
+        message: "Starting setup phase")]
+    protected sealed override partial void LogBeforeSetup();
+
+    /// <inheritdoc/>
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.SetupCompleted,
+        level: LogLevel.Trace,
+        message: "Setup phase completed")]
+    protected sealed override partial void LogSetupCompleted();
+
+    /// <inheritdoc/>
+    [LoggerMessage(
         eventId: EventIds.AsyncHostedService.SetupCanceled,
         level: LogLevel.Warning,
         message: "Service execution was canceled during setup phase")]
@@ -68,6 +82,20 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
 
     /// <inheritdoc/>
     [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.BeforeExecute,
+        level: LogLevel.Trace,
+        message: "Starting service execution")]
+    protected sealed override partial void LogBeforeExecute();
+
+    /// <inheritdoc/>
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.ExecuteCompleted,
+        level: LogLevel.Trace,
+        message: "Service execution completed")]
+    protected sealed override partial void LogExecuteCompleted();
+
+    /// <inheritdoc/>
+    [LoggerMessage(
         eventId: EventIds.AsyncHostedService.ExecuteCanceled,
         level: LogLevel.Warning,
         message: "Service execution was canceled")]
@@ -79,6 +107,20 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
         level: LogLevel.Error,
         message: "Service execution failed")]
     protected sealed override partial void LogExecuteFailed(Exception exception);
+
+    /// <inheritdoc/>
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.BeforeTeardown,
+        level: LogLevel.Trace,
+        message: "Starting teardown phase")]
+    protected sealed override partial void LogBeforeTeardown();
+
+    /// <inheritdoc/>
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.TeardownCompleted,
+        level: LogLevel.Trace,
+        message: "Teardown phase completed")]
+    protected sealed override partial void LogTeardownCompleted();
 
     /// <inheritdoc/>
     [LoggerMessage(

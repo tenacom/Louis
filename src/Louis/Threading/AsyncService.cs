@@ -282,6 +282,22 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     }
 
     /// <summary>
+    /// <para>Called just before calling the <see cref="SetupAsync"/> method.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogBeforeSetup()
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="SetupAsync"/> method terminates successfully.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogSetupCompleted()
+    {
+    }
+
+    /// <summary>
     /// <para>Called if the <see cref="SetupAsync"/> method throws <see cref="OperationCanceledException"/>
     /// and the service has been requested to stop.</para>
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
@@ -301,6 +317,22 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     }
 
     /// <summary>
+    /// <para>Called just before calling the <see cref="ExecuteAsync"/> method.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogBeforeExecute()
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="ExecuteAsync"/> method terminates successfully.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogExecuteCompleted()
+    {
+    }
+
+    /// <summary>
     /// <para>Called if the <see cref="ExecuteAsync"/> method throws <see cref="OperationCanceledException"/>
     /// and the service has been requested to stop.</para>
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
@@ -316,6 +348,22 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="exception">The exception thrown by <see cref="ExecuteAsync"/>.</param>
     protected virtual void LogExecuteFailed(Exception exception)
+    {
+    }
+
+    /// <summary>
+    /// <para>Called just before calling the <see cref="TeardownAsync"/> method.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogBeforeTeardown()
+    {
+    }
+
+    /// <summary>
+    /// <para>Called if the <see cref="TeardownAsync"/> method terminates successfully.</para>
+    /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
+    /// </summary>
+    protected virtual void LogTeardownCompleted()
     {
     }
 
@@ -417,7 +465,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             cancellationToken.ThrowIfCancellationRequested();
 
             // Perform start actions.
+            LogBeforeSetup();
             await SetupAsync(cancellationToken).ConfigureAwait(false);
+            LogSetupCompleted();
 
             // Check the cancellation token again, in case cancellation has been requested
             // but SetupAsync has not honored the request.
@@ -445,7 +495,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             cancellationToken.ThrowIfCancellationRequested();
 
             // Execute the service.
+            LogBeforeExecute();
             await ExecuteAsync(cancellationToken).ConfigureAwait(false);
+            LogExecuteCompleted();
 
             // Check the cancellation token again, in case cancellation has been requested
             // but ExecuteAsync has not honored the request.
@@ -468,7 +520,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     {
         try
         {
+            LogBeforeTeardown();
             await TeardownAsync().ConfigureAwait(false);
+            LogTeardownCompleted();
             return null;
         }
         catch (Exception e) when (!e.IsCriticalError())
