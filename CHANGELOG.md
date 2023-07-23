@@ -9,14 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- Added some more logging hooks to `AsyncService`. `AsyncHostedService` of course overrides all of them and logs appropriately.
-- `AsyncHostedService` now also logs when it is started / stopped by the host.
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.0.138-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.138-preview) (2023-07-23)
+
+### New features
+
+- Added some more logging hooks to `AsyncService`. `AsyncHostedService` of course overrides all of them and logs appropriately.
+- `AsyncHostedService` now also logs when it is started / stopped by the host.
 
 ## [1.0.131-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.131-preview) (2023-07-07)
 
