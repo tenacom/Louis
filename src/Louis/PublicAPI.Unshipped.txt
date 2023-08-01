@@ -95,6 +95,11 @@ static Louis.DisposingUtility.Dispose(object? obj) -> void
 static Louis.DisposingUtility.Dispose(params object?[]! items) -> void
 static Louis.DisposingUtility.DisposeAsync(object? obj) -> System.Threading.Tasks.ValueTask
 static Louis.DisposingUtility.DisposeAsync(params object?[]! items) -> System.Threading.Tasks.ValueTask
+static Louis.Fluency.FluentExtensions.Chain<T, TArg1, TArg2, TArg3, TArg4>(this T this, TArg1 arg1, TArg2 arg2, TArg3 arg3, TArg4 arg4, Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3, TArg4>! func) -> T
+static Louis.Fluency.FluentExtensions.Chain<T, TArg1, TArg2, TArg3>(this T this, TArg1 arg1, TArg2 arg2, TArg3 arg3, Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3>! func) -> T
+static Louis.Fluency.FluentExtensions.Chain<T, TArg1, TArg2>(this T this, TArg1 arg1, TArg2 arg2, Louis.Fluency.FluentAction<T, TArg1, TArg2>! func) -> T
+static Louis.Fluency.FluentExtensions.Chain<T, TArg>(this T this, TArg arg, Louis.Fluency.FluentAction<T, TArg>! func) -> T
+static Louis.Fluency.FluentExtensions.Chain<T>(this T this, Louis.Fluency.FluentAction<T>! func) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
 static Louis.Fluency.FluentExtensions.ForEach<T, TElement>(this T this, System.Collections.Generic.IEnumerable<TElement>! sequence, System.Action<T, TElement, int>! action) -> T
