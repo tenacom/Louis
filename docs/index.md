@@ -1,3 +1,6 @@
+title: L.o.U.I.S.
+description: Lots of useful, interesting stuff for your .NET applications.
+---
 ![L.o.U.I.S. logo](images/banner.png)
 
 L.o.U.I.S. (pronounced _LOO-iss_, just like the name Louis) is a collection of useful types commonly needed in the development of .NET libraries and applications.
