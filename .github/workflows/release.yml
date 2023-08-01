@@ -59,7 +59,6 @@ jobs:
       PRERELEASE_NUGET_SOURCE: 'https://www.myget.org/F/tenacom-preview/api/v3/index.json'
       PRERELEASE_NUGET_KEY: ${{ secrets.MYGET_DEPLOYMENT_KEY }}
       # Deploy all private packages on a private MyGet feed
-      MYGET_PRIVATE_FEED_PASSWORD: ${{ secrets.MYGET_PRIVATE_FEED_PASSWORD }}
       PRIVATE_NUGET_SOURCE: 'https://www.myget.org/F/tenacom/api/v3/index.json'
       PRIVATE_NUGET_KEY: ${{ secrets.MYGET_PRIVATE_FEED_KEY }}
 
