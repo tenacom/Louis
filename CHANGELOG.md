@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- Added `Louis.Fluency.FluentExtensions.Chain` method group, semantically equivalent to `Invoke` but using fluent methods or lambdas that return the same type as their first parameters. Now you can use even a local function as if it were an extension method.
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.0.148-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.148-preview) (2023-08-01)
+
+### New features
+
+- Added `Louis.Fluency.FluentExtensions.Chain` method group, semantically equivalent to `Invoke` but using fluent methods or lambdas that return the same type as their first parameters. Now you can use even a local function as if it were an extension method.
 
 ## [1.0.138-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.138-preview) (2023-07-23)
 
