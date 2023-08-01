@@ -21,8 +21,10 @@ Louis.Diagnostics.InternalErrorException.InternalErrorException(System.Runtime.S
 Louis.Diagnostics.SelfCheck
 Louis.Diagnostics.StringBuilderExtensions
 Louis.DisposingUtility
-Louis.Fluency.FluentAction<T, T1, T2>
-Louis.Fluency.FluentAction<T, T1>
+Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3, TArg4>
+Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3>
+Louis.Fluency.FluentAction<T, TArg1, TArg2>
+Louis.Fluency.FluentAction<T, TArg>
 Louis.Fluency.FluentAction<T>
 Louis.Fluency.FluentExtensions
 Louis.RangeCheck
