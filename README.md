@@ -13,10 +13,13 @@
 
 ![Repobeats analytics image](https://repobeats.axiom.co/api/embed/cfee72019568722653b1a5e8e8d4e55a02cff219.svg "Repobeats analytics image")
 
-| Latest packages | NuGet | MyGet |
+| Latest packages | NuGet | Feedz |
 |-----------------|-------|-------|
-| Louis            | [![Louis @ NuGet](https://img.shields.io/nuget/v/Louis?label=&color=009900)](https://nuget.org/packages/Louis) | [![Louis @ MyGet](https://img.shields.io/myget/tenacom-preview/vpre/Louis?label=&color=orange)](https://www.myget.org/feed/tenacom-preview/package/nuget/Louis) |
-| Louis.Logging | [![Louis.Logging @ NuGet](https://img.shields.io/nuget/v/Louis.Logging?label=&color=009900)](https://nuget.org/packages/Louis.Logging) | [![Louis.Logging @ MyGet](https://img.shields.io/myget/tenacom-preview/vpre/Louis.Logging?label=&color=orange)](https://www.myget.org/feed/tenacom-preview/package/nuget/Louis.Logging) |
+| Louis            | [![Louis @ NuGet](https://img.shields.io/nuget/v/Louis?label=&color=009900)](https://nuget.org/packages/Louis) | ![Louis @ Feedz](https://img.shields.io/feedz/vpre/tenacom/preview/Louis?label=&color=orange) |
+| Louis.Hosting | [![Louis.Hosting @ NuGet](https://img.shields.io/nuget/v/Louis.Hosting?label=&color=009900)](https://nuget.org/packages/Louis.Hosting) | ![Louis.Hosting @ Feedz](https://img.shields.io/feedz/vpre/tenacom/preview/Louis.Hosting?label=&color=orange) |
+| Louis.Logging | [![Louis.Logging @ NuGet](https://img.shields.io/nuget/v/Louis.Logging?label=&color=009900)](https://nuget.org/packages/Louis.Logging) | ![Louis.Logging @ Feedz](https://img.shields.io/feedz/vpre/tenacom/preview/Louis.Logging?label=&color=orange) |
+
+**You can get preview packages of L.o.U.I.S. from our preview feed on [Feedz.io](https://feedz.io). The NuGet v3 URL is `https://f.feedz.io/tenacom/preview/nuget/index.json`.**
 
 ---
 
