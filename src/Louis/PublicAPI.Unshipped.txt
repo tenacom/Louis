@@ -124,6 +124,10 @@ static Louis.Fluency.FluentExtensions.InvokeIf<T, TArg1, TArg2, TArg3>(this T th
 static Louis.Fluency.FluentExtensions.InvokeIf<T, TArg1, TArg2>(this T this, bool condition, TArg1 arg1, TArg2 arg2, System.Action<T, TArg1, TArg2>! action) -> T
 static Louis.Fluency.FluentExtensions.InvokeIf<T, TArg>(this T this, bool condition, TArg arg, System.Action<T, TArg>! action) -> T
 static Louis.Fluency.FluentExtensions.InvokeIf<T>(this T this, bool condition, System.Action<T>! action) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
 static Louis.Fluency.FluentExtensions.Switch<T, TValue>(this T this, TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
