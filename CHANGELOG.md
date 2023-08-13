@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes to existing features
 
+- `Louis.Fluency.FluentExtensions.Switch` has new overloads that let you specify an [`IEqualityComparer<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iequalitycomparer-1) interface to compare the given value with comparands associated with actions.
+- Pre-existing overloads of `Louis.Fluency.FluentExtensions.Switch` now use [`EqualityComparer<T>.Default`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.equalitycomparer-1.default). As a consequance, the value and comparands no longer have to implement `IEquatable<T>`. This change also makes `FluentExtensions.Switch` usable with `enum`s.
+
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
