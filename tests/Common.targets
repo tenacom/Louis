@@ -4,8 +4,8 @@
   <PropertyGroup Condition="'$(TestProjectType)' != ''">
 
     <!--
-        This assembly is not going to interoperate with other assemblies.
-        Besides, the type names used here are not apt to cause ambiguities.
+        Test assemblies are not going to interoperate much.
+        Besides, the type names used in test projects are not apt to cause ambiguities.
         Therefore there is no need for a root namespace: let's save ourselves some declarations.
     -->
     <RootNamespace />
