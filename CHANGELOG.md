@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes to existing features
 
+- [#79 - Remove the Louis.Logging library](https://github.com/Tenacom/Louis/issues/79)
+
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
