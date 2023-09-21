@@ -7,7 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Documentation", "- Docume
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
 		LICENSE = LICENSE
-		NuGet-README.md = NuGet-README.md
 		README.md = README.md
 		THIRD-PARTY-NOTICES = THIRD-PARTY-NOTICES
 	EndProjectSection
