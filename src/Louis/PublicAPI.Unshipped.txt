@@ -3,8 +3,33 @@ abstract Louis.Threading.AsyncService.ExecuteAsync(System.Threading.Cancellation
 const Louis.Diagnostics.ExceptionHelper.NullText = "<null>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringEmptyText = "<empty!>" -> string!
 const Louis.Diagnostics.ExceptionHelper.ToStringNullText = "<null!>" -> string!
+const Louis.TimeConstants.DaysPerWeek = 7 -> int
+const Louis.TimeConstants.HoursPerDay = 24 -> int
+const Louis.TimeConstants.HoursPerWeek = 168 -> int
+const Louis.TimeConstants.MillisecondsPerDay = 86400000 -> int
+const Louis.TimeConstants.MillisecondsPerHour = 3600000 -> int
+const Louis.TimeConstants.MillisecondsPerMinute = 60000 -> int
+const Louis.TimeConstants.MillisecondsPerSecond = 1000 -> int
+const Louis.TimeConstants.MillisecondsPerWeek = 604800000 -> int
+const Louis.TimeConstants.MinutesPerDay = 1440 -> int
+const Louis.TimeConstants.MinutesPerHour = 60 -> int
+const Louis.TimeConstants.MinutesPerWeek = 10080 -> int
+const Louis.TimeConstants.SecondsPerDay = 86400 -> int
+const Louis.TimeConstants.SecondsPerHour = 3600 -> int
+const Louis.TimeConstants.SecondsPerMinute = 60 -> int
+const Louis.TimeConstants.SecondsPerWeek = 604800 -> int
+const Louis.TimeConstants.TicksPerDay = 864000000000 -> long
+const Louis.TimeConstants.TicksPerHour = 36000000000 -> long
+const Louis.TimeConstants.TicksPerMillisecond = 10000 -> long
+const Louis.TimeConstants.TicksPerMinute = 600000000 -> long
+const Louis.TimeConstants.TicksPerSecond = 10000000 -> long
+const Louis.TimeConstants.TicksPerWeek = 6048000000000 -> long
 Louis.AsyncDisposableExtensions
 Louis.Collections.EnumerableExtensions
+Louis.DateOnlyExtensions
+Louis.DateOnlyUtility
+Louis.DateTimeExtensions
+Louis.DateUtility
 Louis.Diagnostics.CriticalInternalErrorException
 Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException() -> void
 Louis.Diagnostics.CriticalInternalErrorException.CriticalInternalErrorException(string! message) -> void
@@ -68,6 +93,7 @@ Louis.Threading.InterlockedFlag.TrySet(bool value) -> bool
 Louis.Threading.InterlockedFlag.Value.get -> bool
 Louis.Threading.InterlockedFlag.Value.set -> void
 Louis.Threading.ValueTaskUtility
+Louis.TimeConstants
 override Louis.Threading.InterlockedFlag.Equals(object? obj) -> bool
 override Louis.Threading.InterlockedFlag.GetHashCode() -> int
 override Louis.Threading.InterlockedFlag.ToString() -> string!
@@ -79,6 +105,37 @@ static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collec
 static Louis.Collections.EnumerableExtensions.WhereNotNull<T>(this System.Collections.Generic.IEnumerable<T?>! this) -> System.Collections.Generic.IEnumerable<T>!
 static Louis.Collections.EnumerableExtensions.WhereNotNullOrEmpty(this System.Collections.Generic.IEnumerable<string?>! this) -> System.Collections.Generic.IEnumerable<string!>!
 static Louis.Collections.EnumerableExtensions.WhereNotNullOrWhiteSpace(this System.Collections.Generic.IEnumerable<string?>! this) -> System.Collections.Generic.IEnumerable<string!>!
+static Louis.DateOnlyExtensions.GetEndOfMonth(this System.DateOnly this) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetEndOfWeek(this System.DateOnly this) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetEndOfWeek(this System.DateOnly this, System.DayOfWeek firstDayOfWeek) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetEndOfWeek(this System.DateOnly this, System.Globalization.CultureInfo! culture) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetEndOfWeek(this System.DateOnly this, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetStartOfMonth(this System.DateOnly this) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetStartOfWeek(this System.DateOnly this) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetStartOfWeek(this System.DateOnly this, System.DayOfWeek firstDayOfWeek) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetStartOfWeek(this System.DateOnly this, System.Globalization.CultureInfo! culture) -> System.DateOnly
+static Louis.DateOnlyExtensions.GetStartOfWeek(this System.DateOnly this, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateOnly
+static Louis.DateOnlyUtility.Today.get -> System.DateOnly
+static Louis.DateTimeExtensions.GetEndOfDay(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetEndOfMonth(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetEndOfWeek(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetEndOfWeek(this System.DateTime this, System.DayOfWeek firstDayOfWeek) -> System.DateTime
+static Louis.DateTimeExtensions.GetEndOfWeek(this System.DateTime this, System.Globalization.CultureInfo! culture) -> System.DateTime
+static Louis.DateTimeExtensions.GetEndOfWeek(this System.DateTime this, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+static Louis.DateTimeExtensions.GetLastDayOfMonth(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetLastDayOfWeek(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetLastDayOfWeek(this System.DateTime this, System.DayOfWeek firstDayOfWeek) -> System.DateTime
+static Louis.DateTimeExtensions.GetLastDayOfWeek(this System.DateTime this, System.Globalization.CultureInfo! culture) -> System.DateTime
+static Louis.DateTimeExtensions.GetLastDayOfWeek(this System.DateTime this, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+static Louis.DateTimeExtensions.GetStartOfMonth(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetStartOfWeek(this System.DateTime this) -> System.DateTime
+static Louis.DateTimeExtensions.GetStartOfWeek(this System.DateTime this, System.DayOfWeek firstDayOfWeek) -> System.DateTime
+static Louis.DateTimeExtensions.GetStartOfWeek(this System.DateTime this, System.Globalization.CultureInfo! culture) -> System.DateTime
+static Louis.DateTimeExtensions.GetStartOfWeek(this System.DateTime this, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+static Louis.DateUtility.GetDaysFromStartOfWeek(System.DayOfWeek today) -> int
+static Louis.DateUtility.GetDaysFromStartOfWeek(System.DayOfWeek today, System.DayOfWeek firstDayOfWeek) -> int
+static Louis.DateUtility.GetDaysFromStartOfWeek(System.DayOfWeek today, System.Globalization.CultureInfo! culture) -> int
+static Louis.DateUtility.GetDaysFromStartOfWeek(System.DayOfWeek today, System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> int
 static Louis.Diagnostics.ExceptionExtensions.AnyCausingException(this System.Exception! this, System.Func<System.Exception!, bool>! predicate) -> bool
 static Louis.Diagnostics.ExceptionExtensions.GetCausingExceptions(this System.Exception! this) -> System.Collections.Generic.IEnumerable<System.Exception!>!
 static Louis.Diagnostics.ExceptionExtensions.IsCriticalError(this System.Exception! this) -> bool
