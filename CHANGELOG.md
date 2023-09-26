@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bugs fixed in this release
 
-- Some methods in date- and time-related utilities, which took instances of `CultureInfo` or `DateTimeFormatInfo` as parameters, did not check for `null` arguments. This has been fixed and `ArgumentNullException` is now thrown when needed.
-
 ### Known problems introduced by this release
+
+## [1.0.173-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.173-preview) (2023-09-26)
+
+### Bugs fixed in this release
+
+- Some methods in date- and time-related utilities, which took instances of `CultureInfo` or `DateTimeFormatInfo` as parameters, did not check for `null` arguments. This has been fixed and `ArgumentNullException` is now thrown when needed.
 
 ## [1.0.170-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.170-preview) (2023-09-26)
 
