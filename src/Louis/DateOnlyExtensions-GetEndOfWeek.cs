@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using CommunityToolkit.Diagnostics;
 
 namespace Louis;
 
@@ -27,11 +28,15 @@ partial class DateOnlyExtensions
     /// <param name="culture">An object that supplies culture-specific information.</param>
     /// <returns>An instance of <see cref="DateOnly"/> whose value represents the last day of the week of <paramref name="this"/>,
     /// according to <paramref name="culture"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="culture"/> is <see langword="null"/>.</exception>
     /// <seealso cref="CultureInfo"/>
     /// <seealso cref="CultureInfo.DateTimeFormat"/>
     /// <seealso cref="DateTimeFormatInfo.FirstDayOfWeek"/>
     public static DateOnly GetEndOfWeek(this DateOnly @this, CultureInfo culture)
-        => GetEndOfWeek(@this, culture.DateTimeFormat);
+    {
+        Guard.IsNotNull(culture);
+        return GetEndOfWeek(@this, culture.DateTimeFormat);
+    }
 
     /// <summary>
     /// Given a date, returns the last day of the same week, according to the specified formatting information.
@@ -40,9 +45,13 @@ partial class DateOnlyExtensions
     /// <param name="dateTimeFormat">An object that supplies culture-specific date formatting information.</param>
     /// <returns>An instance of <see cref="DateOnly"/> whose value represents the last day of the week of <paramref name="this"/>,
     /// according to <paramref name="dateTimeFormat"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="dateTimeFormat"/> is <see langword="null"/>.</exception>
     /// <seealso cref="DateTimeFormatInfo.FirstDayOfWeek"/>
     public static DateOnly GetEndOfWeek(this DateOnly @this, DateTimeFormatInfo dateTimeFormat)
-        => GetEndOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    {
+        Guard.IsNotNull(dateTimeFormat);
+        return GetEndOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    }
 
     /// <summary>
     /// Returns the earliest date, greater or equal to a given date, whose day of the week is the one preceding a specified day of the week.

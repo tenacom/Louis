@@ -45,9 +45,13 @@ partial class DateTimeExtensions
     /// <param name="dateTimeFormat">An object that supplies culture-specific date formatting information.</param>
     /// <returns>An instance of <see cref="DateTime"/> whose value represents the first day of the week of <paramref name="this"/>,
     /// according to <paramref name="dateTimeFormat"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="dateTimeFormat"/> is <see langword="null"/>.</exception>
     /// <seealso cref="DateTimeFormatInfo.FirstDayOfWeek"/>
     public static DateTime GetStartOfWeek(this DateTime @this, DateTimeFormatInfo dateTimeFormat)
-        => GetStartOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    {
+        Guard.IsNotNull(dateTimeFormat);
+        return GetStartOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    }
 
     /// <summary>
     /// Returns midnight on the most recent date, earlier or equal to a given date, whose day of the week is equal to a specified day of the week.

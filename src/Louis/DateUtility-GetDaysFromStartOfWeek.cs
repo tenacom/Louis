@@ -45,9 +45,13 @@ partial class DateUtility
     /// <param name="dateTimeFormat">An object that supplies culture-specific date formatting information.</param>
     /// <returns>An integer number between 0 and 6 representing the days between the start of the week and <paramref name="today"/>,
     /// according to <paramref name="dateTimeFormat"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="dateTimeFormat"/> is <see langword="null"/>.</exception>
     /// <seealso cref="DateTimeFormatInfo.FirstDayOfWeek"/>
     public static int GetDaysFromStartOfWeek(DayOfWeek today, DateTimeFormatInfo dateTimeFormat)
-        => GetDaysFromStartOfWeek(today, dateTimeFormat.FirstDayOfWeek);
+    {
+        Guard.IsNotNull(dateTimeFormat);
+        return GetDaysFromStartOfWeek(today, dateTimeFormat.FirstDayOfWeek);
+    }
 
     /// <summary>
     /// Returns the amount of full days separating a given day of the week from the first day of the same week, if a given day is considered the first of the week.

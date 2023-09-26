@@ -45,9 +45,13 @@ partial class DateOnlyExtensions
     /// <param name="dateTimeFormat">An object that supplies culture-specific date formatting information.</param>
     /// <returns>An instance of <see cref="DateOnly"/> whose value represents the first day of the week of <paramref name="this"/>,
     /// according to <paramref name="dateTimeFormat"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="dateTimeFormat"/> is <see langword="null"/>.</exception>
     /// <seealso cref="DateTimeFormatInfo.FirstDayOfWeek"/>
     public static DateOnly GetStartOfWeek(this DateOnly @this, DateTimeFormatInfo dateTimeFormat)
-        => GetStartOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    {
+        Guard.IsNotNull(dateTimeFormat);
+        return GetStartOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+    }
 
     /// <summary>
     /// Returns the most recent date, earlier or equal to a given date, whose day of the week is equal to a specified day of the week.
