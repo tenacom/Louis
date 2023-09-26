@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- [#83 - Add date- and time-related utilities and extensions](https://github.com/Tenacom/Louis/pull/83). The following types were added (links point to online API reference): [TimeConstants](https://tenacom.github.io/Louis/api/Louis.TimeConstants.html), [DateUtility](https://tenacom.github.io/Louis/api/Louis.DateUtility.html), [DateOnlyExtensions](https://tenacom.github.io/Louis/api/Louis.DateOnlyExtensions.html), [DateTimeExtensions](https://tenacom.github.io/Louis/api/Louis.DateTimeExtensions.html), and [DateTimeUtility](https://tenacom.github.io/Louis/api/Louis.DateTimeUtility.html).
+
 ### Changes to existing features
 
 - [#79 - Remove the Louis.Logging library](https://github.com/Tenacom/Louis/issues/79)
