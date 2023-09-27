@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased changes
 
-First stable version. No actual changes since last preview.
-
 ### New features
 
 ### Changes to existing features
@@ -16,6 +14,10 @@ First stable version. No actual changes since last preview.
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.0.175](https://github.com/Tenacom/Louis/releases/tag/1.0.175) (2023-09-27)
+
+First stable version. No actual changes since last preview.
 
 ## [1.0.173-preview](https://github.com/Tenacom/Louis/releases/tag/1.0.173-preview) (2023-09-26)
 
