@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Class `Louis.ComponentModel.SimpleStringConverter<T>` provides a base class for type converters that can convert a specific type to and/or from a string.
 This abstract class takes care of boilerplate code and dealing with `object`s; subclasses only have to implement conversions between `string`s and strongly-typed instances.
 - Static method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T, TConverter>` creates an instance of [`TyepConverterAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typeconverterattribute) referencing a subclass of `SimpleStringConverter<T>` and registers it for use by [`TypeDescriptor.GetAttributes`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typedescriptor.getattributes). This enables a converter to be recognized by e.g. [`ConfigurationBinder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationbinder) with just one line of clean, easy-to-understand code.
+- Classes `Louis.ComponentModel.MailAddressConverter` and `Louis.ComponentModel.MailAddressCollectionConverter` perform conversion of [`MailAddress`](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddress) and [`MailAddressCollection`](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddresscollection), respectively, to and from `string`. They are also good examples of how to subclass `SimpleStringConverter<T>`.
 
 ### Changes to existing features
 

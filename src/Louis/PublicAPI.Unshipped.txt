@@ -1,4 +1,8 @@
 #nullable enable
+Louis.ComponentModel.MailAddressCollectionConverter
+Louis.ComponentModel.MailAddressCollectionConverter.MailAddressCollectionConverter() -> void
+Louis.ComponentModel.MailAddressConverter
+Louis.ComponentModel.MailAddressConverter.MailAddressConverter() -> void
 Louis.ComponentModel.SimpleStringConverter
 Louis.ComponentModel.SimpleStringConverter<T>
 Louis.ComponentModel.SimpleStringConverter<T>.SimpleStringConverter(System.Func<System.ComponentModel.ITypeDescriptorContext?, System.Globalization.CultureInfo?, string!, T>? convertFromString, System.Func<System.ComponentModel.ITypeDescriptorContext?, System.Globalization.CultureInfo?, T, string!>? convertToString) -> void
