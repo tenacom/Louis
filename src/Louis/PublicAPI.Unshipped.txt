@@ -1,7 +1,9 @@
 #nullable enable
+Louis.ComponentModel.SimpleStringConverter
 Louis.ComponentModel.SimpleStringConverter<T>
 Louis.ComponentModel.SimpleStringConverter<T>.SimpleStringConverter(System.Func<System.ComponentModel.ITypeDescriptorContext?, System.Globalization.CultureInfo?, string!, T>? convertFromString, System.Func<System.ComponentModel.ITypeDescriptorContext?, System.Globalization.CultureInfo?, T, string!>? convertToString) -> void
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Type! sourceType) -> bool
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.CanConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Type? destinationType) -> bool
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object! value) -> object?
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.ConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object? value, System.Type! destinationType) -> object?
+static Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T, TConverter>() -> void
