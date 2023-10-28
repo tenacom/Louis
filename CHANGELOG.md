@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Class `Louis.ComponentModel.SimpleStringConverter<T>` provides a base class for type converters that can convert a specific type to and/or from a string.
+This abstract class takes care of boilerplate code and dealing with `object`s; subclasses only have to implement conversions between `string`s and strongly-typed instances.
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
