@@ -11,5 +11,7 @@ override sealed Louis.ComponentModel.SimpleStringConverter<T>.CanConvertTo(Syste
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object! value) -> object?
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.ConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object? value, System.Type! destinationType) -> object?
 static Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T, TConverter>() -> void
+static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, Louis.Fluency.FluentAction<T, T1!>! then) -> T
+static Louis.Fluency.FluentExtensions.IfNotNull<T, T1>(this T this, T1? arg, System.Action<T, T1!>! then) -> T
 static Louis.Fluency.FluentExtensions.IfNotNullOrEmpty<T>(this T this, string? arg, Louis.Fluency.FluentAction<T, string!>! then) -> T
 static Louis.Fluency.FluentExtensions.IfNotNullOrEmpty<T>(this T this, string? arg, System.Action<T, string!>! then) -> T

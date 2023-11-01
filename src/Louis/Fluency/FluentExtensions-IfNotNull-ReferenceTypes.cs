@@ -23,12 +23,12 @@ partial class FluentExtensions
     /// <para><paramref name="then"/> is <see langword="null"/>.</para>
     /// </exception>
     public static T IfNotNull<T, T1>(this T @this, T1? arg, FluentAction<T, T1> then)
-        where T1 : notnull
+        where T1 : class
     {
         Guard.IsNotNull(@this);
         Guard.IsNotNull(then);
 
-        return arg != null ? then(@this, arg) : @this;
+        return arg is null ? @this : then(@this, arg);
     }
 
     /// <summary>
@@ -46,12 +46,12 @@ partial class FluentExtensions
     /// <para><paramref name="then"/> is <see langword="null"/>.</para>
     /// </exception>
     public static T IfNotNull<T, T1>(this T @this, T1? arg, Action<T, T1> then)
-        where T1 : notnull
+        where T1 : class
     {
         Guard.IsNotNull(@this);
         Guard.IsNotNull(then);
 
-        if (arg != null)
+        if (arg is not null)
         {
             then(@this, arg);
         }
