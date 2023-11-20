@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- .NET 8.0 has been added as a target framework.
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.2.3](https://github.com/Tenacom/Louis/releases/tag/1.2.3) (2023-11-20)
+
+### New features
+
+- .NET 8.0 has been added as a target framework.
 
 ## [1.1.12](https://github.com/Tenacom/Louis/releases/tag/1.1.12) (2023-11-09)
 
