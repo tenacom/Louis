@@ -589,6 +589,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         LogStateChanged(oldState, _state);
     }
 
+#if NET7_0_OR_GREATER
+    private void EnsureNotDisposed() => ObjectDisposedException.ThrowIf(_disposed.Value, GetType());
+#else
     private void EnsureNotDisposed()
     {
         if (_disposed.Value)
@@ -596,4 +599,5 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             throw new ObjectDisposedException(GetType().Name);
         }
     }
+#endif
 }
