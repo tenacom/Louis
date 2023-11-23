@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Class `Louis.ActionDisposable` implements [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable) by invoking an [`Action`](https://learn.microsoft.com/en-us/dotnet/api/system.action) passed to its constructor. This can be useful, combined with C#'s [`using` statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using), to ensure a piece of code gets executed at the end of a block or method, regardless of its result or outcome.
+- `Louis.LocalActionDisposable` has the same purpose and API of `ActionDisposable` but, being a [`ref struct`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct), it cannot be passed outside the method it is created in. On the other hand, it doesn't allocate space on the heap, taking just the size of a pointer on the stack, so it is preferrable to `ActionDisposable` in most cases, from both a performance and memory pressure point of view.
+- Class `Louis.AsyncActionDisposable` is similar to `ActionDisposable`, but it takes a possibly asynchronous delegate and uses it to implement [`IAsyncDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.iasyncdisposable) as well as [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable).
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
@@ -27,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Class `Louis.ComponentModel.SimpleStringConverter<T>` provides a base class for type converters that can convert a specific type to and/or from a string.
 This abstract class takes care of boilerplate code and dealing with `object`s; subclasses only have to implement conversions between `string`s and strongly-typed instances.
-- Static method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T, TConverter>` creates an instance of [`TyepConverterAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typeconverterattribute) referencing a subclass of `SimpleStringConverter<T>` and registers it for use by [`TypeDescriptor.GetAttributes`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typedescriptor.getattributes). This enables a converter to be recognized by e.g. [`ConfigurationBinder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationbinder) with just one line of clean, easy-to-understand code.
+- Static method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T, TConverter>` creates an instance of [`TypeConverterAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typeconverterattribute) referencing a subclass of `SimpleStringConverter<T>` and registers it for use by [`TypeDescriptor.GetAttributes`](https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.typedescriptor.getattributes). This enables a converter to be recognized by e.g. [`ConfigurationBinder`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.configurationbinder) with just one line of clean, easy-to-understand code.
 - Classes `Louis.ComponentModel.MailAddressConverter` and `Louis.ComponentModel.MailAddressCollectionConverter` perform conversion of [`MailAddress`](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddress) and [`MailAddressCollection`](https://learn.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddresscollection), respectively, to and from `string`. They are also good examples of how to subclass `SimpleStringConverter<T>`.
 - New fluent extension method `IfNotNullOrEmpty` invokes either an `Action` or a `FluentAction` if a string is neither null nor the empty string.
 - Fluent extension method `IfNotNull` now has overloads that work with nullable value types.
