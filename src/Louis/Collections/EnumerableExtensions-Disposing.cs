@@ -40,7 +40,9 @@ partial class EnumerableExtensions
                     var valueTask = asyncDisposable.DisposeAsync();
                     if (!valueTask.IsCompletedSuccessfully)
                     {
-                        pendingTasks ??= new();
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly - False positive, see https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3687
+                        pendingTasks ??= [];
+#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
                         pendingTasks.Add(valueTask.AsTask());
                     }
 
@@ -52,7 +54,9 @@ partial class EnumerableExtensions
                     }
                     catch (Exception e) when (!e.IsCriticalError())
                     {
-                        exceptions ??= new();
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly - False positive, see https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3687
+                        exceptions ??= [];
+#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
                         exceptions.Add(e);
                     }
 
@@ -116,7 +120,9 @@ partial class EnumerableExtensions
                     }
                     catch (Exception e) when (!e.IsCriticalError())
                     {
-                        exceptions ??= new();
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly - False positive, see https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3687
+                        exceptions ??= [];
+#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
                         exceptions.Add(e);
                     }
 
@@ -125,7 +131,9 @@ partial class EnumerableExtensions
                     var valueTask = asyncDisposable.DisposeAsync();
                     if (!valueTask.IsCompletedSuccessfully)
                     {
-                        pendingTasks ??= new();
+#pragma warning disable SA1010 // Opening square brackets should be spaced correctly - False positive, see https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3687
+                        pendingTasks ??= [];
+#pragma warning restore SA1010 // Opening square brackets should be spaced correctly
                         pendingTasks.Add(valueTask.AsTask());
                     }
 
