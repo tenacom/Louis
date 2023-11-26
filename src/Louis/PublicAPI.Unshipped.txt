@@ -1,12 +1,1 @@
 #nullable enable
-Louis.ActionAsyncDisposable
-Louis.ActionAsyncDisposable.ActionAsyncDisposable(System.Func<System.Threading.Tasks.ValueTask>! onDisposeAsync) -> void
-Louis.ActionAsyncDisposable.Dispose() -> void
-Louis.ActionAsyncDisposable.DisposeAsync() -> System.Threading.Tasks.ValueTask
-Louis.ActionDisposable
-Louis.ActionDisposable.ActionDisposable(System.Action! onDispose) -> void
-Louis.ActionDisposable.Dispose() -> void
-Louis.LocalActionDisposable
-Louis.LocalActionDisposable.Dispose() -> void
-Louis.LocalActionDisposable.LocalActionDisposable() -> void
-Louis.LocalActionDisposable.LocalActionDisposable(System.Action! onDispose) -> void

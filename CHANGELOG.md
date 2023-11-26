@@ -9,15 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
-- Class `Louis.ActionDisposable` implements [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable) by invoking an [`Action`](https://learn.microsoft.com/en-us/dotnet/api/system.action) passed to its constructor. This can be useful, combined with C#'s [`using` statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using), to ensure a piece of code gets executed at the end of a block or method, regardless of its result or outcome.
-- `Louis.LocalActionDisposable` has the same purpose and API of `ActionDisposable` but, being a [`ref struct`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct), it cannot be passed outside the method it is created in. On the other hand, it doesn't allocate space on the heap, taking just the size of a pointer on the stack, so it is preferrable to `ActionDisposable` in most cases, from both a performance and memory pressure point of view.
-- Class `Louis.AsyncActionDisposable` is similar to `ActionDisposable`, but it takes a possibly asynchronous delegate and uses it to implement [`IAsyncDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.iasyncdisposable) as well as [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable).
-
 ### Changes to existing features
 
 ### Bugs fixed in this release
 
 ### Known problems introduced by this release
+
+## [1.3.4](https://github.com/Tenacom/Louis/releases/tag/1.3.4) (2023-11-26)
+
+### New features
+
+- Class `Louis.ActionDisposable` implements [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable) by invoking an [`Action`](https://learn.microsoft.com/en-us/dotnet/api/system.action) passed to its constructor. This can be useful, combined with C#'s [`using` statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using), to ensure a piece of code gets executed at the end of a block or method, regardless of its result or outcome.
+- `Louis.LocalActionDisposable` has the same purpose and API of `ActionDisposable` but, being a [`ref struct`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct), it cannot be passed outside the method it is created in. On the other hand, it doesn't allocate space on the heap, taking just the size of a pointer on the stack, so it is preferrable to `ActionDisposable` in most cases, from both a performance and memory pressure point of view.
+- Class `Louis.AsyncActionDisposable` is similar to `ActionDisposable`, but it takes a possibly asynchronous delegate and uses it to implement [`IAsyncDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.iasyncdisposable) as well as [`IDisposable`](https://learn.microsoft.com/en-us/dotnet/api/system.idisposable).
 
 ## [1.2.3](https://github.com/Tenacom/Louis/releases/tag/1.2.3) (2023-11-20)
 
