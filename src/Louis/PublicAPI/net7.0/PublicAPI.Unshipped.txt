@@ -1,1 +1,4 @@
 #nullable enable
+Louis.ComponentModel.ParsableStringConverter<T>
+Louis.ComponentModel.ParsableStringConverter<T>.ParsableStringConverter() -> void
+static Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>() -> void

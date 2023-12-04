@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+- Class `Louis.ComponentModel.ParsableStringConverter<T>` and method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>` offer a ready-made type converter for any type implementing [`IParsable<TSelf>`](https://learn.microsoft.com/en-us/dotnet/api/system.iparsable-1).  
+`ParsableStringConverter<T>` and `AddToTypeDescriptor<T>` are only available on target platforms where `IParsable<TSelf>` is available, i.e. .NET 7 and later versions.
+
 ### Changes to existing features
 
 ### Bugs fixed in this release
