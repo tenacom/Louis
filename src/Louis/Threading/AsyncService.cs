@@ -15,7 +15,7 @@ namespace Louis.Threading;
 /// </summary>
 /// <remarks>
 /// <para>This class differs from the <see href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.backgroundservice">BackgroundService</see>
-/// class found in <c>Microsoft.Extensions.Hosting</c> because it gives you more control over your service:</para>
+/// class found in <c>Microsoft.Extensions.Hosting</c> in that it gives you more control over your service:</para>
 /// <list type="bullet">
 /// <item>you can, optionally, override the <see cref="SetupAsync"/> and <see cref="TeardownAsync"/> methods
 /// to separate setup and teardown from the core of your service;</item>
