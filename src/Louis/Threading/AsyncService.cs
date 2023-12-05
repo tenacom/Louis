@@ -20,7 +20,7 @@ namespace Louis.Threading;
 /// <item>you can, optionally, override the <see cref="SetupAsync"/> and <see cref="TeardownAsync"/> methods
 /// to separate setup and teardown from the core of your service;</item>
 /// <item>you can either start your service in background by calling <see cref="Start"/>,
-/// start it in background and wait for preliminary operations to complete by calling <see cref="StartAsync"/>,
+/// start it in background and wait for preliminary operations to complete by calling <see cref="StartAndWaitAsync"/>,
 /// or run it as a task by calling <see cref="RunAsync"/>;</item>
 /// <item>you can use the <see cref="State"/> property to know, at any time, if your service has been started, has finished starting,
 /// is stopping, has finished stopping, or has been disposed;</item>
@@ -29,7 +29,7 @@ namespace Louis.Threading;
 /// <item>you can synchronize other tasks with your service by calling <see cref="WaitUntilStartedAsync"/>
 /// and <see cref="WaitUntilStoppedAsync"/>;</item>
 /// <item>you can stop your service and let it complete in the background by calling <see cref="Stop()"/>,
-/// or stop and wait for completion by calling <see cref="StopAsync"/>.</item>
+/// or stop and wait for completion by calling <see cref="StopAndWaitAsync"/>.</item>
 /// </list>
 /// </remarks>
 public abstract class AsyncService : IAsyncDisposable, IDisposable
@@ -94,10 +94,10 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </returns>
     /// <exception cref="InvalidOperationException">
     /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>,
-    /// or <see cref="StartAsync"/>.
+    /// or <see cref="StartAndWaitAsync"/>.
     /// </exception>
     /// <remarks>
-    /// <para>Only one of <see cref="RunAsync"/>, <see cref="Start"/>, and <see cref="StartAsync"/> may be called, at most once.</para>
+    /// <para>Only one of <see cref="RunAsync"/>, <see cref="Start"/>, and <see cref="StartAndWaitAsync"/> may be called, at most once.</para>
     /// </remarks>
     public Task RunAsync(CancellationToken cancellationToken) => RunAsyncCore(false, cancellationToken);
 
@@ -106,10 +106,10 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the service.</param>
     /// <exception cref="InvalidOperationException">
-    /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>, or <see cref="StartAsync"/>.
+    /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>, or <see cref="StartAndWaitAsync"/>.
     /// </exception>
     /// <remarks>
-    /// <para>Only one of <see cref="RunAsync"/>, <see cref="Start"/>, and <see cref="StartAsync"/> may be called, at most once.</para>
+    /// <para>Only one of <see cref="RunAsync"/>, <see cref="Start"/>, and <see cref="StartAndWaitAsync"/> may be called, at most once.</para>
     /// <para>If your program needs to know the exact reason why a service stops or fails to start,
     /// do not use this method; call <see cref="RunAsync"/> from a separate task instead.</para>
     /// </remarks>
@@ -125,14 +125,14 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// or the cancellation of <paramref name="cancellationToken"/> (in which case the result will be <see langword="false"/>).
     /// </returns>
     /// <exception cref="InvalidOperationException">
-    /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>,  or <see cref="StartAsync"/>.
+    /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>,  or <see cref="StartAndWaitAsync"/>.
     /// </exception>
     /// <remarks>
-    /// <para>You may call one of <see cref="RunAsync"/> and <see cref="StartAsync"/> at most once.</para>
+    /// <para>You may call one of <see cref="RunAsync"/> and <see cref="StartAndWaitAsync"/> at most once.</para>
     /// <para>If your program needs to know the exact reason why a service stops or fails to start,
     /// do not use this method; call <see cref="RunAsync"/> from a separate task instead.</para>
     /// </remarks>
-    public Task<bool> StartAsync(CancellationToken cancellationToken)
+    public Task<bool> StartAndWaitAsync(CancellationToken cancellationToken)
     {
         _ = RunAsyncCore(true, cancellationToken);
         return WaitUntilStartedAsync();
@@ -157,7 +157,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// (in which case the result will be <see langword="true"/>), or immediately if the service was not running
     /// (in which case the result will be <see langword="false"/>).
     /// </returns>
-    public async Task<bool> StopAsync()
+    public async Task<bool> StopAndWaitAsync()
     {
         if (!Stop(true))
         {
@@ -177,7 +177,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// (in which case the result will be <see langword="false"/>).
     /// </returns>
     /// <remarks>
-    /// <para>If neither <see cref="RunAsync"/> nor <see cref="StartAsync"/> have been called,
+    /// <para>If neither <see cref="RunAsync"/> nor <see cref="StartAndWaitAsync"/> have been called,
     /// the returned task will not complete until one of them is called.</para>
     /// <para>If the service has already finished starting, the returned task is already completed.</para>
     /// </remarks>
@@ -190,7 +190,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// A <see cref="Task"/> that will complete as soon as the service has started and then stopped,
     /// or until it has failed to start.</returns>
     /// <remarks>
-    /// <para>If neither <see cref="RunAsync"/> nor <see cref="StartAsync"/> have been called,
+    /// <para>If neither <see cref="RunAsync"/> nor <see cref="StartAndWaitAsync"/> have been called,
     /// the returned task will not complete until one of them is called.</para>
     /// <para>If the service has already stopped, the returned task is already completed.</para>
     /// </remarks>
@@ -257,10 +257,10 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
     /// <remarks>
-    /// <para>This method is called if and only if the <see cref="Task"/> returned by <see cref="StartAsync"/>
+    /// <para>This method is called if and only if the <see cref="Task"/> returned by <see cref="StartAndWaitAsync"/>
     /// completes successfully, even if the service is prevented from starting afterwards
-    /// (for example if the <see cref="CancellationToken"/> passed to <see cref="StartAsync"/>
-    /// is canceled after <see cref="StartAsync"/> checks it for the last time).</para>
+    /// (for example if the <see cref="CancellationToken"/> passed to <see cref="StartAndWaitAsync"/>
+    /// is canceled after <see cref="StartAndWaitAsync"/> checks it for the last time).</para>
     /// </remarks>
     protected virtual ValueTask TeardownAsync() => default;
 

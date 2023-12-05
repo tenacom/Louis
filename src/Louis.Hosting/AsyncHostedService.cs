@@ -33,7 +33,7 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     async Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
         LogHostedServiceStarting();
-        if (await StartAsync(cancellationToken).ConfigureAwait(false))
+        if (await StartAndWaitAsync(cancellationToken).ConfigureAwait(false))
         {
             return;
         }
@@ -47,7 +47,7 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     async Task IHostedService.StopAsync(CancellationToken cancellationToken)
     {
         LogHostedServiceStopping();
-        _ = await Task.WhenAny(StopAsync(), Task.Delay(Timeout.Infinite, cancellationToken)).ConfigureAwait(false);
+        _ = await Task.WhenAny(StopAndWaitAsync(), Task.Delay(Timeout.Infinite, cancellationToken)).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
