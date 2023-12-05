@@ -571,8 +571,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
                     return false;
 
                 default:
-                    SelfCheck.Fail($"Unexpected async service state ({_state})");
-                    return false;
+                    return SelfCheck.Fail<bool>($"Unexpected async service state ({_state})");
             }
         }
     }
