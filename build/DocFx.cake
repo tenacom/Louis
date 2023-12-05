@@ -44,7 +44,7 @@ sealed class DocFx
     public void Metadata()
     {
         var docFxJsonPath = _docsPath.CombineWithFilePath("docfx.json");
-        var json = LoadJsonObject(docFxJsonPath);
+        var json = LoadJsonObject(Context, docFxJsonPath);
         if (!json.TryGetPropertyValue("metadata", out _))
         {
             Context.Information("No metadata to generate.");
