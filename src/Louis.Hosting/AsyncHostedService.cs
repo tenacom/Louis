@@ -33,14 +33,13 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     async Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
         LogHostedServiceStarting();
-        if (await StartAndWaitAsync(cancellationToken).ConfigureAwait(false))
+        var setupResult = await StartAndWaitAsync(cancellationToken).ConfigureAwait(false);
+        if (setupResult == AsyncServiceSetupResult.Successful)
         {
             return;
         }
 
-        // If AsyncService.StartAsync returns false, then either the service was canceled, or SetupAsync faulted.
-        cancellationToken.ThrowIfCancellationRequested();
-        ThrowHelper.ThrowInvalidOperationException("Service start faulted.");
+        ThrowHelper.ThrowInvalidOperationException($"Service start failed ({setupResult}).");
     }
 
     /// <inheritdoc/>

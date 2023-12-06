@@ -38,7 +38,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
     private readonly CancellationTokenSource _stopTokenSource = new();
     private readonly CancellationTokenSource _doneTokenSource = new();
-    private readonly TaskCompletionSource<bool> _startedCompletionSource = new();
+    private readonly TaskCompletionSource<AsyncServiceSetupResult> _startedCompletionSource = new();
     private readonly TaskCompletionSource<bool> _stoppedCompletionSource = new();
     private readonly object _stateSyncRoot = new();
 
@@ -120,9 +120,8 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the service.</param>
     /// <returns>
-    /// A <see cref="Task{T}">Task&lt;bool&gt;</see> that will complete as soon as the service has started
-    /// (in which case the result will be <see langword="true"/>), or it could not start, either because of an exception,
-    /// or the cancellation of <paramref name="cancellationToken"/> (in which case the result will be <see langword="false"/>).
+    /// A <see cref="Task{T}">Task</see>&lt;<see cref="AsyncServiceSetupResult"/>&gt; that will complete as soon as the service
+    /// either has started or could not start.
     /// </returns>
     /// <exception cref="InvalidOperationException">
     /// The service has already been started, either by calling <see cref="RunAsync"/>, <see cref="Start"/>,  or <see cref="StartAndWaitAsync"/>.
@@ -132,7 +131,8 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <para>If your program needs to know the exact reason why a service stops or fails to start,
     /// do not use this method; call <see cref="RunAsync"/> from a separate task instead.</para>
     /// </remarks>
-    public Task<bool> StartAndWaitAsync(CancellationToken cancellationToken)
+    /// <seealso cref="AsyncServiceSetupResult"/>
+    public Task<AsyncServiceSetupResult> StartAndWaitAsync(CancellationToken cancellationToken)
     {
         _ = RunAsyncCore(true, cancellationToken);
         return WaitUntilStartedAsync();
@@ -181,7 +181,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// the returned task will not complete until one of them is called.</para>
     /// <para>If the service has already finished starting, the returned task is already completed.</para>
     /// </remarks>
-    public Task<bool> WaitUntilStartedAsync() => _startedCompletionSource.Task;
+    public Task<AsyncServiceSetupResult> WaitUntilStartedAsync() => _startedCompletionSource.Task;
 
     /// <summary>
     /// Asynchronously wait until an asynchronous service has stopped.
@@ -437,11 +437,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
 
         using var cts = CancellationTokenSource.CreateLinkedTokenSource(_stopTokenSource.Token, cancellationToken);
-        var (setupCompleted, setupSuccess, exception) = await RunSetupAsync(cts.Token).ConfigureAwait(false);
-        if (!setupCompleted || !setupSuccess)
+        var (setupResult, exception) = await RunSetupAsync(cts.Token).ConfigureAwait(false);
+        if (setupResult != AsyncServiceSetupResult.Successful)
         {
             State = AsyncServiceState.Stopped;
-            _startedCompletionSource.SetResult(false);
+            _startedCompletionSource.SetResult(setupResult);
             _stoppedCompletionSource.SetResult(true);
             _doneTokenSource.Cancel();
 
@@ -455,7 +455,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
 
         State = AsyncServiceState.Running;
-        _startedCompletionSource.SetResult(true);
+        _startedCompletionSource.SetResult(AsyncServiceSetupResult.Successful);
         exception = await RunExecuteAsync(cts.Token).ConfigureAwait(false);
         _doneTokenSource.Cancel();
 
@@ -466,7 +466,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         AggregateAndThrowIfNeeded(exception, teardownException);
     }
 
-    private async Task<(bool Completed, bool Success, Exception? FailureException)> RunSetupAsync(CancellationToken cancellationToken)
+    private async Task<(AsyncServiceSetupResult Result, Exception? Exception)> RunSetupAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -477,26 +477,17 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             LogBeforeSetup();
             var success = await SetupAsync(cancellationToken).ConfigureAwait(false);
             LogSetupCompleted(success);
-            if (!success)
-            {
-                return (true, false, null);
-            }
-
-            // Check the cancellation token again, in case cancellation has been requested
-            // but SetupAsync has not honored the request.
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return (true, true, null);
+            return (success ? AsyncServiceSetupResult.Successful : AsyncServiceSetupResult.Unsuccessful, null);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             LogSetupCanceled();
-            return (false, false, null);
+            return (AsyncServiceSetupResult.Canceled, null);
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
             LogSetupFailed(e);
-            return (false, false, e);
+            return (AsyncServiceSetupResult.Faulted, e);
         }
     }
 
@@ -566,7 +557,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             switch (_state)
             {
                 case AsyncServiceState.Created:
-                    _ = _startedCompletionSource.TrySetResult(false);
+                    _ = _startedCompletionSource.TrySetResult(AsyncServiceSetupResult.NotStarted);
                     _ = _stoppedCompletionSource.TrySetResult(true);
                     UnsafeSetState(AsyncServiceState.Stopped);
                     return false;

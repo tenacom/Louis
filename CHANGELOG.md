@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Class `Louis.ComponentModel.ParsableStringConverter<T>` and method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>` offer a ready-made type converter for any type implementing [`IParsable<TSelf>`](https://learn.microsoft.com/en-us/dotnet/api/system.iparsable-1).  
 `ParsableStringConverter<T>` and `AddToTypeDescriptor<T>` are only available on target platforms where `IParsable<TSelf>` is available, i.e. .NET 7 and later versions.
 - **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, virtual method `SetupAsync` now returns a `ValueTask<bool>` instead of a `ValueTask`. If the result of the task is `false`, the service is stopped and neither `ExecuteAsync` nor `TeardownAsync` are called.
+- **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, the tasks returned from methods `WaitUntilStartedAsync` and `StartAndWaitAsync` now have a result of type `AsyncServiceSetupResult`, with the following meaning:
+  - `AsyncServiceSetupResult.Successful` means that `SetupAsync` completed with a `true` result;
+  - `AsyncServiceSetupResult.NotStarted` means that the service was stopped before being started and `SetupAsync` was therefore not called;
+  - `AsyncServiceSetupResult.Unsuccessful` means that `SetupAsync` completed with a `false` result;
+  - `AsyncServiceSetupResult.Canceled` means that `SetupAsync` was canceled;
+  - `AsyncServiceSetupResult.Faulted` means that `SetupAsync` threw an exception.
 
 ### Changes to existing features
 
