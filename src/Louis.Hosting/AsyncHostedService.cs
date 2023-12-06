@@ -29,17 +29,33 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
         _logger = logger;
     }
 
+    /// <summary>
+    /// Gets a value indicating whether <see cref="IHostedService.StartAsync"/> will fail if
+    /// the result of <see cref="AsyncService.SetupAsync"/> is <see cref="AsyncServiceSetupResult.NotStarted"/>.
+    /// </summary>
+    protected virtual bool FailOnSetupNotStarted => true;
+
+    /// <summary>
+    /// Gets a value indicating whether <see cref="IHostedService.StartAsync"/> will fail if
+    /// the result of <see cref="AsyncService.SetupAsync"/> is <see cref="AsyncServiceSetupResult.Unsuccessful"/>.
+    /// </summary>
+    protected virtual bool FailOnSetupUnsuccessful => true;
+
     /// <inheritdoc/>
     async Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
         LogHostedServiceStarting();
         var setupResult = await StartAndWaitAsync(cancellationToken).ConfigureAwait(false);
-        if (setupResult == AsyncServiceSetupResult.Successful)
+        switch (setupResult)
         {
-            return;
+            case AsyncServiceSetupResult.Successful:
+            case AsyncServiceSetupResult.NotStarted when !FailOnSetupNotStarted:
+            case AsyncServiceSetupResult.Unsuccessful when !FailOnSetupUnsuccessful:
+                break;
+            default:
+                ThrowHelper.ThrowInvalidOperationException($"Service start failed ({setupResult}).");
+                break;
         }
-
-        ThrowHelper.ThrowInvalidOperationException($"Service start failed ({setupResult}).");
     }
 
     /// <inheritdoc/>

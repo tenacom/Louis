@@ -1,3 +1,5 @@
 #nullable enable
 *REMOVED*override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted(bool success) -> void
+virtual Louis.Hosting.AsyncHostedService.FailOnSetupNotStarted.get -> bool
+virtual Louis.Hosting.AsyncHostedService.FailOnSetupUnsuccessful.get -> bool
