@@ -248,8 +248,15 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// related to starting the service.
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> used to stop the operation.</param>
-    /// <returns>A <see cref="ValueTask"/> that represents the ongoing operation.</returns>
-    protected virtual ValueTask SetupAsync(CancellationToken cancellationToken) => default;
+    /// <returns>
+    /// A <see cref="ValueTask{T}">Task&lt;bool&gt;</see> whose result will be <see langword="true"/> if the operation
+    /// was successful, <see langword="false"/> otherwise.
+    /// </returns>
+    /// <remarks>
+    /// <para>If the returned task completes with <see langword="false"/>, service execution will be stopped and neither
+    /// <see cref="ExecuteAsync"/> nor <see cref="TeardownAsync"/> will be called.</para>
+    /// </remarks>
+    protected virtual ValueTask<bool> SetupAsync(CancellationToken cancellationToken) => new(true);
 
     /// <summary>
     /// When overridden in a derived class, performs asynchronous operations
@@ -293,7 +300,9 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
     /// <para>Called if the <see cref="SetupAsync"/> method terminates successfully.</para>
     /// <para>This method must return as early as possible, must not throw, and should be only used for logging purposes.</para>
     /// </summary>
-    protected virtual void LogSetupCompleted()
+    /// <param name="success"><see langword="true"/> if the operation was successful;
+    /// <see langword="false"/> otherwise.</param>
+    protected virtual void LogSetupCompleted(bool success)
     {
     }
 
@@ -428,8 +437,8 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         }
 
         using var cts = CancellationTokenSource.CreateLinkedTokenSource(_stopTokenSource.Token, cancellationToken);
-        var (setupCompleted, exception) = await RunSetupAsync(cts.Token).ConfigureAwait(false);
-        if (!setupCompleted)
+        var (setupCompleted, setupSuccess, exception) = await RunSetupAsync(cts.Token).ConfigureAwait(false);
+        if (!setupCompleted || !setupSuccess)
         {
             State = AsyncServiceState.Stopped;
             _startedCompletionSource.SetResult(false);
@@ -457,7 +466,7 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         AggregateAndThrowIfNeeded(exception, teardownException);
     }
 
-    private async Task<(bool Completed, Exception? FailureException)> RunSetupAsync(CancellationToken cancellationToken)
+    private async Task<(bool Completed, bool Success, Exception? FailureException)> RunSetupAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -466,24 +475,28 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
 
             // Perform start actions.
             LogBeforeSetup();
-            await SetupAsync(cancellationToken).ConfigureAwait(false);
-            LogSetupCompleted();
+            var success = await SetupAsync(cancellationToken).ConfigureAwait(false);
+            LogSetupCompleted(success);
+            if (!success)
+            {
+                return (true, false, null);
+            }
 
             // Check the cancellation token again, in case cancellation has been requested
             // but SetupAsync has not honored the request.
             cancellationToken.ThrowIfCancellationRequested();
 
-            return (true, null);
+            return (true, true, null);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             LogSetupCanceled();
-            return (false, null);
+            return (false, false, null);
         }
         catch (Exception e) when (!e.IsCriticalError())
         {
             LogSetupFailed(e);
-            return (false, e);
+            return (false, false, e);
         }
     }
 

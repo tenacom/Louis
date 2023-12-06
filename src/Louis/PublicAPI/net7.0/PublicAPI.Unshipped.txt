@@ -1,4 +1,6 @@
 #nullable enable
+*REMOVED*virtual Louis.Threading.AsyncService.LogSetupCompleted() -> void
+*REMOVED*virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
 *REMOVED*Louis.Threading.AsyncService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 *REMOVED*Louis.Threading.AsyncService.StopAsync() -> System.Threading.Tasks.Task<bool>!
 Louis.ComponentModel.ParsableStringConverter<T>
@@ -6,3 +8,5 @@ Louis.ComponentModel.ParsableStringConverter<T>.ParsableStringConverter() -> voi
 static Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>() -> void
 Louis.Threading.AsyncService.StartAndWaitAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
 Louis.Threading.AsyncService.StopAndWaitAsync() -> System.Threading.Tasks.Task<bool>!
+virtual Louis.Threading.AsyncService.LogSetupCompleted(bool success) -> void
+virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<bool>

@@ -65,11 +65,17 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
     protected sealed override partial void LogBeforeSetup();
 
     /// <inheritdoc/>
-    [LoggerMessage(
-        eventId: EventIds.AsyncHostedService.SetupCompleted,
-        level: LogLevel.Trace,
-        message: "Setup phase completed")]
-    protected sealed override partial void LogSetupCompleted();
+    protected sealed override void LogSetupCompleted(bool success)
+    {
+        if (success)
+        {
+            LogSetupSuccessful();
+        }
+        else
+        {
+            LogSetupNotSuccessful();
+        }
+    }
 
     /// <inheritdoc/>
     [LoggerMessage(
@@ -155,4 +161,16 @@ public abstract partial class AsyncHostedService : AsyncService, IHostedService
         level: LogLevel.Trace,
         message: "Hosted service stopping")]
     private partial void LogHostedServiceStopping();
+
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.SetupSuccessful,
+        level: LogLevel.Trace,
+        message: "Setup phase completed successfully")]
+    private partial void LogSetupSuccessful();
+
+    [LoggerMessage(
+        eventId: EventIds.AsyncHostedService.SetupNotSuccessful,
+        level: LogLevel.Warning,
+        message: "Setup phase completed unsuccessfully")]
+    private partial void LogSetupNotSuccessful();
 }
