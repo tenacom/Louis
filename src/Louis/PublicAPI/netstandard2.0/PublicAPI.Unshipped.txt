@@ -13,5 +13,8 @@ Louis.Threading.AsyncServiceSetupResult.Faulted = 4 -> Louis.Threading.AsyncServ
 Louis.Threading.AsyncServiceSetupResult.NotStarted = 1 -> Louis.Threading.AsyncServiceSetupResult
 Louis.Threading.AsyncServiceSetupResult.Successful = 0 -> Louis.Threading.AsyncServiceSetupResult
 Louis.Threading.AsyncServiceSetupResult.Unsuccessful = 2 -> Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.InterlockedFlag.Equals(bool other) -> bool
+static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, bool b) -> bool
+static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, bool b) -> bool
 virtual Louis.Threading.AsyncService.LogSetupCompleted(bool success) -> void
 virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<bool>

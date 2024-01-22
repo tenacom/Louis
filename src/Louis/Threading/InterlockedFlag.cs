@@ -9,7 +9,7 @@ namespace Louis.Threading;
 /// <summary>
 /// Implements thread-safe management of a boolean value.
 /// </summary>
-public struct InterlockedFlag : IEquatable<InterlockedFlag>
+public struct InterlockedFlag : IEquatable<InterlockedFlag>, IEquatable<bool>
 {
     private int _value;
 
@@ -53,11 +53,36 @@ public struct InterlockedFlag : IEquatable<InterlockedFlag>
     /// otherwise, <see langword="false"/>.</returns>
     public static bool operator !=(InterlockedFlag a, InterlockedFlag b) => a.Value != b.Value;
 
+    /// <summary>
+    /// Determines whether a specified interlocked flag has the specified value.
+    /// </summary>
+    /// <param name="a">The interlocked flag to compare.</param>
+    /// <param name="b">The value to compare.</param>
+    /// <returns><see langword="true"/> if the value of <paramref name="a"/> is the same as <paramref name="b"/>;
+    /// otherwise, <see langword="false"/>.</returns>
+    public static bool operator ==(InterlockedFlag a, bool b) => a.Value == b;
+
+    /// <summary>
+    /// Determines whether a specified interlocked flags has a value different from a specified value.
+    /// </summary>
+    /// <param name="a">The interlocked flag to compare.</param>
+    /// <param name="b">The value to compare.</param>
+    /// <returns><see langword="true"/> if the value of <paramref name="a"/> is different from <paramref name="b"/>;
+    /// otherwise, <see langword="false"/>.</returns>
+    public static bool operator !=(InterlockedFlag a, bool b) => a.Value != b;
+
     /// <inheritdoc/>
-    public override bool Equals(object? obj) => obj is InterlockedFlag other && Equals(other);
+    public override bool Equals(object? obj) => obj switch {
+        bool value => value == Value,
+        InterlockedFlag other => other.Value == Value,
+        _ => false,
+    };
 
     /// <inheritdoc/>
     public bool Equals(InterlockedFlag other) => other.Value == Value;
+
+    /// <inheritdoc/>
+    public bool Equals(bool other) => other == Value;
 
     /// <inheritdoc/>
     public override int GetHashCode() => Value.GetHashCode();
