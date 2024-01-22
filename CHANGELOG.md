@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Two new boolean properties in `AsyncHostedService` lets subclasses decide whether `StartAsync` should fail when the service is stopped before starting (`FailOnSetupNotStarted`) or `SetupAsync` completes with `false` (`FailOnSetupUnsuccessful`).  
 The default value is `true` for both properties.
 - Struct `Louis.Threading.InterlockedFlag` now implements `IEquatable<bool>`, as well as equality and inequality operators with `bool`.
+- New struct `Louis.Threading.InterlockedReference<T>` encapsulates an object reference, so that it is always accessed in a thread-safe fashion.
 
 ### Changes to existing features
 

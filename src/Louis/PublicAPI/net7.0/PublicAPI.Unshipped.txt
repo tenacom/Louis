@@ -15,9 +15,26 @@ Louis.Threading.AsyncServiceSetupResult.NotStarted = 1 -> Louis.Threading.AsyncS
 Louis.Threading.AsyncServiceSetupResult.Successful = 0 -> Louis.Threading.AsyncServiceSetupResult
 Louis.Threading.AsyncServiceSetupResult.Unsuccessful = 2 -> Louis.Threading.AsyncServiceSetupResult
 Louis.Threading.InterlockedFlag.Equals(bool other) -> bool
+Louis.Threading.InterlockedReference<T>
+Louis.Threading.InterlockedReference<T>.CompareExchange(T? value, T? comparand) -> T?
+Louis.Threading.InterlockedReference<T>.Equals(Louis.Threading.InterlockedReference<T!> other) -> bool
+Louis.Threading.InterlockedReference<T>.Equals(T? other) -> bool
+Louis.Threading.InterlockedReference<T>.Exchange(T? value) -> T?
+Louis.Threading.InterlockedReference<T>.InterlockedReference() -> void
+Louis.Threading.InterlockedReference<T>.InterlockedReference(T? value) -> void
+Louis.Threading.InterlockedReference<T>.IsNull.get -> bool
+Louis.Threading.InterlockedReference<T>.Value.get -> T?
+Louis.Threading.InterlockedReference<T>.Value.set -> void
+override Louis.Threading.InterlockedReference<T>.Equals(object? obj) -> bool
+override Louis.Threading.InterlockedReference<T>.GetHashCode() -> int
+override Louis.Threading.InterlockedReference<T>.ToString() -> string!
 static Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>() -> void
 Louis.Threading.AsyncService.StopAndWaitAsync() -> System.Threading.Tasks.Task<bool>!
 static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, bool b) -> bool
 static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, bool b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator !=(Louis.Threading.InterlockedReference<T!> a, Louis.Threading.InterlockedReference<T!> b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator !=(Louis.Threading.InterlockedReference<T!> a, T? b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator ==(Louis.Threading.InterlockedReference<T!> a, Louis.Threading.InterlockedReference<T!> b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator ==(Louis.Threading.InterlockedReference<T!> a, T? b) -> bool
 virtual Louis.Threading.AsyncService.LogSetupCompleted(bool success) -> void
 virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<bool>
