@@ -4,6 +4,11 @@
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
 
   "settings": {
+    "indentation": {
+      "indentationSize": 4,
+      "tabSize": 4,
+      "useTabs": false
+    },
 
     "spacingRules": {
     },
@@ -39,8 +44,11 @@
 
     "documentationRules": {
       "companyName": "Tenacom",
-      "copyrightText": "Copyright (c) {companyName} and contributors. Licensed under the MIT license.\r\nSee the LICENSE file in the project root for full license information.",
+      "copyrightText": "Copyright (c) {companyName} and contributors. Licensed under the MIT license.{nl}See the LICENSE file in the project root for full license information.",
       "xmlHeader": false,
+      "variables": {
+        "nl":  "\r\n"
+      },
       "documentInterfaces": true,
       "documentExposedElements": true,
       "documentInternalElements": false,

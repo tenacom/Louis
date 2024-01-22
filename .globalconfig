@@ -315,7 +315,7 @@ dotnet_diagnostic.SA1301.severity = warning # Element should begin with lower-ca
 dotnet_diagnostic.SA1302.severity = warning # Interface names should begin with I
 dotnet_diagnostic.SA1303.severity = warning # Const field names should begin with upper-case letter
 dotnet_diagnostic.SA1304.severity = warning # Non-private readonly fields should begin with upper-case letter
-dotnet_diagnostic.SA1305.severity = warning # Field names should not use Hungarian notation
+dotnet_diagnostic.SA1305.severity = none # Field names should not use Hungarian notation
 dotnet_diagnostic.SA1306.severity = warning # Field names should begin with lower-case letter
 dotnet_diagnostic.SA1307.severity = warning # Accessible fields should begin with upper-case letter
 dotnet_diagnostic.SA1308.severity = warning # Variable names should not be prefixed
@@ -425,5 +425,6 @@ dotnet_diagnostic.SA1651.severity = warning # Do not use placeholder elements
 # Suppress some annoying IDE messages
 dotnet_diagnostic.IDE0040.severity = none # Accessibility modifiers required - has confusing rules and is a dupe of SA1400.
 dotnet_diagnostic.IDE0079.severity = none # Remove unnecessary suppression - apparently VS (as of v17.3.0) deems way too much stuff "unnecessary".
+dotnet_diagnostic.IDE0290.severity = none # Use primary constructor - No. Just no.
 
 # Solution-specific overrides
