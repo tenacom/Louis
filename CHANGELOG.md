@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Two new boolean properties in `AsyncHostedService` lets subclasses decide whether `StartAsync` should fail when the service is stopped before starting (`FailOnSetupNotStarted`) or `SetupAsync` completes with `false` (`FailOnSetupUnsuccessful`).  
 The default value is `true` for both properties.
 
-                                                                                     ### Changes to existing features
+### Changes to existing features
 
 - **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, methods `StartAsync` and `StopAsync` have been renamed to `StartAndWaitAsync` and `StopAndWaitAsync`, respectively. The old names lead some users (and code analysis tools, e.g. ReSharper) to believe they were asynchronous versions of `Start` and `Stop`.
 
