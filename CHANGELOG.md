@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The default value is `true` for both properties.
 - Struct `Louis.Threading.InterlockedFlag` now implements `IEquatable<bool>`, as well as equality and inequality operators with `bool`.
 - New struct `Louis.Threading.InterlockedReference<T>` encapsulates an object reference, so that it is always accessed in a thread-safe fashion.
+- New class `Louis.IO.ReadOnlyMemoryStream` implements a read-only, seekable `Stream` backed by a `ReadOnlyMemory<byte>`.
 
 ### Changes to existing features
 
