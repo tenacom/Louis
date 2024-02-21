@@ -27,6 +27,8 @@ The default value is `true` for both properties.
 ### Changes to existing features
 
 - **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, methods `StartAsync` and `StopAsync` have been renamed to `StartAndWaitAsync` and `StopAndWaitAsync`, respectively. The old names lead some users (and code analysis tools, e.g. ReSharper) to believe they were asynchronous versions of `Start` and `Stop`.
+- Class `Louis.Hosting.AsyncHostedService` now explicitly implements the `StartAsync` and `StopAsync` methods from `IHostedService`.  
+The two methods were previously only visible when casting an instance to `IHostedService`, to avoid confusion with methods inherited from `Luois.Threading.AsyncService`. However, this violated design rule [CA1033](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1033).
 
 ### Bugs fixed in this release
 
