@@ -11,14 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Class `Louis.ComponentModel.ParsableStringConverter<T>` and method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>` offer a ready-made type converter for any type implementing [`IParsable<TSelf>`](https://learn.microsoft.com/en-us/dotnet/api/system.iparsable-1).  
 `ParsableStringConverter<T>` and `AddToTypeDescriptor<T>` are only available on target platforms where `IParsable<TSelf>` is available, i.e. .NET 7 and later versions.
-- **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, virtual method `SetupAsync` now returns a `ValueTask<bool>` instead of a `ValueTask`. If the result of the task is `false`, the service is stopped and neither `ExecuteAsync` nor `TeardownAsync` are called.
-- **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, the tasks returned from methods `WaitUntilStartedAsync` and `StartAndWaitAsync` now have a result of type `AsyncServiceSetupResult`, with the following meaning:
-  - `AsyncServiceSetupResult.Successful` means that `SetupAsync` completed with a `true` result;
-  - `AsyncServiceSetupResult.NotStarted` means that the service was stopped before being started and `SetupAsync` was therefore not called;
-  - `AsyncServiceSetupResult.Unsuccessful` means that `SetupAsync` completed with a `false` result;
-  - `AsyncServiceSetupResult.Canceled` means that `SetupAsync` was canceled;
-  - `AsyncServiceSetupResult.Faulted` means that `SetupAsync` threw an exception.
-- Two new boolean properties in `AsyncHostedService` lets subclasses decide whether `StartAsync` should fail when the service is stopped before starting (`FailOnSetupNotStarted`) or `SetupAsync` completes with `false` (`FailOnSetupUnsuccessful`).  
+- Two new boolean properties in class `Louis.Hosting.AsyncHostedService` let subclasses decide whether `StartAsync` should fail when the service is stopped before starting (`FailOnSetupNotStarted`) or `SetupAsync` completes with `false` (`FailOnSetupUnsuccessful`).  
 The default value is `true` for both properties.
 - Struct `Louis.Threading.InterlockedFlag` now implements `IEquatable<bool>`, as well as equality and inequality operators with `bool`.
 - New struct `Louis.Threading.InterlockedReference<T>` encapsulates an object reference, so that it is always accessed in a thread-safe fashion.
@@ -26,6 +19,13 @@ The default value is `true` for both properties.
 
 ### Changes to existing features
 
+- **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, virtual method `SetupAsync` now returns a `ValueTask<bool>` instead of a `ValueTask`. If the result of the task is `false`, the service is stopped and neither `ExecuteAsync` nor `TeardownAsync` are called.
+- **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, the tasks returned from methods `WaitUntilStartedAsync` and `StartAndWaitAsync` now have a result of type `AsyncServiceSetupResult`, with the following meaning:
+  - `AsyncServiceSetupResult.Successful` means that `SetupAsync` completed with a `true` result;
+  - `AsyncServiceSetupResult.NotStarted` means that the service was stopped before being started and `SetupAsync` was therefore not called;
+  - `AsyncServiceSetupResult.Unsuccessful` means that `SetupAsync` completed with a `false` result;
+  - `AsyncServiceSetupResult.Canceled` means that `SetupAsync` was canceled;
+  - `AsyncServiceSetupResult.Faulted` means that `SetupAsync` threw an exception.
 - **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, methods `StartAsync` and `StopAsync` have been renamed to `StartAndWaitAsync` and `StopAndWaitAsync`, respectively. The old names lead some users (and code analysis tools, e.g. ReSharper) to believe they were asynchronous versions of `Start` and `Stop`.
 - Class `Louis.Hosting.AsyncHostedService` now explicitly implements the `StartAsync` and `StopAsync` methods from `IHostedService`.  
 The two methods were previously only visible when casting an instance to `IHostedService`, to avoid confusion with methods inherited from `Luois.Threading.AsyncService`. However, this violated design rule [CA1033](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1033).
