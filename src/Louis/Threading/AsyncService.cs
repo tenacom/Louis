@@ -443,7 +443,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
             State = AsyncServiceState.Stopped;
             _startedCompletionSource.SetResult(setupResult);
             _stoppedCompletionSource.SetResult(true);
+#if NET8_0_OR_GREATER
+            await _doneTokenSource.CancelAsync().ConfigureAwait(false);
+#else
             _doneTokenSource.Cancel();
+#endif
 
             // Only propagate exceptions if there is a caller to propagate to.
             if (exception is not null && !runInBackground)
@@ -457,7 +461,11 @@ public abstract class AsyncService : IAsyncDisposable, IDisposable
         State = AsyncServiceState.Running;
         _startedCompletionSource.SetResult(AsyncServiceSetupResult.Successful);
         exception = await RunExecuteAsync(cts.Token).ConfigureAwait(false);
+#if NET8_0_OR_GREATER
+        await _doneTokenSource.CancelAsync().ConfigureAwait(false);
+#else
         _doneTokenSource.Cancel();
+#endif
 
         State = AsyncServiceState.Stopping;
         var teardownException = await RunTeardownAsync().ConfigureAwait(false);
