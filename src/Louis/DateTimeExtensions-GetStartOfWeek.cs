@@ -35,7 +35,9 @@ partial class DateTimeExtensions
     public static DateTime GetStartOfWeek(this DateTime @this, CultureInfo culture)
     {
         Guard.IsNotNull(culture);
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         return GetStartOfWeek(@this, culture.DateTimeFormat.FirstDayOfWeek);
+#pragma warning restore CA1062 // Validate arguments of public methods
     }
 
     /// <summary>
@@ -50,7 +52,9 @@ partial class DateTimeExtensions
     public static DateTime GetStartOfWeek(this DateTime @this, DateTimeFormatInfo dateTimeFormat)
     {
         Guard.IsNotNull(dateTimeFormat);
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         return GetStartOfWeek(@this, dateTimeFormat.FirstDayOfWeek);
+#pragma warning restore CA1062 // Validate arguments of public methods
     }
 
     /// <summary>

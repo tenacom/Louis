@@ -171,6 +171,7 @@ partial class FluentExtensions
         Guard.IsNotNull(comparer);
         Guard.IsNotNull(cases);
 
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         foreach (var (comparand, action) in cases)
         {
             if (comparer.Equals(value, comparand))
@@ -178,6 +179,7 @@ partial class FluentExtensions
                 return action == null ? @this : action(@this);
             }
         }
+#pragma warning restore CA1062 // Validate arguments of public methods
 
         return @default == null ? @this : @default(@this);
     }
@@ -242,6 +244,7 @@ partial class FluentExtensions
         Guard.IsNotNull(comparer);
         Guard.IsNotNull(cases);
 
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         foreach (var (comparand, action) in cases)
         {
             if (comparer.Equals(value, comparand))
@@ -250,6 +253,7 @@ partial class FluentExtensions
                 return @this;
             }
         }
+#pragma warning restore CA1062 // Validate arguments of public methods
 
         @default?.Invoke(@this);
         return @this;

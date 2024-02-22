@@ -51,7 +51,9 @@ partial class RangeCheck
     public static bool Verify<T>(T value, T min, T max, IComparer<T> comparer)
         where T : notnull
     {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         EnsureValidComparerAndRange(min, max, comparer);
+#pragma warning restore CA1062 // Validate arguments of public methods
         return comparer.Compare(value, min) >= 0 && comparer.Compare(value, max) <= 0;
     }
 

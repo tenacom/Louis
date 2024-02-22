@@ -28,7 +28,9 @@ partial class FluentExtensions
         Guard.IsNotNull(@this);
         Guard.IsNotNull(then);
 
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         return arg is null ? @this : then(@this, arg.Value);
+#pragma warning restore CA1062 // Validate arguments of public methods
     }
 
     /// <summary>
@@ -53,7 +55,9 @@ partial class FluentExtensions
 
         if (arg is not null)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             then(@this, arg.Value);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;

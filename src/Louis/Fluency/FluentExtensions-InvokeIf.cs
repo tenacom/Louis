@@ -28,7 +28,9 @@ partial class FluentExtensions
 
         if (condition)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             action(@this);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;
@@ -56,7 +58,9 @@ partial class FluentExtensions
 
         if (condition)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             action(@this, arg);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;
@@ -86,7 +90,9 @@ partial class FluentExtensions
 
         if (condition)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             action(@this, arg1, arg2);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;
@@ -118,7 +124,9 @@ partial class FluentExtensions
 
         if (condition)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             action(@this, arg1, arg2, arg3);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;
@@ -152,7 +160,9 @@ partial class FluentExtensions
 
         if (condition)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
             action(@this, arg1, arg2, arg3, arg4);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         return @this;

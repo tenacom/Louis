@@ -25,7 +25,9 @@ partial class StringBuilderExtensions
         Guard.IsNotNull(@this);
         Guard.IsNotNull(provider);
 
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         return @this.Append(provider());
+#pragma warning restore CA1062 // Validate arguments of public methods
     }
 
     /// <summary>
@@ -47,7 +49,9 @@ partial class StringBuilderExtensions
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
         return @this.Append(func());
 #else
+#pragma warning disable CA1062 // Validate arguments of public methods - False positive, see https://github.com/CommunityToolkit/dotnet/issues/843
         return @this.Append(func().ToString());
+#pragma warning restore CA1062 // Validate arguments of public methods
 #endif
     }
 }
