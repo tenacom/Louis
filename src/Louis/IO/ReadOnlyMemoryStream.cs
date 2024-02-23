@@ -646,7 +646,6 @@ public sealed class ReadOnlyMemoryStream : Stream
 
     private void CopyToInternal(Stream destination, int originalPosition)
     {
-        var remaining = _position - originalPosition;
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         // On runtimes that have Stream.Write(ReadOnlySpan<byte>), just use that.
         destination.Write(_data.Span[originalPosition.._position]);
@@ -656,6 +655,7 @@ public sealed class ReadOnlyMemoryStream : Stream
         // Fortunately, MemoryMarshal can tell us whether this is the case
         // and provide us with a reference to the array and the starting index
         // of the ReadOnlyMemory, sparing us the use of ArrayPool for a temporary array.
+        var remaining = _position - originalPosition;
         if (MemoryMarshal.TryGetArray(_data, out var dataArray))
         {
             // If our data is actually in an array, write directly from that.
