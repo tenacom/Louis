@@ -41,6 +41,8 @@ Louis.Fluency.FluentAction<T, TArg1, TArg2>
 Louis.Fluency.FluentAction<T, TArg>
 Louis.Fluency.FluentAction<T>
 Louis.Fluency.FluentExtensions
+Louis.IO.ReadOnlyMemoryStream
+Louis.IO.ReadOnlyMemoryStream.ReadOnlyMemoryStream(System.ReadOnlyMemory<byte> data) -> void
 Louis.LocalActionDisposable
 Louis.LocalActionDisposable.Dispose() -> void
 Louis.LocalActionDisposable.LocalActionDisposable() -> void
@@ -62,12 +64,18 @@ Louis.Threading.AsyncService.DisposeAsync() -> System.Threading.Tasks.ValueTask
 Louis.Threading.AsyncService.DoneToken.get -> System.Threading.CancellationToken
 Louis.Threading.AsyncService.RunAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 Louis.Threading.AsyncService.Start(System.Threading.CancellationToken cancellationToken) -> void
-Louis.Threading.AsyncService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.AsyncService.StartAndWaitAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<Louis.Threading.AsyncServiceSetupResult>!
 Louis.Threading.AsyncService.State.get -> Louis.Threading.AsyncServiceState
 Louis.Threading.AsyncService.Stop() -> bool
-Louis.Threading.AsyncService.StopAsync() -> System.Threading.Tasks.Task<bool>!
-Louis.Threading.AsyncService.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.AsyncService.StopAndWaitAsync() -> System.Threading.Tasks.Task<bool>!
+Louis.Threading.AsyncService.WaitUntilStartedAsync() -> System.Threading.Tasks.Task<Louis.Threading.AsyncServiceSetupResult>!
 Louis.Threading.AsyncService.WaitUntilStoppedAsync() -> System.Threading.Tasks.Task!
+Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.AsyncServiceSetupResult.Canceled = 3 -> Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.AsyncServiceSetupResult.Faulted = 4 -> Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.AsyncServiceSetupResult.NotStarted = 1 -> Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.AsyncServiceSetupResult.Successful = 0 -> Louis.Threading.AsyncServiceSetupResult
+Louis.Threading.AsyncServiceSetupResult.Unsuccessful = 2 -> Louis.Threading.AsyncServiceSetupResult
 Louis.Threading.AsyncServiceState
 Louis.Threading.AsyncServiceState.Created = 0 -> Louis.Threading.AsyncServiceState
 Louis.Threading.AsyncServiceState.Disposed = 5 -> Louis.Threading.AsyncServiceState
@@ -78,6 +86,7 @@ Louis.Threading.AsyncServiceState.Stopping = 3 -> Louis.Threading.AsyncServiceSt
 Louis.Threading.InterlockedFlag
 Louis.Threading.InterlockedFlag.CheckAndSet(bool value) -> bool
 Louis.Threading.InterlockedFlag.Equals(Louis.Threading.InterlockedFlag other) -> bool
+Louis.Threading.InterlockedFlag.Equals(bool other) -> bool
 Louis.Threading.InterlockedFlag.InterlockedFlag() -> void
 Louis.Threading.InterlockedFlag.InterlockedFlag(bool value) -> void
 Louis.Threading.InterlockedFlag.TryReset() -> bool
@@ -85,6 +94,16 @@ Louis.Threading.InterlockedFlag.TrySet() -> bool
 Louis.Threading.InterlockedFlag.TrySet(bool value) -> bool
 Louis.Threading.InterlockedFlag.Value.get -> bool
 Louis.Threading.InterlockedFlag.Value.set -> void
+Louis.Threading.InterlockedReference<T>
+Louis.Threading.InterlockedReference<T>.CompareExchange(T? value, T? comparand) -> T?
+Louis.Threading.InterlockedReference<T>.Equals(Louis.Threading.InterlockedReference<T!> other) -> bool
+Louis.Threading.InterlockedReference<T>.Equals(T? other) -> bool
+Louis.Threading.InterlockedReference<T>.Exchange(T? value) -> T?
+Louis.Threading.InterlockedReference<T>.InterlockedReference() -> void
+Louis.Threading.InterlockedReference<T>.InterlockedReference(T? value) -> void
+Louis.Threading.InterlockedReference<T>.IsNull.get -> bool
+Louis.Threading.InterlockedReference<T>.Value.get -> T?
+Louis.Threading.InterlockedReference<T>.Value.set -> void
 Louis.Threading.ValueTaskUtility
 Louis.TimeConstants
 abstract Louis.Threading.AsyncService.ExecuteAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
@@ -112,9 +131,34 @@ const Louis.TimeConstants.TicksPerMillisecond = 10000 -> long
 const Louis.TimeConstants.TicksPerMinute = 600000000 -> long
 const Louis.TimeConstants.TicksPerSecond = 10000000 -> long
 const Louis.TimeConstants.TicksPerWeek = 6048000000000 -> long
+override Louis.IO.ReadOnlyMemoryStream.CanRead.get -> bool
+override Louis.IO.ReadOnlyMemoryStream.CanSeek.get -> bool
+override Louis.IO.ReadOnlyMemoryStream.CanWrite.get -> bool
+override Louis.IO.ReadOnlyMemoryStream.CopyTo(System.IO.Stream! destination, int bufferSize) -> void
+override Louis.IO.ReadOnlyMemoryStream.CopyToAsync(System.IO.Stream! destination, int bufferSize, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+override Louis.IO.ReadOnlyMemoryStream.Flush() -> void
+override Louis.IO.ReadOnlyMemoryStream.FlushAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+override Louis.IO.ReadOnlyMemoryStream.Length.get -> long
+override Louis.IO.ReadOnlyMemoryStream.Position.get -> long
+override Louis.IO.ReadOnlyMemoryStream.Position.set -> void
+override Louis.IO.ReadOnlyMemoryStream.Read(System.Span<byte> buffer) -> int
+override Louis.IO.ReadOnlyMemoryStream.Read(byte[]! buffer, int offset, int count) -> int
+override Louis.IO.ReadOnlyMemoryStream.ReadAsync(System.Memory<byte> buffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<int>
+override Louis.IO.ReadOnlyMemoryStream.ReadAsync(byte[]! buffer, int offset, int count, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<int>!
+override Louis.IO.ReadOnlyMemoryStream.ReadByte() -> int
+override Louis.IO.ReadOnlyMemoryStream.Seek(long offset, System.IO.SeekOrigin origin) -> long
+override Louis.IO.ReadOnlyMemoryStream.SetLength(long value) -> void
+override Louis.IO.ReadOnlyMemoryStream.Write(System.ReadOnlySpan<byte> buffer) -> void
+override Louis.IO.ReadOnlyMemoryStream.Write(byte[]! buffer, int offset, int count) -> void
+override Louis.IO.ReadOnlyMemoryStream.WriteAsync(System.ReadOnlyMemory<byte> buffer, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+override Louis.IO.ReadOnlyMemoryStream.WriteAsync(byte[]! buffer, int offset, int count, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+override Louis.IO.ReadOnlyMemoryStream.WriteByte(byte value) -> void
 override Louis.Threading.InterlockedFlag.Equals(object? obj) -> bool
 override Louis.Threading.InterlockedFlag.GetHashCode() -> int
 override Louis.Threading.InterlockedFlag.ToString() -> string!
+override Louis.Threading.InterlockedReference<T>.Equals(object? obj) -> bool
+override Louis.Threading.InterlockedReference<T>.GetHashCode() -> int
+override Louis.Threading.InterlockedReference<T>.ToString() -> string!
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Type! sourceType) -> bool
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.CanConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Type? destinationType) -> bool
 override sealed Louis.ComponentModel.SimpleStringConverter<T>.ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object! value) -> object?
@@ -279,7 +323,13 @@ static Louis.Text.UnicodeCharacterUtility.IsValidIdentifier(string? name) -> boo
 static Louis.Text.Utf8Utility.GetMaxCharsInBytes(System.ReadOnlySpan<char> chars, int maxBytes) -> int
 static Louis.Text.Utf8Utility.GetMaxCharsInBytes(string! str, int maxBytes) -> int
 static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
+static Louis.Threading.InterlockedFlag.operator !=(Louis.Threading.InterlockedFlag a, bool b) -> bool
 static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, Louis.Threading.InterlockedFlag b) -> bool
+static Louis.Threading.InterlockedFlag.operator ==(Louis.Threading.InterlockedFlag a, bool b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator !=(Louis.Threading.InterlockedReference<T!> a, Louis.Threading.InterlockedReference<T!> b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator !=(Louis.Threading.InterlockedReference<T!> a, T? b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator ==(Louis.Threading.InterlockedReference<T!> a, Louis.Threading.InterlockedReference<T!> b) -> bool
+static Louis.Threading.InterlockedReference<T>.operator ==(Louis.Threading.InterlockedReference<T!> a, T? b) -> bool
 static Louis.Threading.ValueTaskUtility.WhenAll(System.Collections.Generic.IEnumerable<System.Threading.Tasks.ValueTask>! valueTasks) -> System.Threading.Tasks.ValueTask
 static Louis.Threading.ValueTaskUtility.WhenAll(params System.Threading.Tasks.ValueTask[]! valueTasks) -> System.Threading.Tasks.ValueTask
 static readonly Louis.Text.Utf8Utility.Utf8NoBomEncoding -> System.Text.Encoding!
@@ -291,11 +341,11 @@ virtual Louis.Threading.AsyncService.LogExecuteCanceled() -> void
 virtual Louis.Threading.AsyncService.LogExecuteCompleted() -> void
 virtual Louis.Threading.AsyncService.LogExecuteFailed(System.Exception! exception) -> void
 virtual Louis.Threading.AsyncService.LogSetupCanceled() -> void
-virtual Louis.Threading.AsyncService.LogSetupCompleted() -> void
+virtual Louis.Threading.AsyncService.LogSetupCompleted(bool success) -> void
 virtual Louis.Threading.AsyncService.LogSetupFailed(System.Exception! exception) -> void
 virtual Louis.Threading.AsyncService.LogStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
 virtual Louis.Threading.AsyncService.LogStopRequested(Louis.Threading.AsyncServiceState previousState, Louis.Threading.AsyncServiceState currentState, bool result) -> void
 virtual Louis.Threading.AsyncService.LogTeardownCompleted() -> void
 virtual Louis.Threading.AsyncService.LogTeardownFailed(System.Exception! exception) -> void
-virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask
+virtual Louis.Threading.AsyncService.SetupAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<bool>
 virtual Louis.Threading.AsyncService.TeardownAsync() -> System.Threading.Tasks.ValueTask

@@ -1,6 +1,8 @@
 #nullable enable
 Louis.Hosting.AsyncHostedService
 Louis.Hosting.AsyncHostedService.AsyncHostedService(Microsoft.Extensions.Logging.ILogger! logger) -> void
+Louis.Hosting.AsyncHostedService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+Louis.Hosting.AsyncHostedService.StopAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 override sealed Louis.Hosting.AsyncHostedService.LogBeforeExecute() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogBeforeSetup() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogBeforeTeardown() -> void
@@ -8,9 +10,11 @@ override sealed Louis.Hosting.AsyncHostedService.LogExecuteCanceled() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogExecuteCompleted() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogExecuteFailed(System.Exception! exception) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogSetupCanceled() -> void
-override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted() -> void
+override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted(bool success) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogSetupFailed(System.Exception! exception) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogStateChanged(Louis.Threading.AsyncServiceState oldState, Louis.Threading.AsyncServiceState newState) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogStopRequested(Louis.Threading.AsyncServiceState previousState, Louis.Threading.AsyncServiceState currentState, bool result) -> void
 override sealed Louis.Hosting.AsyncHostedService.LogTeardownCompleted() -> void
 override sealed Louis.Hosting.AsyncHostedService.LogTeardownFailed(System.Exception! exception) -> void
+virtual Louis.Hosting.AsyncHostedService.FailOnSetupNotStarted.get -> bool
+virtual Louis.Hosting.AsyncHostedService.FailOnSetupUnsuccessful.get -> bool

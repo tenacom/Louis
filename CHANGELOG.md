@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### New features
 
+### Changes to existing features
+
+### Bugs fixed in this release
+
+### Known problems introduced by this release
+
+## [2.0.31](https://github.com/Tenacom/Louis/releases/tag/2.0.31) (2024-02-26)
+
+### New features
+
 - Class `Louis.ComponentModel.ParsableStringConverter<T>` and method `Louis.ComponentModel.SimpleStringConverter.AddToTypeDescriptor<T>` offer a ready-made type converter for any type implementing [`IParsable<TSelf>`](https://learn.microsoft.com/en-us/dotnet/api/system.iparsable-1).  
 `ParsableStringConverter<T>` and `AddToTypeDescriptor<T>` are only available on target platforms where `IParsable<TSelf>` is available, i.e. .NET 7 and later versions.
 - Two new boolean properties in class `Louis.Hosting.AsyncHostedService` let subclasses decide whether `StartAsync` should fail when the service is stopped before starting (`FailOnSetupNotStarted`) or `SetupAsync` completes with `false` (`FailOnSetupUnsuccessful`).  
@@ -29,10 +39,6 @@ The default value is `true` for both properties.
 - **BREAKING CHANGE:** In class `Louis.Threading.AsyncService`, methods `StartAsync` and `StopAsync` have been renamed to `StartAndWaitAsync` and `StopAndWaitAsync`, respectively. The old names lead some users (and code analysis tools, e.g. ReSharper) to believe they were asynchronous versions of `Start` and `Stop`.
 - Class `Louis.Hosting.AsyncHostedService` now explicitly implements the `StartAsync` and `StopAsync` methods from `IHostedService`.  
 The two methods were previously only visible when casting an instance to `IHostedService`, to avoid confusion with methods inherited from `Luois.Threading.AsyncService`. However, this violated design rule [CA1033](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1033).
-
-### Bugs fixed in this release
-
-### Known problems introduced by this release
 
 ## [1.3.4](https://github.com/Tenacom/Louis/releases/tag/1.3.4) (2023-11-26)
 

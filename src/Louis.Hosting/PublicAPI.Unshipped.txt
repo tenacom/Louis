@@ -1,7 +1,1 @@
 #nullable enable
-*REMOVED*override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted() -> void
-Louis.Hosting.AsyncHostedService.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
-Louis.Hosting.AsyncHostedService.StopAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
-override sealed Louis.Hosting.AsyncHostedService.LogSetupCompleted(bool success) -> void
-virtual Louis.Hosting.AsyncHostedService.FailOnSetupNotStarted.get -> bool
-virtual Louis.Hosting.AsyncHostedService.FailOnSetupUnsuccessful.get -> bool
