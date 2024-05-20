@@ -72,16 +72,33 @@ static void TestSolution(this ICakeContext context, BuildData data, bool restore
     // Merge coverage reports only if there are any
     if (collect)
     {
-        if (!context.FileSystem.Exist(data.TestResultsPath) || !context.GetSubDirectories(data.TestResultsPath).Any())
+        var reports = string.Join(';', GetCodeCoverageReportPaths(context, data));
+        context.Information("*** " + reports);
+        if (string.IsNullOrEmpty(reports))
         {
             context.Information("No coverage reports were generated.");
         }
         else
         {
             context.Information("Merging coverage reports...");
-            const string CoverageDataFileName = "coverage.cobertura.xml";
-            var coverageDataGlob = SysPath.Combine(data.TestResultsPath.FullPath, "*", CoverageDataFileName);
-            context.DotNetTool($"reportgenerator \"-reports:{coverageDataGlob}\" \"-targetDir:{data.TestResultsPath.FullPath}\" -reporttypes:Cobertura");
+            context.DotNetTool($"reportgenerator \"-reports:{reports}\" \"-targetDir:{data.TestResultsPath.ToString()}\" -reporttypes:Cobertura");
+        }
+    }
+}
+
+static IEnumerable<string> GetCodeCoverageReportPaths(this ICakeContext context, BuildData data)
+{
+    foreach (var testResultsDirectory in data.Solution.Projects.Select(static x => x.Path.GetDirectory().Combine("TestResults")))
+    {
+        if (!context.DirectoryExists(testResultsDirectory))
+        {
+            continue;
+        }
+
+        var globPattern = new GlobPattern(string.Join(testResultsDirectory.Separator, testResultsDirectory.FullPath, "**", "coverage.cobertura.xml"));
+        foreach (var path in context.GetFiles(globPattern))
+        {
+            yield return context.Environment.WorkingDirectory.GetRelativePath(path).ToString();
         }
     }
 }
