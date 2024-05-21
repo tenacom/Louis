@@ -1,1 +1,29 @@
 #nullable enable
+Louis.Text.FalseConditionInterpolatedStringHandler
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(object? value, int alignment = 0, string? format = null) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(string? value) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(string? value, int alignment = 0, string? format = null) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(System.ReadOnlySpan<char> value) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(System.ReadOnlySpan<char> value, int alignment = 0, string? format = null) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted<T>(T value) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted<T>(T value, int alignment) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted<T>(T value, int alignment, string? format) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted<T>(T value, string? format) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.AppendLiteral(string! value) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.FalseConditionInterpolatedStringHandler() -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.FalseConditionInterpolatedStringHandler(int literalLength, int formattedCount, bool condition, out bool shouldAppend) -> void
+Louis.Text.FalseConditionInterpolatedStringHandler.ToStringAndClear() -> string!
+Louis.Text.TrueConditionInterpolatedStringHandler
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted(object? value, int alignment = 0, string? format = null) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted(string? value) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted(string? value, int alignment = 0, string? format = null) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted(System.ReadOnlySpan<char> value) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted(System.ReadOnlySpan<char> value, int alignment = 0, string? format = null) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted<T>(T value) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted<T>(T value, int alignment) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted<T>(T value, int alignment, string? format) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendFormatted<T>(T value, string? format) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.AppendLiteral(string! value) -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.ToStringAndClear() -> string!
+Louis.Text.TrueConditionInterpolatedStringHandler.TrueConditionInterpolatedStringHandler() -> void
+Louis.Text.TrueConditionInterpolatedStringHandler.TrueConditionInterpolatedStringHandler(int literalLength, int formattedCount, bool condition, out bool shouldAppend) -> void
